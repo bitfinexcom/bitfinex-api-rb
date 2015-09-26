@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby -Ilib
+
+require 'bitfinexrb'
+
+@ws = Bitfinexrb::Websocket::EMClient.new
+
+@ws.on(:open) do |msg|
+  @ws.send({Event: 'subscribe', Pair: 'BTCUSD', Channel: 'book', Prec: 'P0', Len: 'full'})
+end
+
+@ws.on(:message) do |msg|
+  puts msg
+end
+
+@ws.run!

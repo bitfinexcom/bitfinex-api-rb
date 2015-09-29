@@ -1,3 +1,4 @@
+require 'bitfinexrb/websocket/processor'
 module Bitfinexrb
   module Websocket
     #
@@ -6,6 +7,7 @@ module Bitfinexrb
         # set some defaults
         @url = options[:url] || 'ws://dev2.bitfinex.com:3001/ws'
         @reconnect = options[:reconenct] || false
+        @processor = EventProcessor.new(self)
       end
 
       def on(msg, &blk)
@@ -38,6 +40,11 @@ module Bitfinexrb
         @ws.send(msg)
       end
 
+      def call_handler(chan, data)
+        ivar = instance_variable_get("@#{chan}_cb")
+        ivar.call(data) if ivar
+      end
+
       private
 
       def ws_opened(event)
@@ -46,6 +53,7 @@ module Bitfinexrb
 
       def ws_receive(event)
         @message_cb.call(event.data) if @message_cb
+        @processor.process_incoming(event.data)
       end
 
       def ws_closed(_event)

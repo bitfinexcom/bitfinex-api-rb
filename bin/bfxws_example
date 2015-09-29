@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -Ilib
 
 require 'bitfinexrb'
+require 'awesome_print'
 
 @ws = Bitfinexrb::Websocket::EMClient.new
 
@@ -8,8 +9,21 @@ require 'bitfinexrb'
   @ws.send({Event: 'subscribe', Pair: 'BTCUSD', Channel: 'book', Prec: 'P0', Len: 'full'})
 end
 
-@ws.on(:message) do |msg|
-  puts msg
+# @ws.on(:book_snapshot) do |msg|
+#   ap msg
+# end
+
+# @ws.on(:book_update) do |msg|
+#   ap msg
+# end
+
+@ws.on(:subscribe) do |msg|
+  ap msg
 end
+
+@ws.on(:auth) do |msg|
+  ap msg
+end
+
 
 @ws.run!

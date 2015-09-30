@@ -5,7 +5,7 @@ module Bitfinexrb
     class EMClient
       def initialize(options = {})
         # set some defaults
-        @url = options[:url] || 'ws://dev2.bitfinex.com:3001/ws'
+        @url = options[:url] || 'wss://api2.bitfinex.com:3000/ws'
         @reconnect = options[:reconenct] || false
         @processor = EventProcessor.new(self)
       end
@@ -40,9 +40,18 @@ module Bitfinexrb
         @ws.send(msg)
       end
 
-      def call_handler(chan, data)
+      def authenticate
+        fail 'Missing API_KEY and API_SECRET ENV variables' if !ENV['API_KEY'] || !ENV['API_SECRET']
+        payload = Base64.encode64("AUTH #{DateTime.now.to_s}").gsub(/\s/,'')
+        sig = Digest::HMAC.hexdigest(payload, ENV['API_SECRET'], Digest::SHA384)
+        @ws.send({Event: 'auth', ApiKey: ENV['API_KEY'], AuthSig: sig, AuthPayload: payload}.to_json)
+      end
+
+      def call_handler(chan, data, raw=nil)
+        data.merge!(raw: raw) unless raw.nil?
         ivar = instance_variable_get("@#{chan}_cb")
         ivar.call(data) if ivar
+        @message_cb.call(data) if @message_cb
       end
 
       private
@@ -52,7 +61,6 @@ module Bitfinexrb
       end
 
       def ws_receive(event)
-        @message_cb.call(event.data) if @message_cb
         @processor.process_incoming(event.data)
       end
 

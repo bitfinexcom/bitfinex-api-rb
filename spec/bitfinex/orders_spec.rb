@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe Bitfinex::Client do
 
+  let(:headers) { { 'Content-Type' => 'text/json' } }
   let(:ticker) { {mid: 10, bid: 10.30} }
 
   let(:json_ticker) { ticker.to_json }
@@ -10,7 +11,7 @@ describe Bitfinex::Client do
   context "correct JSON response" do
     before do
       stub_request(:get, "http://apitest/pubticker/btcusd").
-        to_return(status: 200, body: json_ticker)
+        to_return(status: 200, headers: headers, body: json_ticker)
       @ticker = client.ticker("btcusd")
     end
 
@@ -21,10 +22,10 @@ describe Bitfinex::Client do
   context "malformed response JSON" do
     before do
       stub_request(:get, "http://apitest/pubticker/btcusd").
-        to_return(status: 200, body: "malformed json")
+        to_return(status: 200, headers: headers, body: "malformed json")
     end
 
-    it { expect{ client.ticker }.to raise_error(JSON::ParserError) }
+    it { expect{ client.ticker }.to raise_error(Faraday::ParsingError) }
   end
 end
 

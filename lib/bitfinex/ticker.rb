@@ -2,9 +2,7 @@ module Bitfinex
   module TickerClient
     def ticker(symbol='btcusd')
       resp = rest.get("/pubticker/#{symbol}")
-      if resp.success?
-        Ticker.new(JSON.parse(resp.body))
-      end
+      Ticker.new(resp.body)
     end
   end
 

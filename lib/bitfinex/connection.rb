@@ -13,8 +13,10 @@ module Bitfinex
     end
 
     def new_rest_connection
-      Faraday.new(url: config.api_endpoint) do |builder|
-        builder.use Bitfinex::CheckResponse
+      Faraday.new(url: config.api_endpoint) do |conn|
+        conn.use Faraday::Response::RaiseError
+        conn.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
+        conn.adapter :net_http
       end
     end
 

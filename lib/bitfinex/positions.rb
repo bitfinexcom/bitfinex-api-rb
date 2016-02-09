@@ -1,10 +1,11 @@
+module Bitfinex
 
-module Bitfinexrb
+  class Positions < Authenticated
 
-  class Credits < Authenticated
     def all
-      uri = "/#{@api_version}/credits"
+      uri = "/#{@api_version}/positions"
       self.class.post(uri, headers: headers_for(uri)).parsed_response
     end
+
   end
 end

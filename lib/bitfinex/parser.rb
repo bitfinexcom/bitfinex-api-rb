@@ -1,4 +1,4 @@
-module Bitfinexrb
+module Bitfinex
   class JSONParser < HTTParty::Parser
     SupportedFormats.merge!({ 'application/json' => :to_json})
 

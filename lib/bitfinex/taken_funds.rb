@@ -1,5 +1,5 @@
 
-module Bitfinexrb
+module Bitfinex
 
   class TakenFunds < Authenticated
     def all

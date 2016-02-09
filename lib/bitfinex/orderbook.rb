@@ -1,4 +1,4 @@
-module Bitfinexrb
+module Bitfinex
   class Orderbook < Base
 
     attr_accessor :bids, :asks

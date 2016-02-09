@@ -1,5 +1,4 @@
-
-module Bitfinexrb
+module Bitfinex
 
   class MarginInfo < Authenticated
     def all

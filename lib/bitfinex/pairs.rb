@@ -1,4 +1,4 @@
-module Bitfinexrb
+module Bitfinex
   #
   class Pairs < Base
     def all

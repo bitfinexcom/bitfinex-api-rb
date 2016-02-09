@@ -1,10 +1,10 @@
-module Bitfinexrb
+module Bitfinex
   module Websocket
-    #
+ 
     class EMClient
       def initialize(options = {})
         # set some defaults
-        @url = options[:url] || 'ws://dev2.bitfinex.com:3001/ws'
+        @url = options[:url] || 'wss://api2.bitfinex.com:3000/ws'
         @reconnect = options[:reconenct] || false
       end
 

@@ -1,4 +1,4 @@
-module Bitfinexrb
+module Bitfinex
   #
   class Orders < Authenticated
     def all

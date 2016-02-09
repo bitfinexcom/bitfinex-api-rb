@@ -1,4 +1,5 @@
-module Bitfinexrb
+module Bitfinex
+
   class Lend
     attr_accessor :rate, :amount, :timestamp
 

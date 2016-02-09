@@ -1,4 +1,5 @@
-module Bitfinexrb
+module Bitfinex
+
   class Lendbook < Base
 
     attr_accessor :bids, :rate, :amount, :period, :timestamp, :frr, :asks, :limit_bids, :limit_asks

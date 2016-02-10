@@ -1,5 +1,5 @@
 module Bitfinex
-  class BaseResource
+  class BaseResource < Hash
     class << self
       def set_properties *props
         @properties = props

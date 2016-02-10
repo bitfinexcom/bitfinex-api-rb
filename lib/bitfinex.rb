@@ -5,5 +5,6 @@ require 'bitfinex/base_resource'
 require 'bitfinex/errors'
 require 'bitfinex/connection'
 require 'bitfinex/ticker'
+require 'bitfinex/trades'
 require 'bitfinex/client'
 

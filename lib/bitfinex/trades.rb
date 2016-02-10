@@ -1,19 +1,18 @@
 module Bitfinex
 
-  module TradeClient
-    TRADE_PARAMS = %w{timestamp limit_trades}
+  module TradesClient
+    TRADES_ALLOWED_PARAMS = %i{timestamp limit_trades}
 
     def trades symbol, params={}
-      resp = rest.get("/trades/#{symbol}", check_params(params, TRADE_PARAMS))
-
-      if resp.success?
-        Trade.new(JSON.parse(resp.body))
+      resp = rest.get("/trades/#{symbol}", check_params(params, TRADES_ALLOWED_PARAMS))
+      resp.body.map do |trade_hash|
+       Trade.new(trade_hash)
       end
     end
   end
 
-  class Trade
-    values :tid, :timestamp, :price, :amount, :exchange, :type
+  class Trade < BaseResource
+    set_properties :tid, :timestamp, :price, :amount, :exchange, :type
   end
 
 end

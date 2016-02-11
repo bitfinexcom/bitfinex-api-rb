@@ -4,11 +4,22 @@ module Bitfinex
 
     # Make an HTTP GET request
     def get(url, options={})
-      rest.get url, parse_params(options)
+      rest_connection.get do |req|
+        req.url url
+        req.params = options[:params] if options.has_key?(:params) && !options[:params].empty?
+      end
+    end
+
+    def check_params(params, allowed_params)
+      if (params.keys - allowed_params).empty?
+        return params
+      else
+        raise Bitfinex::ParamsError
+      end
     end
 
     private 
-    def rest
+    def rest_connection
       @conn ||= new_rest_connection
     end
 

@@ -4,7 +4,7 @@ module Bitfinex
     TRADES_ALLOWED_PARAMS = %i{timestamp limit_trades}
 
     def trades symbol, params={}
-      resp = rest.get("/trades/#{symbol}", check_params(params, TRADES_ALLOWED_PARAMS))
+      resp = get("/trades/#{symbol}", params: check_params(params, TRADES_ALLOWED_PARAMS))
       resp.body.map do |trade_hash|
        Trade.new(trade_hash)
       end

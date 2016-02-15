@@ -1,18 +1,15 @@
 module Bitfinex
-  class Orderbook < Base
 
-    attr_accessor :bids, :asks
+  module OrderbookClient
+    ORDERBOOK_ALLOWED_PARAMS = %i{limit_bids limit_asks group}
 
-    def initialize(symbol='btcusd')
-      resp = get(symbol)
-      if resp.success?
-        self.bids = resp['bids']
-        self.asks = resp['asks']
-      end
+    def orderbook(currency="btcusd", params = {})
+      resp = get("book/#{currency}", check_params(params, ORDERBOOK_ALLOWED_PARAMS))
+      Orderbook.new(resp.body)
     end
+  end
 
-    def get(symbol='btcusd')
-      self.class.get("/book/#{symbol}?group=1&limit_bids=20&limit_asks=20")
-    end
+  class Orderbook < BaseResource
+    set_properties :bids, :asks
   end
 end

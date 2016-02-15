@@ -8,6 +8,7 @@ require 'bitfinex/connection'
 require 'bitfinex/ticker'
 require 'bitfinex/trades'
 require 'bitfinex/funding_book'
+require 'bitfinex/orderbook'
 require 'bitfinex/stats'
 require 'bitfinex/client'
 

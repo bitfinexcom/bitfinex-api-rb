@@ -10,6 +10,7 @@ require 'bitfinex/trades'
 require 'bitfinex/funding_book'
 require 'bitfinex/orderbook'
 require 'bitfinex/lends'
+require 'bitfinex/symbols'
 require 'bitfinex/stats'
 require 'bitfinex/client'
 

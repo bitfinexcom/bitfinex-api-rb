@@ -7,6 +7,7 @@ module Bitfinex
     include Bitfinex::OrderbookClient
     include Bitfinex::StatsClient
     include Bitfinex::LendsClient
+    include Bitfinex::SymbolsClient
     include Bitfinex::Configurable
   end
 end

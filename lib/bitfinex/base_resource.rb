@@ -21,7 +21,7 @@ module Bitfinex
 
     def method_missing(m, *args, &block)
       if self.class.properties.include?(m)
-        @data[m.to_s]
+        @data[m.to_s] || @data[m.to_sym]
       elsif _m = m.to_s.chomp('=') && self.class.properties.include?(_m.to_sym)
         @data[_m] = args[0]
       end

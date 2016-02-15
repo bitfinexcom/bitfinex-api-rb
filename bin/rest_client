@@ -10,6 +10,6 @@ end
 client = Bitfinex::Client.new
 
 
-t = client.stats
+t = client.lends
 puts t
 

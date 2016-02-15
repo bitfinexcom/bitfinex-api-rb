@@ -1,30 +1,17 @@
 module Bitfinex
 
-  class Lend
-    attr_accessor :rate, :amount, :timestamp
+	module LendsClient 
+		LEND_ALLOWD_PARAMS = %i{timestamp limit_lends}
 
-    def initialize(values)
-      self.rate = values['rate']
-      self.amount = values['amount_lent']
-      self.timestamp = values['timestamp']
-    end
-  end
+		def lends(currency = "btcusd", params = {})
+			resp = get("lends/#{currency}", check_params(params, LEND_ALLOWD_PARAMS))
+			resp.body.map do |lend|
+				Lend.new(lend)
+			end	
+		end
+	end
 
-  class Lends < Base
-    attr_accessor :lends
-
-    def initialize(currency='USD', timestamp=nil, limit_lends=50)
-      self.lends = []
-      resp = get(currency)
-      if resp.success?
-        resp.each do |lend|
-          self.lends << Lend.new(lend)
-        end
-      end
-    end
-
-    def get(currency)
-      self.class.get("/lends/#{currency}")
-    end
-  end
+	class Lend < BaseResource
+		set_properties :rate, :amount_lent, :amount_used, :timestamp
+	end
 end

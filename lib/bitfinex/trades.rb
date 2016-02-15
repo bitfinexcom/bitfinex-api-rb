@@ -3,8 +3,8 @@ module Bitfinex
   module TradesClient
     TRADES_ALLOWED_PARAMS = %i{timestamp limit_trades}
 
-    def trades symbol, params={}
-      resp = get("/trades/#{symbol}", params: check_params(params, TRADES_ALLOWED_PARAMS))
+    def trades symbol="btcusd", params={}
+      resp = get("trades/#{symbol}", params: check_params(params, TRADES_ALLOWED_PARAMS))
       resp.body.map do |trade_hash|
        Trade.new(trade_hash)
       end

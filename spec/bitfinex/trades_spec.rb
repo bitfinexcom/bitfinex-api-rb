@@ -2,8 +2,22 @@ require "spec_helper"
 
 describe Bitfinex::TradesClient do
 
-  let(:headers) { { 'Content-Type' => 'text/json' } }
-  let(:trades) { [{tid: 1, price: 10.30},{tid:2, price: 10.40}] }
+  let(:headers) { { 'Content-Type' => 'application/json' } }
+  let(:trades) { [{
+                  "timestamp"=>1455527016, 
+                   "tid"=>15627115, 
+                   "price"=>"403.97", 
+                   "amount"=>"0.5", 
+                   "exchange"=>"bitfinex", 
+                   "type"=>"buy"
+                  },{
+                   "timestamp"=>1455526974, 
+                   "tid"=>15627111, 
+                   "price"=>"404.01", 
+                   "amount"=>"2.45116479", 
+                   "exchange"=>"bitfinex", 
+                   "type"=>"sell"
+                  }] }
 
   let(:json_trades ) { trades.to_json }
 
@@ -19,7 +33,7 @@ describe Bitfinex::TradesClient do
       end
 
       it { expect(@trades.size).to eq(2) }
-      it { expect(@trades[0].tid).to eq(1) }
+      it { expect(@trades[0].tid).to eq(15627115) }
     end
     
 
@@ -33,4 +47,3 @@ describe Bitfinex::TradesClient do
     end
   end
 end
-

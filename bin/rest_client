@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby -Ilib
+
+require 'bitfinex'
+require 'pry'
+
+Bitfinex::Client.configure do |config|
+  config.api_endpoint = "https://api.bitfinex.com/v1/"
+end
+
+client = Bitfinex::Client.new
+
+
+t = client.stats
+puts t
+

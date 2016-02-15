@@ -1,3 +1,4 @@
+require 'uri'
 require 'faraday'
 require 'faraday_middleware'
 require 'bitfinex/configurable'
@@ -6,5 +7,7 @@ require 'bitfinex/errors'
 require 'bitfinex/connection'
 require 'bitfinex/ticker'
 require 'bitfinex/trades'
+require 'bitfinex/funding_book'
+require 'bitfinex/stats'
 require 'bitfinex/client'
 

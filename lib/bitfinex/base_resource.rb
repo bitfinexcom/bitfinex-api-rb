@@ -1,14 +1,11 @@
+require 'forwardable'
+
 module Bitfinex
-  class BaseResource < Hash
+  class BaseResource
+    extend Forwardable 
     class << self
       def set_properties *props
         @properties = props
-        props.each do |val|
-          class_eval %{
-            def #{val}=(v);@#{val}=v;end
-            def #{val};@#{val};end
-          }
-        end 
       end
 
       def properties
@@ -17,10 +14,16 @@ module Bitfinex
     end
 
     def initialize(obj)
-      obj.each do |k,v|
-        if self.class.properties.include?(k.to_sym)   
-          send((k+'=').to_sym,v)
-        end
+      @data = obj
+    end
+
+    def_delegators :@data, :[], :to_s, :[]=
+
+    def method_missing(m, *args, &block)
+      if self.class.properties.include?(m)
+        @data[m.to_s]
+      elsif _m = m.to_s.chomp('=') && self.class.properties.include?(_m.to_sym)
+        @data[_m] = args[0]
       end
     end
   end

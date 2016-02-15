@@ -3,9 +3,10 @@ module Bitfinex
   module TickerClient
 
     def ticker(symbol='btcusd')
-      resp = get("/pubticker/#{symbol}")
+      resp = get("pubticker/#{symbol}")
       Ticker.new(resp.body)
     end
+
   end
 
   class Ticker < BaseResource

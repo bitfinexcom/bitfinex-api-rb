@@ -3,6 +3,7 @@ module Bitfinex
 
     private
     def authenticated_post(url, options = {})
+      raise Bitfinex::InvalidAuthKeyError unless valid_key?
       complete_url = build_url(url)
       payload = build_payload("/v1/#{url}", options[:params])
       response = rest_connection.post do |req|

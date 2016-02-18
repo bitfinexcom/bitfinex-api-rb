@@ -2,7 +2,6 @@ module Bitfinex
 
   module AccountInfoClient 
     def account_info
-      raise Bitfinex::InvalidAuthKeyError unless valid_key?
       resp = authenticated_post("account_infos")
       resp.body.map do |info|
         AccountInfo.new(info)

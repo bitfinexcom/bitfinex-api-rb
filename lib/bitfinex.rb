@@ -17,5 +17,6 @@ require 'bitfinex/lends'
 require 'bitfinex/symbols'
 require 'bitfinex/stats'
 require 'bitfinex/account_info'
+require 'bitfinex/deposit'
 require 'bitfinex/client'
 

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
-  include_context "unauthorized calls"
+  include_context "api requests"
 
   let(:ticker) { {"mid"=>"403.99", 
                   "bid"=>"403.98", 

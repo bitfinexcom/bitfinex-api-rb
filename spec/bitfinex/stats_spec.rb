@@ -1,13 +1,13 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
-  include_context "unauthorized calls"
+  include_context "api requests"
 
   let(:stats) { [
                    {"period"=>1, "volume"=>"26890.38714429"},
                    {"period"=>7, "volume"=>"135897.00085029"},
                    {"period"=>30, "volume"=>"761731.76256703"},
-  ] }
+                ] }
   let(:json_stats) { stats.to_json }
 
   before do

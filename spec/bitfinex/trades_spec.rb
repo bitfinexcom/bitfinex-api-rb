@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Bitfinex::TradesClient do
-  include_context "unauthorized calls"
+  include_context "api requests"
 
   let(:trades) { [{
                   "timestamp"=>1455527016, 

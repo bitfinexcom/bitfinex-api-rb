@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
+  include_context "api requests"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:funding_book) { 
 											 {
 											 	"bids":[{
@@ -24,11 +24,8 @@ describe Bitfinex::Client do
 
   let(:json_funding_book) { funding_book.to_json }
 
-  let(:client) { Bitfinex::Client.new }
-
   before do
-    stub_request(:get, "http://apitest/lendbook/btcusd").
-      to_return(status: 200, headers: headers, body: json_funding_book)
+    stub_http("/lendbook/btcusd", json_funding_book)
     @funding_book = client.funding_book("btcusd")
   end
 

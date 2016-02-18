@@ -1,4 +1,4 @@
-RSpec.shared_context "unauthorized calls" do
+RSpec.shared_context "api requests" do
   let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:client) { Bitfinex::Client.new }
 

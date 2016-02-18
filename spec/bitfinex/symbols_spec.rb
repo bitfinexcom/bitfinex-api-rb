@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Bitfinex::Client do
+  include_context "unauthorized calls"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:symbols) { ["btcusd","ltcusd","ltcbtc"] }
   let(:symbols_details) { 
                   [{
@@ -35,12 +35,9 @@ describe Bitfinex::Client do
   let(:json_symbols) { symbols.to_json }
   let(:json_symbols_details) { symbols_details.to_json }
 
-  let(:client) { Bitfinex::Client.new }
-
   describe ".symbols" do
     before do
-      stub_request(:get, "http://apitest/symbols").
-        to_return(status: 200, headers: headers, body: json_symbols)
+      stub_http("/symbols", json_symbols)
       @symbols = client.symbols
     end
 
@@ -50,8 +47,7 @@ describe Bitfinex::Client do
 
   describe ".symbols_details" do
     before do
-      stub_request(:get, "http://apitest/symbols_details").
-        to_return(status: 200, headers: headers, body: json_symbols_details)
+      stub_http("/symbols_details",json_symbols_details)
       @symbols = client.symbols_details
     end
 

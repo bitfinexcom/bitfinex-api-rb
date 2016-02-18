@@ -19,4 +19,5 @@ module Bitfinex
   class Symbol < BaseResource
     set_properties :pair, :price_precision, :initial_margin, :minimum_margin, :minimum_order_size, :maximum_order_size, :expiration 
   end
+
 end

@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
+  include_context "unauthorized calls"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:ticker) { {"mid"=>"403.99", 
                   "bid"=>"403.98", 
                   "ask"=>"404.0", 
@@ -15,11 +15,9 @@ describe Bitfinex::Client do
 
   let(:json_ticker) { ticker.to_json }
 
-  let(:client) { Bitfinex::Client.new }
   context "correct JSON response" do
     before do
-      stub_request(:get, "http://apitest/pubticker/btcusd").
-        to_return(status: 200, headers: headers, body: json_ticker)
+      stub_http("/pubticker/btcusd",json_ticker)
       @ticker = client.ticker("btcusd")
     end
 
@@ -29,8 +27,7 @@ describe Bitfinex::Client do
 
   context "malformed response JSON" do
     before do
-      stub_request(:get, "http://apitest/pubticker/btcusd").
-        to_return(status: 200, headers: headers, body: "malformed json")
+      stub_http("/pubticker/btcusd","malformed json")
     end
 
     it { expect{ client.ticker }.to raise_error(Faraday::ParsingError) }
@@ -38,8 +35,7 @@ describe Bitfinex::Client do
 
   context "400 error" do
     before do
-      stub_request(:get, "http://apitest/pubticker/btcusd").
-        to_return(status: 400, body: "error!")
+      stub_http("/pubticker/btcusd","error!",status: 400)
     end
 
     it { expect{ client.ticker }.to raise_error(Faraday::ClientError) }

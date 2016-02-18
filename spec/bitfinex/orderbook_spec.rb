@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
+  include_context "unauthorized calls"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:orderbook) { 
 												{
 													"bids":[{
@@ -24,11 +24,8 @@ describe Bitfinex::Client do
 
   let(:json_orderbook) { orderbook.to_json }
 
-  let(:client) { Bitfinex::Client.new }
-
   before do
-    stub_request(:get, "http://apitest/book/btcusd").
-      to_return(status: 200, headers: headers, body: json_orderbook)
+    stub_http("/book/btcusd",json_orderbook)
     @orderbook = client.orderbook("btcusd")
   end
 

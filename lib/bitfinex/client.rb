@@ -1,6 +1,7 @@
 module Bitfinex
   class Client
     include Bitfinex::RestConnection
+    include Bitfinex::AuthenticatedConnection
     include Bitfinex::TickerClient
     include Bitfinex::TradesClient
     include Bitfinex::FundingBookClient
@@ -8,6 +9,7 @@ module Bitfinex
     include Bitfinex::StatsClient
     include Bitfinex::LendsClient
     include Bitfinex::SymbolsClient
+    include Bitfinex::AccountInfoClient
     include Bitfinex::Configurable
   end
 end

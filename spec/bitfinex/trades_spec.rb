@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Bitfinex::TradesClient do
+  include_context "unauthorized calls"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:trades) { [{
                   "timestamp"=>1455527016, 
                    "tid"=>15627115, 
@@ -21,14 +21,11 @@ describe Bitfinex::TradesClient do
 
   let(:json_trades ) { trades.to_json }
 
-  let(:client) { Bitfinex::Client.new }
-
   describe ".trades" do
 
     context "passing the right params" do
       before do
-        stub_request(:get, "http://apitest/trades/btcusd?limit_trades=10").
-          to_return(status: 200, headers: headers, body: json_trades)
+        stub_http("/trades/btcusd?limit_trades=10",json_trades)
         @trades = client.trades("btcusd", limit_trades: 10)
       end
 
@@ -39,8 +36,7 @@ describe Bitfinex::TradesClient do
 
     context "passing the wrong params" do
       before do
-        stub_request(:get, "http://apitest/trades/btcusd").
-          to_return(status: 200, headers: headers, body: json_trades)
+        stub_http("/trades/btcusd",json_trades)
       end
 
       it {expect{client.trades("btcusd", wrong_param: 10)}.to raise_error(Bitfinex::ParamsError) }

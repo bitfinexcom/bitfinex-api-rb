@@ -5,11 +5,13 @@ require 'pry'
 
 Bitfinex::Client.configure do |config|
   config.api_endpoint = "https://api.bitfinex.com/v1/"
+  config.secret       = ENV["BFX_SECRET"]
+  config.api_key      = ENV["BFX_KEY"]
+  config.debug        = true
 end
 
 client = Bitfinex::Client.new
 
-
-t = client.lends
+t = client.account_info
 puts t
 

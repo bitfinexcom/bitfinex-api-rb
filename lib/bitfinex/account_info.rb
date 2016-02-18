@@ -1,9 +1,17 @@
 module Bitfinex
 
-  class AccountInfo
-    def all
-      uri = "/#{@api_version}/account_infos"
-      self.class.post(uri, headers: headers_for(uri)).parsed_response
+  module AccountInfoClient 
+    def account_info
+      raise Bitfinex::InvalidAuthKeyError unless valid_key?
+      resp = authenticated_post("account_infos")
+      resp.body.map do |info|
+        AccountInfo.new(info)
+      end
     end
   end
+
+  class AccountInfo < BaseResource
+    set_properties :maker_fees, :taker_fees, :fees
+  end
+
 end

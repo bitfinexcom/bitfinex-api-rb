@@ -1,3 +1,4 @@
+require 'logger'
 module Bitfinex
   # Network Layer for API Rest client
   module RestConnection
@@ -32,7 +33,7 @@ module Bitfinex
     def new_rest_connection
       Faraday.new(url: base_api_endpoint) do |conn|
         conn.use Faraday::Response::RaiseError
-        conn.response :logger if config.debug 
+        conn.response :logger, Logger.new(STDOUT) , bodies: true  if config.debug_connection
         conn.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
         conn.adapter :net_http
       end

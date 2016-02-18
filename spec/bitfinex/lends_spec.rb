@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Bitfinex::Client do
+  include_context "unauthorized calls"
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
   let(:lends) { 
                 [{
                   "rate":"9.8998",
@@ -14,11 +14,8 @@ describe Bitfinex::Client do
 
   let(:json_lends) { lends.to_json }
 
-  let(:client) { Bitfinex::Client.new }
-
   before do
-    stub_request(:get, "http://apitest/lends/btcusd").
-      to_return(status: 200, headers: headers, body: json_lends)
+    stub_http("/lends/btcusd", json_lends)
     @lends = client.lends("btcusd")
   end
 

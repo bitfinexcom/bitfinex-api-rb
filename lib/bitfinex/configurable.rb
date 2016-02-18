@@ -20,10 +20,11 @@ module Bitfinex
   end
 
   class Configuration
-     attr_accessor :api_endpoint, :debug
+     attr_accessor :api_endpoint, :debug, :debug_connection, :secret, :api_key
      def initialize
        api_endpoint = "https://api.bitfinex.com/v1"
        debug = false
+       debug_connection = false
      end
   end
 

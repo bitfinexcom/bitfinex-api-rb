@@ -1,7 +1,6 @@
 require "simplecov"
 SimpleCov.start
 require 'webmock/rspec'
-require 'pry'
 require File.dirname(__FILE__) + '/../lib/bitfinex.rb'
 Dir[File.dirname(__FILE__) + '/contexts/*rb'].each {|file| require file; puts file }
 

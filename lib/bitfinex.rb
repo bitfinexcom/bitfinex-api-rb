@@ -19,5 +19,6 @@ require 'bitfinex/account_info'
 require 'bitfinex/deposit'
 require 'bitfinex/orders'
 require 'bitfinex/positions'
+require 'bitfinex/historical_data'
 require 'bitfinex/client'
 

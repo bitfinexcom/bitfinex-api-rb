@@ -12,6 +12,7 @@ module Bitfinex
     include Bitfinex::AccountInfoClient
     include Bitfinex::DepositClient
     include Bitfinex::OrdersClient
+    include Bitfinex::PositionsClient
     include Bitfinex::Configurable
   end
 end

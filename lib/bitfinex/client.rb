@@ -15,6 +15,7 @@ module Bitfinex
     include Bitfinex::PositionsClient
     include Bitfinex::HistoricalDataClient
     include Bitfinex::MarginFundingClient
+    include Bitfinex::WalletClient
     include Bitfinex::Configurable
   end
 end

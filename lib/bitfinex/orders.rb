@@ -5,7 +5,7 @@ module Bitfinex
     def new_order(symbol, amount, type, side, price = nil, params = {}) 
 			check_params(params, %i{exchange is_hidden is_postonly ocoorder buy_price_oco})
 
-      params.merge({
+      params.merge!({
         symbol: symbol, 
         amount: amount,
         type: type,
@@ -30,7 +30,7 @@ module Bitfinex
 		
     def replace_order(id, symbol, amount, type, side, price, params = {})
 			check_params(params, %i{exchange is_hidden})
-      params.merge({
+      params.merge!({
         order_id: id,
         symbol: symbol, 
         amount: amount,

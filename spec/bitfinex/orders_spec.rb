@@ -7,20 +7,7 @@ describe Bitfinex::Client do
 		let(:new_order) {
 			{
 				"id":448364249,
-				"symbol":"btcusd",
-				"exchange":"bitfinex",
-				"price":"0.01",
-				"avg_execution_price":"0.0",
-				"side":"buy",
-				"type":"exchange limit",
-				"timestamp":"1444272165.252370982",
-				"is_live":true,
-				"is_cancelled":false,
-				"is_hidden":false,
-				"was_forced":false,
-				"original_amount":"0.01",
-				"remaining_amount":"0.01",
-				"executed_amount":"0.0",
+				"symbol": "btcusd",
 				"order_id":448364249
 			}
 		}
@@ -39,36 +26,8 @@ describe Bitfinex::Client do
 			{
 				"order_ids":[{
 					"id":448383727,
-					"symbol":"btcusd",
-					"exchange":"bitfinex",
-					"price":"0.01",
-					"avg_execution_price":"0.0",
-					"side":"buy",
-					"type":"exchange limit",
-					"timestamp":"1444274013.621701916",
-					"is_live":true,
-					"is_cancelled":false,
-					"is_hidden":false,
-					"was_forced":false,
-					"original_amount":"0.01",
-					"remaining_amount":"0.01",
-					"executed_amount":"0.0"
 				},{
 					"id":448383729,
-					"symbol":"btcusd",
-					"exchange":"bitfinex",
-					"price":"0.03",
-					"avg_execution_price":"0.0",
-					"side":"buy",
-					"type":"exchange limit",
-					"timestamp":"1444274013.661297306",
-					"is_live":true,
-					"is_cancelled":false,
-					"is_hidden":false,
-					"was_forced":false,
-					"original_amount":"0.02",
-					"remaining_amount":"0.02",
-					"executed_amount":"0.0"
 				}],
 				"status":"success"
 			}
@@ -85,4 +44,87 @@ describe Bitfinex::Client do
 		it {expect(@orders["order_ids"].size).to eq(2)}
 
 	end
+
+  context ".cancel_order" do
+    context "single ID" do
+      let(:cancel_order){ { "id":446915287, "symbol":"btcusd" } }
+
+      before do
+        stub_http("/order/cancel/multi", cancel_order.to_json, method: :post)
+        @response = client.cancel_orders(446915287)
+      end
+
+      it {expect(@response["id"]).to eq(446915287)}
+    end
+
+    context "multiple ID" do
+      let(:response){ {"result":"Orders cancelled"} }
+
+
+      before do
+        stub_http("/order/cancel/multi", response.to_json, method: :post)
+        @response = client.cancel_orders([446915287, 123123123])
+      end
+
+      it {expect(@response["result"]).to eq("Orders cancelled")}
+    end
+  end
+   
+  context ".cancel_all_orders" do
+    let(:response) {{"result":"All orders cancelled"}}
+    before do
+      stub_http("/order/cancel/all", response.to_json, method: :post)
+      @response = client.cancel_all_orders
+    end
+
+    it {expect(@response["result"]).to eq("All orders cancelled")}
+  end
+
+  context ".replace_order" do
+    let(:response) {
+			{
+				"id":448411365,
+				"symbol":"btcusd",
+				"order_id":448411365
+			}
+		}
+		before do
+			stub_http("/order/cancel/replace",response.to_json, method: :post)
+			@response = client.replace_order(448411365, "btcusd", 0.01, :limit, :buy, 0.01)
+		end
+    
+    it { expect(@response["id"]).to eq(448411365) }
+  end
+ 
+  context ".order_status" do
+    let(:response) { {
+			"id":448411153,
+			"symbol":"btcusd",
+			"price":"0.01",
+			"avg_execution_price":"0.0" } }
+
+		before do
+			stub_http("/order/status",response.to_json, method: :post)
+			@response = client.order_status(448411153)
+		end
+    
+    it { expect(@response["id"]).to eq(448411153) }
+  end
+
+  context ".orders" do
+    let(:response) { [{"id":448411153, "price":"0.01"},
+                      {"id":448411155, "price":"0.01"}] }
+
+		before do
+			stub_http("/orders",response.to_json, method: :post)
+			@response = client.orders
+		end
+    
+    it { expect(@response.size).to eq(2) }
+    it { expect(@response[0]["id"]).to eq(448411153) }
+
+
+  end
+
+
 end

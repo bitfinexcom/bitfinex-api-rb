@@ -1,10 +1,8 @@
 module Bitfinex
   module FundingBookClient
-    FUNDING_BOOK_ALLOWED_PARAMS = %i{limit_bids limit_asks}
-
     def funding_book(currency="btcusd", params = {})
-      resp = get("lendbook/#{currency}", check_params(params, FUNDING_BOOK_ALLOWED_PARAMS))
-      resp.body
+      check_params(params, %i{limit_bids limit_asks})
+      get("lendbook/#{currency}", params).body
     end
   end
 end

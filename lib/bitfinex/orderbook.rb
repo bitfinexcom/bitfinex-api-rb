@@ -1,12 +1,8 @@
 module Bitfinex
-
   module OrderbookClient
-    ORDERBOOK_ALLOWED_PARAMS = %i{limit_bids limit_asks group}
-
     def orderbook(currency="btcusd", params = {})
-      resp = get("book/#{currency}", check_params(params, ORDERBOOK_ALLOWED_PARAMS))
-      resp.body
+      check_params(params, %i{limit_bids limit_asks group})
+      get("book/#{currency}",params).body
     end
   end
-
 end

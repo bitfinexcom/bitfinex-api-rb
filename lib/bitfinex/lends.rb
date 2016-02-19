@@ -1,11 +1,8 @@
 module Bitfinex
-
-	module LendsClient 
-		LEND_ALLOWD_PARAMS = %i{timestamp limit_lends}
-
-		def lends(currency = "btcusd", params = {})
-			resp = get("lends/#{currency}", check_params(params, LEND_ALLOWD_PARAMS))
-      resp.body
-		end
-	end
+  module LendsClient 
+    def lends(currency = "btcusd", params = {})
+      check_params(params, %i{timestamp limit_lends})
+      get("lends/#{currency}", params).body
+    end
+  end
 end

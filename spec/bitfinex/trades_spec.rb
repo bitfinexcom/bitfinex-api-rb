@@ -4,20 +4,20 @@ describe Bitfinex::TradesClient do
   include_context "api requests"
 
   let(:trades) { [{
-                  "timestamp"=>1455527016, 
-                   "tid"=>15627115, 
-                   "price"=>"403.97", 
-                   "amount"=>"0.5", 
-                   "exchange"=>"bitfinex", 
-                   "type"=>"buy"
-                  },{
-                   "timestamp"=>1455526974, 
-                   "tid"=>15627111, 
-                   "price"=>"404.01", 
-                   "amount"=>"2.45116479", 
-                   "exchange"=>"bitfinex", 
-                   "type"=>"sell"
-                  }] }
+    "timestamp"=>1455527016, 
+     "tid"=>15627115, 
+     "price"=>"403.97", 
+     "amount"=>"0.5", 
+     "exchange"=>"bitfinex", 
+     "type"=>"buy"
+    },{
+     "timestamp"=>1455526974, 
+     "tid"=>15627111, 
+     "price"=>"404.01", 
+     "amount"=>"2.45116479", 
+     "exchange"=>"bitfinex", 
+     "type"=>"sell"
+  }]}
 
   describe ".trades" do
 

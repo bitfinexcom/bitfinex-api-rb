@@ -1,15 +1,13 @@
 module Bitfinex
   module DepositClient
-
     def deposit method, wallet_name, renew=0
-      data = {
+      params = {
         method: method, 
         wallet_name: wallet_name, 
         renew: renew
       }
 
-      resp = authenticated_post("deposit/new", data) 
-      resp.body
+      authenticated_post("deposit/new", params).body
     end
   end
 end

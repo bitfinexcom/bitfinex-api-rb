@@ -1,10 +1,7 @@
 module Bitfinex
-
   module TickerClient
     def ticker(symbol = "btcusd")
-      resp = get("pubticker/#{symbol}")
-      resp.body
+      get("pubticker/#{symbol}").body
     end
   end
-
 end

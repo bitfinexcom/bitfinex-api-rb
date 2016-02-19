@@ -7,5 +7,4 @@ module Bitfinex
     end
   end
 
-
 end

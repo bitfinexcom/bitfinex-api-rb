@@ -1,15 +1,11 @@
 module Bitfinex
-
   module SymbolsClient
     def symbols
-      resp = get("symbols")
-      resp.body
+      get("symbols").body
     end
 
     def symbols_details
-      resp = get("symbols_details")
-      resp.body
+      get("symbols_details").body
     end 
   end
-
 end

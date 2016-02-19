@@ -3,15 +3,16 @@ require "spec_helper"
 describe Bitfinex::Client do
   include_context "api requests"
 
-  let(:ticker) { {"mid"=>"403.99", 
-                  "bid"=>"403.98", 
-                  "ask"=>"404.0", 
-                  "last_price"=>"403.98", 
-                  "low"=>"394.16", 
-                  "high"=>"412.5", 
-                  "volume"=>"28987.53907309", 
-                  "timestamp"=>"1455526882.874391121"} 
-               }
+  let(:ticker) { {
+    "mid"=>"403.99", 
+    "bid"=>"403.98", 
+    "ask"=>"404.0", 
+    "last_price"=>"403.98", 
+    "low"=>"394.16", 
+    "high"=>"412.5", 
+    "volume"=>"28987.53907309", 
+    "timestamp"=>"1455526882.874391121"
+  } }
 
   context "correct JSON response" do
     before do

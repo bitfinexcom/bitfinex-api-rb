@@ -13,11 +13,11 @@ module Bitfinex
       authenticated_post("offer/new", params).body
     end
 
-		def cancel_offer(offer_id)
+    def cancel_offer(offer_id)
       authenticated_post("offer/cancel", {offer_id: offer_id}).body
-		end	
+    end 
 
-		def offer_status(offer_id)
+    def offer_status(offer_id)
       authenticated_post("offer/status", {offer_id: offer_id}).body
     end
 

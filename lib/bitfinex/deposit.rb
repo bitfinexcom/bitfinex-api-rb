@@ -9,11 +9,7 @@ module Bitfinex
       }
 
       resp = authenticated_post("deposit/new", data) 
-      Deposit.new(resp.body)
+      resp.body
     end
-  end
-
-  class Deposit < BaseResource
-    set_properties :result, :method, :currency, :address
   end
 end

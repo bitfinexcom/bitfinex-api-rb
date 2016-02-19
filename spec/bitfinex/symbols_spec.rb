@@ -32,28 +32,26 @@ describe Bitfinex::Client do
                   }]
   }
 
-  let(:json_symbols) { symbols.to_json }
-  let(:json_symbols_details) { symbols_details.to_json }
 
   describe ".symbols" do
     before do
-      stub_http("/symbols", json_symbols)
+      stub_http("/symbols", symbols.to_json)
       @symbols = client.symbols
     end
 
     it { expect(@symbols.size).to eq(3) }
-    it { expect(@symbols[0].pair).to eq("btcusd") }
+    it { expect(@symbols[0]).to eq("btcusd") }
   end
 
   describe ".symbols_details" do
     before do
-      stub_http("/symbols_details",json_symbols_details)
+      stub_http("/symbols_details",symbols_details.to_json)
       @symbols = client.symbols_details
     end
 
     it { expect(@symbols.size).to eq(3) }
-    it { expect(@symbols[0].pair).to eq("btcusd") }
-    it { expect(@symbols[0].price_precision).to eq(5) }
+    it { expect(@symbols[0]["pair"]).to eq("btcusd") }
+    it { expect(@symbols[0]["price_precision"]).to eq(5) }
   end
 end
 

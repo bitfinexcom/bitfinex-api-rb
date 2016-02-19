@@ -3,21 +3,18 @@ require 'spec_helper'
 describe Bitfinex::Client do
   include_context "api requests"
 
-  let(:account_info) { [{
-      "maker_fees"=>"0.1", 
-      "taker_fees"=>"0.2", 
-      "fees"=>[
-          {"pairs"=>"BTC", "maker_fees"=>"0.1", "taker_fees"=>"0.2"},
-          {"pairs"=>"LTC", "maker_fees"=>"0.1", "taker_fees"=>"0.2"},
-          {"pairs"=>"DRK", "maker_fees"=>"0.1", "taker_fees"=>"0.2"}]}
-      ] }
-  let(:json_account_info) { account_info.to_json }
+  let(:deposit) { {
+      "result":"success",
+      "method":"bitcoin",
+      "currency":"BTC",
+      "address":"xyz"
+    } }
+  let(:json_deposit) { deposit.to_json }
 
   before do
-    stub_http("/account_infos",json_account_info, method: :post)
-    @account_info = client.account_info
+    stub_http("/deposit/new",json_deposit , method: :post)
+    @deposit = client.deposit("bitcoin", "exchange")
   end
 
-  it {expect(@account_info[0].maker_fees).to eq("0.1") }
-  it {expect(@account_info[0]["fees"].size).to eq(3) }
+  it {expect(@deposit["result"]).to eq("success") }
 end

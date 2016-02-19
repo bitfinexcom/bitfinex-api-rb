@@ -5,11 +5,8 @@ module Bitfinex
 
     def orderbook(currency="btcusd", params = {})
       resp = get("book/#{currency}", check_params(params, ORDERBOOK_ALLOWED_PARAMS))
-      Orderbook.new(resp.body)
+      resp.body
     end
   end
 
-  class Orderbook < BaseResource
-    set_properties :bids, :asks
-  end
 end

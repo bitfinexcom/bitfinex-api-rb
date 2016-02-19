@@ -13,16 +13,14 @@ describe Bitfinex::Client do
                   "timestamp"=>"1455526882.874391121"} 
                }
 
-  let(:json_ticker) { ticker.to_json }
-
   context "correct JSON response" do
     before do
-      stub_http("/pubticker/btcusd",json_ticker)
+      stub_http("/pubticker/btcusd",ticker.to_json)
       @ticker = client.ticker("btcusd")
     end
 
-    it { expect(@ticker.mid).to eq("403.99") }
-    it { expect(@ticker.bid).to eq("403.98") }
+    it { expect(@ticker["mid"]).to eq("403.99") }
+    it { expect(@ticker["bid"]).to eq("403.98") }
   end
 
   context "malformed response JSON" do

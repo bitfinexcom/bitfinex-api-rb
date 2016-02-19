@@ -27,5 +27,9 @@ module Bitfinex
 
       authenticated_post("withdraw", params).body
     end
+
+    def key_info
+      authenticated_post("key_info").body
+    end
   end
 end

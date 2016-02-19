@@ -40,4 +40,13 @@ describe Bitfinex::Client do
 
     it {expect(@response.size).to eq(1)}
   end
+
+  context "key_info" do
+    before do 
+      stub_http("/key_info", response.to_json, method: :post)
+      @response = client.key_info
+    end
+
+    it {expect(@response.size).to eq(1)}
+  end
 end

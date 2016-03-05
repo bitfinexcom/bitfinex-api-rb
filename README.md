@@ -6,7 +6,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'bitfinex'
+    gem 'bitfinex-rb'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install bitfinex
+    $ gem install bitfinex-rb
 
 ## Usage
 

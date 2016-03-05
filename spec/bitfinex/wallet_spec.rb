@@ -14,10 +14,10 @@ describe Bitfinex::Client do
     it {expect(@response.size).to eq(1)}
   end
 
-  context "margin_info" do
+  context "margin_infos" do
     before do 
-      stub_http("/margin_info", response.to_json, method: :post)
-      @response = client.margin_info
+      stub_http("/margin_infos", response.to_json, method: :post)
+      @response = client.margin_infos
     end
 
     it {expect(@response.size).to eq(1)}

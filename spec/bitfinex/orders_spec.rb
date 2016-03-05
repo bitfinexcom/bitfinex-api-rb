@@ -14,7 +14,7 @@ describe Bitfinex::Client do
 
     before do
       stub_http("/order/new", new_order.to_json, method: :post)
-      @new_order = client.new_order("btcusd",0.01, "exchange limit", "buy", 0.01, exchange: "bitfinex")
+      @new_order = client.new_order("btcusd",0.01, "exchange limit", "buy", 0.01)
     end
 
     it {expect(@new_order["symbol"]).to eq("btcusd")}
@@ -50,7 +50,7 @@ describe Bitfinex::Client do
       let(:cancel_order){ { "id":446915287, "symbol":"btcusd" } }
 
       before do
-        stub_http("/order/cancel/multi", cancel_order.to_json, method: :post)
+        stub_http("/order/cancel", cancel_order.to_json, method: :post)
         @response = client.cancel_orders(446915287)
       end
 
@@ -68,17 +68,19 @@ describe Bitfinex::Client do
 
       it {expect(@response["result"]).to eq("Orders cancelled")}
     end
+
+    context "cancel all orders" do
+      let(:response) {{"result":"All orders cancelled"}}
+
+      before do
+        stub_http("/order/cancel/all", response.to_json, method: :post)
+        @response = client.cancel_orders
+      end
+
+      it {expect(@response["result"]).to eq("All orders cancelled")}
+    end
   end
    
-  context ".cancel_all_orders" do
-    let(:response) {{"result":"All orders cancelled"}}
-    before do
-      stub_http("/order/cancel/all", response.to_json, method: :post)
-      @response = client.cancel_all_orders
-    end
-
-    it {expect(@response["result"]).to eq("All orders cancelled")}
-  end
 
   context ".replace_order" do
     let(:response) {

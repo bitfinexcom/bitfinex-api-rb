@@ -1,12 +1,12 @@
-# Bitfinexrb
+# Bitfinex API client Library
 
-TODO: Write a gem description
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'bitfinexrb'
+    gem 'bitfinex'
 
 And then execute:
 
@@ -14,15 +14,31 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install bitfinexrb
+    $ gem install bitfinex
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure your gem as:
+
+```
+Bitfinex::Client.config do |conf|
+  conf.secret = ENV["BFX_API_SECRET"]
+  conf.api_key = ENV["BFX_API_KEY"]
+end
+```
+
+Then you can use the client as follow:
+
+```
+client = Bitfinex::Client.new
+client.balance
+```
+
+check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/bitfinexrb/fork )
+1. Fork it ( https://github.com/[my-github-username]/bitfinex/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

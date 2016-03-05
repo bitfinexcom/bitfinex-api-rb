@@ -19,9 +19,9 @@ module Bitfinex
     # 
     # @return [Array]
     # @example: 
-    #   client.margin_info
-    def margin_info
-      authenticated_post("margin_info").body
+    #   client.margin_infos
+    def margin_infos
+      authenticated_post("margin_infos").body
     end
 
     # Allow you to move available balances between your wallets.

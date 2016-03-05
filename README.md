@@ -18,7 +18,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure your gem as:
+
+```
+Bitfinex::Client.config do |conf|
+  conf.secret = ENV["BFX_API_SECRET"]
+  conf.api_key = ENV["BFX_API_KEY"]
+end
+```
+
+Then you can use the client as follow:
+
+```
+client = Bitfinex::Client.new
+client.balance
+```
+
+check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
 
 ## Contributing
 

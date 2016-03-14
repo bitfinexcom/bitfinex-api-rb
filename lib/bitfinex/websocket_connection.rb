@@ -21,10 +21,12 @@ module Bitfinex
       ws_reset_channels
     end
 
-    def ws_auth
+    def ws_auth(&block)
       unless @ws_auth
         payload = 'AUTH' + (Time.now.to_f * 10_000).to_i.to_s
         signature = sign(payload)
+        add_callback(:auth, &block)
+        save_channel_id(:auth, 0)
         ws_safe_send({
           apiKey: config.api_key, 
           authSig: sign(payload),
@@ -103,8 +105,6 @@ module Bitfinex
          msg = JSON.parse(rmsg)
          if msg.kind_of?(Hash) && msg["event"] == "subscribed"
            save_channel_id(fingerprint(msg), msg["chanId"]) 
-         elsif msg.kind_of?(Array) && msg[0]==0
-           # authentication response 
          elsif msg.kind_of?(Array)
            exec_callback_for(msg)
          end
@@ -117,6 +117,7 @@ module Bitfinex
     end
   
     def exec_callback_for(msg)
+      return if msg[1] == 'hb' #ignore heartbeat
       id = msg[0]
       callbacks[chan_ids[id.to_i]][:block].call(msg)
     end

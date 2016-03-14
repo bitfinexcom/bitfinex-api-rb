@@ -39,5 +39,6 @@ describe Bitfinex::Client do
 
     it { expect{ client.ticker }.to raise_error(Faraday::ClientError) }
   end
+
 end
 

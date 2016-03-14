@@ -14,5 +14,18 @@ module Bitfinex
       get("trades/#{symbol}", params: params).body
     end
 
+    # Listen to the trades using websocket.
+    #
+    # @param pair [string]
+    # @param block [Block] The code to be executed when a new trade is executed
+    # @example:
+    #   client.listen_trades do |trade|
+    #     puts trade.inspect
+    #   end
+    def listen_trades(pair="BTCUSD", &block)
+      raise BlockMissingError unless block_given?
+      register_channel pair:pair, channel: 'trades', &block
+    end
+
   end
 end

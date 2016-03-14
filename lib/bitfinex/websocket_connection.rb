@@ -5,10 +5,10 @@ require 'json'
 module Bitfinex
   module WebsocketConnection
 
-  	def listen!
+    def listen!
       subscribe_to_channels
       listen
-  		ws_client.run!
+      ws_client.run!
     end
   
     def ws_send(msg)
@@ -98,8 +98,8 @@ module Bitfinex
           inject({}){|h, (k,v)| h[k.to_sym]=v.to_s; h}
     end
   
-  	def listen
-  		ws_client.on(:message) do |rmsg|
+    def listen
+      ws_client.on(:message) do |rmsg|
          msg = JSON.parse(rmsg)
          if msg.kind_of?(Hash) && msg["event"] == "subscribed"
            save_channel_id(fingerprint(msg), msg["chanId"]) 
@@ -108,7 +108,7 @@ module Bitfinex
          elsif msg.kind_of?(Array)
            exec_callback_for(msg)
          end
-  		end
+      end
     end
   
     def save_channel_id(chan,id)

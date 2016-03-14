@@ -27,9 +27,9 @@ module Bitfinex
     #    client.listen_book do |order|
     #      puts order.inspect
     #    end
-  	def listen_book(pair="BTCUSD", prec='P0', freq='F0',len=25, &block)
+    def listen_book(pair="BTCUSD", prec='P0', freq='F0',len=25, &block)
       raise BlockMissingError unless block_given?
       register_channel pair:pair, channel: 'book', prec: prec, freq: freq, len: len, &block
-  	end
+    end
   end
 end

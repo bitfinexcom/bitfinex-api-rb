@@ -2,7 +2,7 @@ module Bitfinex
   module HistoricalDataClient
 
     # View all of your balance ledger entries.
-    # 
+    #
     # @param currency [string] (optional) Specify the currency, default "USD"
     # @param params :since [time] (optional) Return only the history after this timestamp.
     # @param params :until [time] (optional) Return only the history before this timestamp.
@@ -12,13 +12,13 @@ module Bitfinex
     # @example:
     #   client.history
     def history(currency="usd", params = {})
-      check_params(params, %i{since until limit wallet}) 
+      check_params(params, %i{since until limit wallet})
       params.merge!({currency: currency})
       authenticated_post("history", params).body
     end
 
     # View your past deposits/withdrawals.
-    # 
+    #
     # @param currency [string] (optional) Specify the currency, default "USD"
     # @param params :method (optional) The method of the deposit/withdrawal (can be “bitcoin”, “litecoin”, “darkcoin”, “wire”)
     # @param params :since (optional) Return only the history after this timestamp
@@ -34,7 +34,7 @@ module Bitfinex
     end
 
     # View your past trades.
-    # 
+    #
     # @param symbol The pair traded (BTCUSD, LTCUSD, LTCBTC)
     # @param params :until [time] (optional) Return only the history before this timestamp.
     # @param params :timestamp [time] (optional) Trades made before this timestamp won’t be returned

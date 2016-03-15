@@ -1,7 +1,7 @@
 module Bitfinex
 
-  module AccountInfoClient 
-    
+  module AccountInfoClient
+
     # Get account information
     #
     # @return [Hash] your account information

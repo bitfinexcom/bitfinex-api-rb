@@ -13,7 +13,7 @@ module Bitfinex
     #   client.new_offer("btc", 10.0, 20, 365, "lend")
     def new_offer(currency, amount, rate, period, direction)
       params = {
-        "currency" => "USD", # currency,
+        currency: currency,
         amount: amount.to_s,
         rate: rate.to_s,
         period: period.to_i,

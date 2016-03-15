@@ -12,15 +12,14 @@ module Bitfinex
     # @example:
     #   client.new_offer("btc", 10.0, 20, 365, "lend")
     def new_offer(currency, amount, rate, period, direction)
-      params = { 
-        currency: currency,
-        amount: amount, 
-        rate: rate,
-        period: period,
+      params = {
+        "currency" => "USD", # currency,
+        amount: amount.to_s,
+        rate: rate.to_s,
+        period: period.to_i,
         direction: direction
       }
-
-      authenticated_post("offer/new", params).body
+      authenticated_post("offer/new", params: params).body
     end
 
     # Cancel an offer
@@ -31,7 +30,7 @@ module Bitfinex
     #   client.cancel_offer(1000)
     def cancel_offer(offer_id)
       authenticated_post("offer/cancel", {offer_id: offer_id}).body
-    end 
+    end
 
     # Get the status of an offer. Is it active? Was it cancelled? To what extent has it been executed? etc.
     #
@@ -44,7 +43,7 @@ module Bitfinex
     end
 
     # View your funds currently taken (active credits)
-    # 
+    #
     # @return [Array]
     # @example:
     #   client.credits
@@ -71,7 +70,7 @@ module Bitfinex
     end
 
     # View your funding currently borrowed and not used (available for a new margin position).
-    # 
+    #
     # @return [Array] An array of your active unused margin funds
     # @example:
     #   client.unused_taken_funds
@@ -80,7 +79,7 @@ module Bitfinex
     end
 
     # View the total of your active funding used in your position(s).
-    # 
+    #
     # @return [Array] An array of your active funding
     # @example:
     #   client.total_taken_funds
@@ -90,7 +89,7 @@ module Bitfinex
 
     # Allow you to close an unused or used taken fund
     #
-    # @param swap_id [int] The ID given by `#taken_funds` or `#unused_taken_funds 
+    # @param swap_id [int] The ID given by `#taken_funds` or `#unused_taken_funds
     # @return [Hash]
     # @example:
     #   client.close_funding(1000)

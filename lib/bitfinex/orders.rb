@@ -19,7 +19,7 @@ module Bitfinex
       check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco})
 
       # for 'market' order, we need to pass a random positive price, not nil
-      price ||= rand(100) if type == "market" || type == "exchange market"
+      price ||= 0.00001 if type == "market" || type == "exchange market"
 
       params.merge!({
         symbol: symbol,
@@ -61,9 +61,9 @@ module Bitfinex
     def cancel_orders(ids=nil)
       case ids
       when Array
-          authenticated_post("order/cancel/multi", params: {order_ids: ids}).body
-      when Numeric
-          authenticated_post("order/cancel", params: {order_id: ids}).body
+          authenticated_post("order/cancel/multi", params: {order_ids: ids.map(&:to_i)}).body
+      when Numeric, String
+          authenticated_post("order/cancel", params: {order_id: ids.to_i}).body
       when NilClass
           authenticated_post("order/cancel/all").body
       else
@@ -104,7 +104,7 @@ module Bitfinex
     # @exmaple:
     #   client.order_status(100)
     def order_status(id)
-      authenticated_post("order/status", params: {order_id: id}).body
+      authenticated_post("order/status", params: {order_id: id.to_i}).body
     end
 
 

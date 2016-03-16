@@ -14,7 +14,7 @@ module Bitfinex
     def history(currency="usd", params = {})
       check_params(params, %i{since until limit wallet})
       params.merge!({currency: currency})
-      authenticated_post("history", params).body
+      authenticated_post("history", params: params).body
     end
 
     # View your past deposits/withdrawals.
@@ -30,7 +30,7 @@ module Bitfinex
     def movements(currency="usd", params = {})
       check_params(params, %i{method since until limit})
       params.merge!({currency: currency})
-      authenticated_post("history/movements", params).body
+      authenticated_post("history/movements", params: params).body
     end
 
     # View your past trades.
@@ -47,7 +47,7 @@ module Bitfinex
     def mytrades(symbol, params = {})
       check_params(params, %i{until limit_trades reverse timestamp})
       params.merge!({symbol: symbol})
-      authenticated_post("mytrades", params).body
+      authenticated_post("mytrades", params: params).body
     end
   end
 end

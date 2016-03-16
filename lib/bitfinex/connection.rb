@@ -2,7 +2,7 @@ require 'logger'
 module Bitfinex
   # Network Layer for API Rest client
   module RestConnection
-    private 
+    private
     # Make an HTTP GET request
     def get(url, options={})
       rest_connection.get do |req|

@@ -3,7 +3,7 @@ module Bitfinex
     def self.included(base)
       base.extend(ClassMethods)
     end
-  
+
     def config
       self.class.config
     end

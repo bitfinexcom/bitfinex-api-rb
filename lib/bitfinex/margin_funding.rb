@@ -29,7 +29,7 @@ module Bitfinex
     # @example:
     #   client.cancel_offer(1000)
     def cancel_offer(offer_id)
-      authenticated_post("offer/cancel", {offer_id: offer_id}).body
+      authenticated_post("offer/cancel", params: {offer_id: offer_id}).body
     end
 
     # Get the status of an offer. Is it active? Was it cancelled? To what extent has it been executed? etc.
@@ -39,7 +39,7 @@ module Bitfinex
     # @example:
     #   client.offer_status(1000)
     def offer_status(offer_id)
-      authenticated_post("offer/status", {offer_id: offer_id}).body
+      authenticated_post("offer/status", params: {offer_id: offer_id}).body
     end
 
     # View your funds currently taken (active credits)
@@ -94,7 +94,7 @@ module Bitfinex
     # @example:
     #   client.close_funding(1000)
     def close_funding(swap_id)
-      authenticated_post("funding/close", {swap_id: swap_id}).body
+      authenticated_post("funding/close", params: {swap_id: swap_id}).body
     end
   end
 end

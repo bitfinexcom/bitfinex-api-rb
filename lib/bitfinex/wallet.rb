@@ -2,30 +2,30 @@ module Bitfinex
   module WalletClient
 
     # See your balances.
-    # 
+    #
     # @param params :type [string] “trading”, “deposit” or “exchange”.
     # @param params :currency [string] currency
     # @param params :amount [decimal] How much balance of this currency in this wallet
     # @param params :available [decimal] How much X there is in this wallet that is available to trade
-    # @return [Array] 
-    # @example: 
+    # @return [Array]
+    # @example:
     #   client.balances
     def balances(params = {})
       check_params(params, %i{type currency amount available})
-      authenticated_post("balances", params).body
+      authenticated_post("balances", params: params).body
     end
 
     # See your trading wallet information for margin trading.
-    # 
+    #
     # @return [Array]
-    # @example: 
+    # @example:
     #   client.margin_infos
     def margin_infos
       authenticated_post("margin_infos").body
     end
 
     # Allow you to move available balances between your wallets.
-    # 
+    #
     # @param amount [decimal] Amount to transfer
     # @param currency [string] Currency of funds to transfer
     # @param wallet_from [string] Wallet to transfer from
@@ -40,7 +40,7 @@ module Bitfinex
         wallet_from: wallet_from,
         wallet_to: wallet_to
       }
-      authenticated_post("transfer", params).body
+      authenticated_post("transfer", params: params).body
     end
 
     # Allow you to request a withdrawal from one of your wallet.
@@ -74,7 +74,7 @@ module Bitfinex
         walletselected: walletselected,
         amount: amount})
 
-      authenticated_post("withdraw", params).body
+      authenticated_post("withdraw", params: params).body
     end
 
     # Check the permissions of the key being used to generate this request

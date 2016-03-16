@@ -18,6 +18,9 @@ module Bitfinex
     def new_order(symbol, amount, type, side, price = nil, params = {})
       check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco})
 
+      # for 'market' order, we need to pass a random positive price, not nil
+      price ||= rand(100) if type == "market" || type == "exchange market"
+
       params.merge!({
         symbol: symbol,
         amount: amount.to_s,
@@ -58,9 +61,9 @@ module Bitfinex
     def cancel_orders(ids=nil)
       case ids
       when Array
-          authenticated_post("order/cancel/multi", {order_ids: ids}).body
+          authenticated_post("order/cancel/multi", params: {order_ids: ids}).body
       when Numeric
-          authenticated_post("order/cancel", {order_id: ids}).body
+          authenticated_post("order/cancel", params: {order_id: ids}).body
       when NilClass
           authenticated_post("order/cancel/all").body
       else
@@ -91,7 +94,7 @@ module Bitfinex
         is_hidden: is_hidden,
         price: price.to_s
       }
-      authenticated_post("order/cancel/replace", params).body
+      authenticated_post("order/cancel/replace", params: params).body
     end
 
     # Get the status of an order. Is it active? Was it cancelled? To what extent has it been executed? etc.
@@ -101,7 +104,7 @@ module Bitfinex
     # @exmaple:
     #   client.order_status(100)
     def order_status(id)
-      authenticated_post("order/status", order_id: id).body
+      authenticated_post("order/status", params: {order_id: id}).body
     end
 
 

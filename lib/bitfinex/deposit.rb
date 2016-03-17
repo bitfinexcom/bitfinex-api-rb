@@ -16,7 +16,7 @@ module Bitfinex
         renew: renew
       }
 
-      authenticated_post("deposit/new", params).body
+      authenticated_post("deposit/new", params: params).body
     end
   end
 end

@@ -19,7 +19,7 @@ module Bitfinex
       check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco})
 
       # for 'market' order, we need to pass a random positive price, not nil
-      price ||= 0.00001 if type == "market" || type == "exchange market"
+      price ||= 0.001 if type == "market" || type == "exchange market"
 
       params.merge!({
         symbol: symbol,
@@ -29,7 +29,6 @@ module Bitfinex
         exchange: 'bitfinex',
         price: price.to_s
       })
-
       authenticated_post("order/new", params: params).body
     end
 

@@ -1,3 +1,4 @@
+# coding: utf-8
 module Bitfinex
   module OrderbookClient
 
@@ -12,7 +13,7 @@ module Bitfinex
     #   client.orderbook("btcusd")
     def orderbook(symbol="btcusd", params = {})
       check_params(params, %i{limit_bids limit_asks group})
-      get("book/#{symbol}",params).body
+      get("book/#{symbol}", params: params).body
     end
 
 

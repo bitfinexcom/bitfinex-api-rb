@@ -35,10 +35,10 @@ module Bitfinex
     #   client.transfer(10, 'btc', "exchange", "deposit")
     def transfer(amount, currency, wallet_from, wallet_to)
       params = {
-        amount: amount,
-        currency: currency,
-        wallet_from: wallet_from,
-        wallet_to: wallet_to
+        amount: amount.to_s,
+        currency: currency.upcase,
+        walletfrom: wallet_from,
+        walletto: wallet_to
       }
       authenticated_post("transfer", params: params).body
     end

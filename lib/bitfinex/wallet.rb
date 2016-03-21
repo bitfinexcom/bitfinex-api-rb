@@ -37,8 +37,8 @@ module Bitfinex
       params = {
         amount: amount.to_s,
         currency: currency.upcase,
-        walletfrom: wallet_from,
-        walletto: wallet_to
+        walletfrom: wallet_from.downcase,
+        walletto: wallet_to.downcase
       }
       authenticated_post("transfer", params: params).body
     end
@@ -71,8 +71,8 @@ module Bitfinex
     def withdraw(withdraw_type, walletselected, amount, params={})
       params.merge!({
         withdraw_type: withdraw_type,
-        walletselected: walletselected,
-        amount: amount})
+        walletselected: walletselected.downcase,
+        amount: amount.to_s})
 
       authenticated_post("withdraw", params: params).body
     end

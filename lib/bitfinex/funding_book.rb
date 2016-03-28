@@ -11,7 +11,7 @@ module Bitfinex
     #   client.funding_book
     def funding_book(currency="usd", params = {})
       check_params(params, %i{limit_bids limit_asks})
-      get("lendbook/#{currency}", params).body
+      get("lendbook/#{currency}", params: params).body
     end
 
   end

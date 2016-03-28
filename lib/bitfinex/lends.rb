@@ -11,7 +11,7 @@ module Bitfinex
     #   client.lends
     def lends(currency = "usd", params = {})
       check_params(params, %i{timestamp limit_lends})
-      get("lends/#{currency}", params).body
+      get("lends/#{currency}", params: params).body
     end
 
   end

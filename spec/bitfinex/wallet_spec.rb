@@ -6,7 +6,7 @@ describe Bitfinex::Client do
   let(:response) { [ { "type": "depsit", "amount": "10.0"} ] }
 
   context ".balances" do
-    before do 
+    before do
       stub_http("/balances", response.to_json, method: :post)
       @response = client.balances
     end
@@ -15,7 +15,7 @@ describe Bitfinex::Client do
   end
 
   context "margin_infos" do
-    before do 
+    before do
       stub_http("/margin_infos", response.to_json, method: :post)
       @response = client.margin_infos
     end
@@ -24,16 +24,16 @@ describe Bitfinex::Client do
   end
 
   context "transfer" do
-    before do 
+    before do
       stub_http("/transfer", response.to_json, method: :post)
-      @response = client.transfer(100, "USD", 1000,1001)
+      @response = client.transfer(100, "USD", "1000", "1001")
     end
 
     it {expect(@response.size).to eq(1)}
   end
 
   context "withdraw" do
-    before do 
+    before do
       stub_http("/withdraw", response.to_json, method: :post)
       @response = client.withdraw("bitcoin", "deposit", 10, address: "bitcoin address")
     end
@@ -42,7 +42,7 @@ describe Bitfinex::Client do
   end
 
   context "key_info" do
-    before do 
+    before do
       stub_http("/key_info", response.to_json, method: :post)
       @response = client.key_info
     end

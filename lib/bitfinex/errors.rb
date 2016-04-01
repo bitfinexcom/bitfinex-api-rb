@@ -10,7 +10,7 @@ module Bitfinex
   class CustomErrors < Faraday::Response::Middleware
     def on_complete(env)
       case env[:status]
-      when 400
+      when 400..500
         raise ServerError, env.body['message']
       else
         super

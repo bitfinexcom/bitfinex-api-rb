@@ -1,4 +1,4 @@
-# Bitfinex Trading API for Ruby. Bitcoin, Ethereum and Litecoin trading
+# Bitfinex Trading API for Ruby. Bitcoin, Ether and Litecoin trading
 
 [![Code Climate](https://codeclimate.com/repos/56db27e5b86182573b0045ed/badges/bd763083d70114379a41/gpa.svg)](https://codeclimate.com/repos/56db27e5b86182573b0045ed/feed)
 

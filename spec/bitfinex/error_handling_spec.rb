@@ -16,7 +16,31 @@ describe Bitfinex::Client do
       stub_http("/pubticker/btcusd",{message: "error message 400"}.to_json,status: 400)
     end
 
-    it { expect{ client.ticker }.to raise_error(Bitfinex::ServerError) }
+    it { expect{ client.ticker }.to raise_error(Bitfinex::BadRequestError, "error message 400") }
+  end
+
+  context "401 error" do
+    before do
+      stub_http("/pubticker/btcusd",{message: "unauthorized 401"}.to_json,status: 401)
+    end
+
+    it { expect{ client.ticker }.to raise_error(Bitfinex::UnauthorizedError) }
+  end
+
+  context "403 error" do
+    before do
+      stub_http("/pubticker/btcusd",{message: "forbidden 403"}.to_json,status: 403)
+    end
+
+    it { expect{ client.ticker }.to raise_error(Bitfinex::ForbiddenError) }
+  end
+
+  context "404 error" do
+    before do
+      stub_http("/pubticker/btcusd",{message: "404 not found"}.to_json, status:404)
+    end
+
+    it { expect{ client.ticker }.to raise_error(Bitfinex::NotFoundError) }
   end
 
 
@@ -25,7 +49,7 @@ describe Bitfinex::Client do
       stub_http("/pubticker/btcusd",{message: "error message 500"}.to_json, status:500)
     end
 
-    it { expect{ client.ticker }.to raise_error(Bitfinex::ServerError, "error message 500") }
+    it { expect{ client.ticker }.to raise_error(Bitfinex::InternalServerError) }
   end
 
 end

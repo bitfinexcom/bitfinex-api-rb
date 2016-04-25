@@ -79,10 +79,11 @@ module Bitfinex
     # @param side [string] Either “buy” or “sell”
     # @param price [decimal] Price to buy or sell at. May omit if a market order
     # @param is_hidden [bool] (optional) true if the order should be hidden. Default is false
+    # @param use_remaining [bool] (optional) will use the amount remaining of the canceled order as the amount of the new order. Default is false
     # @return [Hash] the order
     # @example:
     #   client.replace_order(100,"usdbtc", 10, "market", "buy", 0)
-    def replace_order(id, symbol, amount, type, side, price, is_hidden=false)
+    def replace_order(id, symbol, amount, type, side, price, is_hidden=false, use_remaining=false)
       params = {
         order_id: id.to_i,
         symbol: symbol,
@@ -91,6 +92,7 @@ module Bitfinex
         side: side,
         exchange: 'bitfinex',
         is_hidden: is_hidden,
+        use_remaining: use_remaining,
         price: price.to_s
       }
       authenticated_post("order/cancel/replace", params: params).body

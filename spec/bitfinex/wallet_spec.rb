@@ -32,6 +32,7 @@ describe Bitfinex::Client do
 
     it {expect(@response['trade_vol_30d'][0]['vol']).to eq(11.88696022)}
   end
+
   context "transfer" do
     before do
       stub_http("/transfer", response.to_json, method: :post)

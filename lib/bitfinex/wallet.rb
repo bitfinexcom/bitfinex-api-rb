@@ -24,6 +24,15 @@ module Bitfinex
       authenticated_post("margin_infos").body
     end
 
+    # See a symmary of your trade volume, funding profits etc.
+    #
+    # @return [Hash]
+    # @example:
+    #    client.summary
+    def summary
+      authenticated_post("summary").body
+    end
+
     # Allow you to move available balances between your wallets.
     #
     # @param amount [decimal] Amount to transfer

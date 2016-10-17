@@ -41,7 +41,6 @@ module Bitfinex
 
     def base_api_endpoint
       url = URI.parse config.api_endpoint
-      "#{url.scheme}://#{url.host}"
     end
 
   end

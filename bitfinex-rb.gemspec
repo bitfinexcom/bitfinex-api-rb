@@ -22,5 +22,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'faye-websocket', '~> 0.10.3'
   spec.add_runtime_dependency 'json', '~> 1.8.3','>= 1.8.3'
   spec.add_runtime_dependency 'faraday_middleware', '~> 0.10', '>= 0.10.0'
-  spec.add_development_dependency "bundler", '~> 1.9.2', '>= 1.8.0'
 end

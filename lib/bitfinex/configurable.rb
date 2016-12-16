@@ -20,11 +20,14 @@ module Bitfinex
   end
 
   class Configuration
-     attr_accessor :api_endpoint, :debug, :debug_connection, :secret, :api_key, :websocket_api_endpoint
+    attr_accessor :api_endpoint, :debug, :debug_connection, :secret, :api_key, :websocket_api_endpoint, :reconnect, :reconnect_after
+
      def initialize
        self.api_endpoint = "https://api.bitfinex.com/v1/"
-       self.websocket_api_endpoint = "wss://api2.bitfinex.com:3000/ws"
+       self.websocket_api_endpoint = "wss://api.bitfinex.com/ws"
        self.debug = false
+       self.reconnect = true
+       self.reconnect_after = 30
 
        self.debug_connection = false
      end

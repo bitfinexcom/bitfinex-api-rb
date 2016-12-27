@@ -10,6 +10,8 @@ module Bitfinex
         req.headers['Content-Type'] = 'application/json'
         req.headers['Accept'] = 'application/json'
         req.params = options[:params] if options.has_key?(:params) && !options[:params].empty?
+        req.options.timeout = config.rest_timeout
+        req.options.open_timeout = config.rest_timeout
       end
     end
 

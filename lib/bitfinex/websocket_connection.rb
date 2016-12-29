@@ -179,8 +179,9 @@ module Bitfinex
       end
 
       def ws_closed(_event)
+        puts "Websocket closed!"
         EM.stop
-          end
+      end
 
       def ws_error(event)
         fail event

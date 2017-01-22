@@ -8,11 +8,13 @@ module Bitfinex
       payload = build_payload("/v1/#{url}", options[:params])
       response = rest_connection.post do |req|
         req.url complete_url
+        req.options.timeout = config.rest_timeout
+        req.options.open_timeout = config.rest_open_timeout
         req.headers['Content-Type'] = 'application/json'
         req.headers['Accept'] = 'application/json'
         req.headers['X-BFX-PAYLOAD'] = payload
         req.headers['X-BFX-SIGNATURE'] = sign(payload)
-        req.headers['X-BFX-APIKEY'] = config.api_key 
+        req.headers['X-BFX-APIKEY'] = config.api_key
       end
     end
 

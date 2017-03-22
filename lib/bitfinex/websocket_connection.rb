@@ -50,7 +50,12 @@ module Bitfinex
     end
 
     def ws_client
-      @ws_client ||= WSClient.new(url:config.websocket_api_endpoint)
+      options = {
+        url: config.websocket_api_endpoint,
+        reconnect: config.reconnect,
+        reconnect_after: config.reconnect_after
+      }
+      @ws_client ||= WSClient.new(options)
     end
 
     def chan_ids
@@ -134,8 +139,10 @@ module Bitfinex
     class WSClient
       def initialize(options = {})
         # set some defaults
-        @url = options[:url] || 'ws://dev2.bitfinex.com:3001/ws'
+        @url = options[:url] || 'wss://api.bitfinex.com/ws'
         @reconnect = options[:reconnect] || false
+        @reconnect_after = options[:reconnect_after] || 30
+        @stop = false
       end
 
       def on(msg, &blk)
@@ -152,10 +159,12 @@ module Bitfinex
       end
 
       def stop!
+        @stop = true
         @ws.close
       end
 
       def connect!
+        @stop = false
         @ws = Faye::WebSocket::Client.new(@url)
         @ws.onopen = method(:ws_opened)
         @ws.onmessage = method(:ws_receive)
@@ -164,8 +173,18 @@ module Bitfinex
       end
 
       def send(msg)
+        raise ConnectionClosed if stopped?
+        connect! unless alive?
         msg = msg.is_a?(Hash) ? msg.to_json : msg
         @ws.send(msg)
+      end
+
+      def alive?
+        @ws && @ws.ready_state == Faye::WebSocket::API::OPEN
+      end
+
+      def stopped?
+        @stop
       end
 
       private
@@ -178,9 +197,10 @@ module Bitfinex
         @message_cb.call(event.data) if @message_cb
       end
 
-      def ws_closed(_event)
-        puts "Websocket closed!"
-        EM.stop
+      def ws_closed(event)
+        puts "Websocket closing!"
+        return unless @reconnect
+        EM.add_timer(@reconnect_after){ connect! } unless @stop
       end
 
       def ws_error(event)

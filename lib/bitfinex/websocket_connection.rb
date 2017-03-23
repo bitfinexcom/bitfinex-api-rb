@@ -198,9 +198,12 @@ module Bitfinex
       end
 
       def ws_closed(event)
-        puts "Websocket closing!"
         return unless @reconnect
-        EM.add_timer(@reconnect_after){ connect! } unless @stop
+        if @stop
+          EM.stop
+        else
+          EM.add_timer(@reconnect_after){ connect! }
+        end
       end
 
       def ws_error(event)

@@ -198,10 +198,9 @@ module Bitfinex
       end
 
       def ws_closed(event)
-        return unless @reconnect
         if @stop
           EM.stop
-        else
+        elsif @reconnect
           EM.add_timer(@reconnect_after){ connect! }
         end
       end

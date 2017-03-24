@@ -19,13 +19,13 @@ module Bitfinex
       when 400
         raise BadRequestError, env.body['message']
       when 401
-        raise UnauthorizedError
+        raise UnauthorizedError, env.body['message']
       when 403
-        raise ForbiddenError
+        raise ForbiddenError, env.body['message']
       when 404
-        raise NotFoundError
+        raise NotFoundError, env.body['message']
       when 500
-        raise InternalServerError
+        raise InternalServerError, env.body['message']
       else
         super
       end

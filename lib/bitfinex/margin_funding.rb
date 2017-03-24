@@ -5,19 +5,22 @@ module Bitfinex
     #
     # @param currency [string] The name of the currency, es: 'USD'
     # @param amount [decimal] Offer size: how much to lend or borrow
-    # @param rate [decimal] Rate to lend or borrow at. In percentage per 365 days. Set to 0 for FRR).
+    # @param rate [decimal] Rate to lend or borrow at. In percentage per 365 days.
+    #                       Set to 0 for FRR, ±delta for FRR±delta.
     # @param period [integer] Number of days of the funding contract (in days)
     # @param direction [string] Either “lend” or “loan”
+    # @param frrdelta [bool] If true, the rate represents ±delta to FRR.
     # @return [Hash]
     # @example:
     #   client.new_offer("btc", 10.0, 20, 365, "lend")
-    def new_offer(currency, amount, rate, period, direction)
+    def new_offer(currency, amount, rate, period, direction, frrdelta=false)
       params = {
         currency: currency,
         amount: amount.to_s,
         rate: rate.to_s,
         period: period.to_i,
-        direction: direction
+        direction: direction,
+        frrdelta: !!frrdelta
       }
       authenticated_post("offer/new", params: params).body
     end

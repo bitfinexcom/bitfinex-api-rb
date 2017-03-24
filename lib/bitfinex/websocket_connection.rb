@@ -16,7 +16,7 @@ module Bitfinex
     end
 
     def ws_close_all
-      ws_client.close!
+      ws_client.stop!
       @ws_open = false
       ws_reset_channels
     end
@@ -198,8 +198,11 @@ module Bitfinex
       end
 
       def ws_closed(event)
-        return unless @reconnect
-        EM.add_timer(@reconnect_after){ connect! } unless @stop
+        if @stop
+          EM.stop
+        elsif @reconnect
+          EM.add_timer(@reconnect_after){ connect! }
+        end
       end
 
       def ws_error(event)

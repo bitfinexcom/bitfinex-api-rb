@@ -206,7 +206,7 @@ module Bitfinex
       end
 
       def ws_error(event)
-        fail event
+        raise WebsocketError, event.message
       end
     end
   end

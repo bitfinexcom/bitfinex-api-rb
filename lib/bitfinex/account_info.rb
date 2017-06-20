@@ -24,6 +24,16 @@ module Bitfinex
       raise BlockMissingError unless block_given?
       ws_auth(&block)
     end
+
+    # See the fees applied to your withdrawals
+    #
+    # @return [Hash]
+    # @example:
+    #   client.fees
+    def fees
+      resp = authenticated_post("fees")
+      resp.body
+    end
   end
 
 end

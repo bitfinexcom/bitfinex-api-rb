@@ -27,7 +27,7 @@ module Bitfinex
         type: type,
         side: side,
         exchange: 'bitfinex',
-        price: price.to_s
+        price: "%.10f" % price.to_f.round(10) # Decimalize float price (necessary for small numbers)
       })
       authenticated_post("order/new", params: params).body
     end

@@ -1,5 +1,5 @@
 module Bitfinex
-  module LendsClient
+  module V1::LendsClient
 
     # Get a list of the most recent funding data for the given currency: total amount provided and Flash Return Rate (in % by 365 days) over time.
     #

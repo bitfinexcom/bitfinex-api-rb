@@ -23,6 +23,7 @@ module Bitfinex
     attr_accessor :api_endpoint, :debug, :debug_connection, :secret
     attr_accessor :api_key, :websocket_api_endpoint, :rest_timeout
     attr_accessor :reconnect, :reconnect_after, :rest_open_timeout
+    attr_accessor :api_version
 
     def initialize
       self.api_endpoint = "https://api.bitfinex.com/v1/"
@@ -33,6 +34,7 @@ module Bitfinex
       self.rest_timeout = 30
       self.rest_open_timeout = 30
       self.debug_connection = false
+      self.api_version = 1
     end
   end
 

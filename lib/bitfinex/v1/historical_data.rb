@@ -1,5 +1,5 @@
 module Bitfinex
-  module HistoricalDataClient
+  module V1::HistoricalDataClient
 
     # View all of your balance ledger entries.
     #

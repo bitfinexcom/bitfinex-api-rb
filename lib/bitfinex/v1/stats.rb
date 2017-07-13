@@ -1,5 +1,5 @@
 module Bitfinex
-  module StatsClient
+  module V1::StatsClient
 
     # Various statistics about the requested pair.
     #

@@ -22,6 +22,10 @@ module Bitfinex
         extend Bitfinex::V1::MarginFundingClient
         extend Bitfinex::V1::WalletClient
       else
+        extend Bitfinex::V2::TickerClient
+        extend Bitfinex::V2::TradesClient
+        extend Bitfinex::V2::BooksClient
+        extend Bitfinex::V2::StatsClient
       end
     end
   end

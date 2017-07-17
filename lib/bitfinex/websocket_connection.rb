@@ -74,8 +74,8 @@ module Bitfinex
       @callbacks ||= {}
     end
 
-    def add_callback(channel, &block)
-      callbacks[channel] = { block: block, chan_id: nil }
+    def add_callback(channel, descriptors, &block)
+      callbacks[channel] = { block: block, chan_id: nil, descriptors: descriptors }
     end
 
     def register_authenticated_channel(msg, &block)
@@ -92,7 +92,8 @@ module Bitfinex
     end
 
     def register_channel(msg, &block)
-      add_callback(fingerprint(msg),&block)
+      descriptors = msg.delete(:descriptors)
+      add_callback(fingerprint(msg, descriptors), descriptors, &block)
       if ws_open
         ws_client.send msg.merge(event: 'subscribe')
       else
@@ -100,9 +101,14 @@ module Bitfinex
       end
     end
 
-    def fingerprint(msg)
-      msg.reject{|k,v| [:event,'chanId','event'].include?(k) }.
-          inject({}){|h, (k,v)| h[k.to_sym]=v.to_s; h}
+    def fingerprint(msg, descriptors = nil)
+      if descriptors.nil?
+        msg.reject{|k,v| [:event,'chanId','event'].include?(k) }.
+            inject({}){|h, (k,v)| h[k.to_sym]=v.to_s; h}
+      else
+        msg.reject{|k,v| !descriptors.include?(k) }.
+            inject({}){|h, (k,v)| h[k.to_sym]=v.to_s; h}
+      end
     end
 
     def listen

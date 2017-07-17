@@ -4,12 +4,14 @@ module Bitfinex
   module RestConnection
     private
     # Make an HTTP GET request
-    def get(url, options={})
+    def get(url, params={})
       rest_connection.get do |req|
         req.url build_url(url)
         req.headers['Content-Type'] = 'application/json'
         req.headers['Accept'] = 'application/json'
-        req.params = options[:params] if options.has_key?(:params) && !options[:params].empty?
+        params.each do |k,v|
+          req.params[k] = v
+        end
         req.options.timeout = config.rest_timeout
         req.options.open_timeout = config.rest_open_timeout
       end

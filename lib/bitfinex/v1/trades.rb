@@ -11,7 +11,7 @@ module Bitfinex
     #   client.trades
     def trades(symbol="btcusd", params={})
       check_params(params, %i{timestamp limit_trades})
-      get("trades/#{symbol}", params: params).body
+      get("trades/#{symbol}", params).body
     end
 
     # Listen to the trades using websocket.

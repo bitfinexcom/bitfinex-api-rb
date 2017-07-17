@@ -5,6 +5,7 @@ module Bitfinex
     include Bitfinex::AuthenticatedConnection
     include Bitfinex::Configurable
 
+
     def initialize
       if config.api_version == 1
         extend Bitfinex::V1::TickerClient
@@ -27,6 +28,7 @@ module Bitfinex
         extend Bitfinex::V2::BooksClient
         extend Bitfinex::V2::StatsClient
         extend Bitfinex::V2::CandlesClient
+        extend Bitfinex::V2::AvgPriceClient
       end
     end
   end

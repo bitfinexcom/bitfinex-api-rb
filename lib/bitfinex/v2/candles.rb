@@ -11,8 +11,8 @@ module Bitfinex
     # @param section [string] Available values: "last", "hist"
     # @param params :limit [int32] Number of candles requested
     # @param params :start [int32] Filter start (ms)
-    # @param params :end [int32] Filter end (ms)
-    # @param params :sort [int32] if = 1 it sorts
+    # @param params :end   [int32] Filter end (ms)
+    # @param params :sort  [int32] if = 1 it sorts
     #        results returned with old > new
     #
     # @return [Array]

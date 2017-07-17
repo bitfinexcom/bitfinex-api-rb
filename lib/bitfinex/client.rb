@@ -26,6 +26,7 @@ module Bitfinex
         extend Bitfinex::V2::TradesClient
         extend Bitfinex::V2::BooksClient
         extend Bitfinex::V2::StatsClient
+        extend Bitfinex::V2::CandlesClient
       end
     end
   end

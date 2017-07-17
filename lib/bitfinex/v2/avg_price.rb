@@ -20,7 +20,7 @@ module Bitfinex
         amount: amount.to_s,
         period: period.to_s
       }
-      params[:rate_limit] = rate_limit.to_s unless rate_limit.nil?
+      params[:rateLimit] = rate_limit.to_s unless rate_limit.nil?
       get("calc/trade/avg",params)
     end
   end

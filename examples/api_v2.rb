@@ -10,10 +10,14 @@ Bitfinex::Client.configure do |conf|
   conf.use_api_v2
 end
 
+# Initialize the client
 client = Bitfinex::Client.new
-#puts client.ticker("tBTCUSD","tLTCUSD","fUSD")
+
+# Get wallet informations
 wallets = client.wallets
 
 wallets.each do |w|
   puts w.join("\t")
 end
+
+p client.performance

@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Bitfinex
-  module V2::AvgPriceClient
+  module V2::UtilsClient
 
     # Calculate the average execution rate for Trading or Margin funding.
     #

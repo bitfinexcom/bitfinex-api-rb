@@ -24,14 +24,13 @@ module Bitfinex
         extend Bitfinex::V1::WalletClient
       else
         extend Bitfinex::V2::TickerClient
-        extend Bitfinex::V2::TradesClient
-        extend Bitfinex::V2::BooksClient
         extend Bitfinex::V2::StatsClient
-        extend Bitfinex::V2::CandlesClient
-        extend Bitfinex::V2::AvgPriceClient
-        extend Bitfinex::V2::WalletClient
-        extend Bitfinex::V2::OrdersClient
+        extend Bitfinex::V2::UtilsClient
+        extend Bitfinex::V2::PersonalClient
+        extend Bitfinex::V2::TradingClient
+        extend Bitfinex::V2::MarginClient
       end
+
       @mutex = Mutex.new
       @c_counter = 1
     end

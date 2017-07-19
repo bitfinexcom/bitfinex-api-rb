@@ -5,10 +5,15 @@ require_relative '../lib/bitfinex-api-rb.rb'
 Bitfinex::Client.configure do |conf|
   conf.api_key = ENV["BFX_KEY"]
   conf.secret  = ENV["BFX_SECRET"]
+  #conf.debug_connection = true
   # this helper set the API version 2
   conf.use_api_v2
 end
 
 client = Bitfinex::Client.new
 #puts client.ticker("tBTCUSD","tLTCUSD","fUSD")
-puts client.wallets
+wallets = client.wallets
+
+wallets.each do |w|
+  puts w.join("\t")
+end

@@ -10,4 +10,5 @@ Bitfinex::Client.configure do |conf|
 end
 
 client = Bitfinex::Client.new
-puts client.ticker("tBTCUSD","tLTCUSD","fUSD")
+#puts client.ticker("tBTCUSD","tLTCUSD","fUSD")
+puts client.wallets

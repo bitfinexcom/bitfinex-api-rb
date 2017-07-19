@@ -36,4 +36,5 @@ require 'bitfinex/v2/trades'
 require 'bitfinex/v2/avg_price'
 require 'bitfinex/v2/candles'
 require 'bitfinex/v2/wallet'
+require 'bitfinex/v2/orders'
 

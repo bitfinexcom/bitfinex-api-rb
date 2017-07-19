@@ -30,6 +30,7 @@ module Bitfinex
         extend Bitfinex::V2::CandlesClient
         extend Bitfinex::V2::AvgPriceClient
         extend Bitfinex::V2::WalletClient
+        extend Bitfinex::V2::OrdersClient
       end
       @mutex = Mutex.new
       @c_counter = 1

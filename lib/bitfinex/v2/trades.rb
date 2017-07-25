@@ -22,5 +22,22 @@ module Bitfinex
       get("trades/#{symbol}", params).body
     end
 
+    # This channel sends a trade message whenever a trade occurs at Bitfinex.
+    # It includes all the pertinent details of the trade, such as price, size and time.
+    #
+    # @param symbol [string]
+    # @param block [Block] The code to be executed when a new ticker is sent by the server
+    #
+    # Documentation:
+    #   https://docs.bitfinex.com/v2/reference#ws-public-trades
+    #
+    # @example:
+    #   client.listen_trades("tBTCUSD") do |trade|
+    #     puts "traded #{trade[2][2]} BTC for #{trade[2][3]} USD"
+    #   end
+    def listen_trades(symbol="tBTCUSD", &block)
+      raise BlockMissingError unless block_given?
+      register_channel symbol: symbol, channel: "trades", &block
+    end
   end
 end

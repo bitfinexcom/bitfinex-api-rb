@@ -23,16 +23,31 @@ module Bitfinex
 
     def ws_auth(&block)
       unless @ws_auth
-        payload = 'AUTH' + (Time.now.to_f * 10_000).to_i.to_s
-        signature = sign(payload)
-        add_callback(:auth, &block)
-        save_channel_id(:auth, 0)
-        ws_safe_send({
-          apiKey: config.api_key,
-          authSig: sign(payload),
-          authPayload: payload,
-          event: 'auth'
-        })
+        nonce = (Time.now.to_f * 10_000).to_i.to_s
+        sub_id = add_callback(&block)
+        save_channel_id(sub_id,0)
+        if config.api_version == 1
+          payload = 'AUTH' + nonce
+          signature = sign(payload)
+          ws_safe_send({
+            apiKey: config.api_key,
+            authSig: sign(payload),
+            authPayload: payload,
+            subId: sub_id.to_s,
+            event: 'auth'
+          })
+        else
+          payload = 'AUTH' + nonce + nonce
+          signature = sign(payload)
+          ws_safe_send({
+            apiKey: config.api_key,
+            authSig: sign(payload),
+            authPayload: payload,
+            authNonce: nonce,
+            subId: sub_id.to_s,
+            event: 'auth'
+          })
+        end
         @ws_auth = true
       end
     end

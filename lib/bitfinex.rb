@@ -29,12 +29,10 @@ require 'bitfinex/v1/historical_data'
 require 'bitfinex/v1/margin_funding'
 
 # API Version 2
-require 'bitfinex/v2/books'
 require 'bitfinex/v2/stats'
 require 'bitfinex/v2/ticker'
-require 'bitfinex/v2/trades'
-require 'bitfinex/v2/avg_price'
-require 'bitfinex/v2/candles'
-require 'bitfinex/v2/wallet'
-require 'bitfinex/v2/orders'
+require 'bitfinex/v2/utils'
+require 'bitfinex/v2/personal'
+require 'bitfinex/v2/trading'
+require 'bitfinex/v2/margin'
 

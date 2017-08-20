@@ -10,7 +10,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'bitfinex-rb'
+    gem 'bitfinex-rb', :require=>"bitfinex"
 
 And then execute:
 

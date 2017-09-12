@@ -1,5 +1,5 @@
 module Bitfinex
-  module MarginFundingClient
+  module V1::MarginFundingClient
 
     # Submit a new offer
     #

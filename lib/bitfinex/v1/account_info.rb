@@ -1,6 +1,5 @@
 module Bitfinex
-
-  module AccountInfoClient
+  module V1::AccountInfoClient
 
     # Get account information
     #

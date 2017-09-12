@@ -1,5 +1,5 @@
 module Bitfinex
-  module FundingBookClient
+  module V1::FundingBookClient
 
     # Get the full margin funding book
 

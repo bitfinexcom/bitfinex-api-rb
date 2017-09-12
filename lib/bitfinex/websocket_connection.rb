@@ -23,16 +23,31 @@ module Bitfinex
 
     def ws_auth(&block)
       unless @ws_auth
-        payload = 'AUTH' + (Time.now.to_f * 10_000).to_i.to_s
-        signature = sign(payload)
-        add_callback(:auth, &block)
-        save_channel_id(:auth, 0)
-        ws_safe_send({
-          apiKey: config.api_key,
-          authSig: sign(payload),
-          authPayload: payload,
-          event: 'auth'
-        })
+        nonce = (Time.now.to_f * 10_000).to_i.to_s
+        sub_id = add_callback(&block)
+        save_channel_id(sub_id,0)
+        if config.api_version == 1
+          payload = 'AUTH' + nonce
+          signature = sign(payload)
+          ws_safe_send({
+            apiKey: config.api_key,
+            authSig: sign(payload),
+            authPayload: payload,
+            subId: sub_id.to_s,
+            event: 'auth'
+          })
+        else
+          payload = 'AUTH' + nonce + nonce
+          signature = sign(payload)
+          ws_safe_send({
+            apiKey: config.api_key,
+            authSig: sign(payload),
+            authPayload: payload,
+            authNonce: nonce,
+            subId: sub_id.to_s,
+            event: 'auth'
+          })
+        end
         @ws_auth = true
       end
     end
@@ -71,15 +86,22 @@ module Bitfinex
     end
 
     def callbacks
-      @callbacks ||= {}
+      @callbacks ||= []
     end
 
-    def add_callback(channel, &block)
-      callbacks[channel] = { block: block, chan_id: nil }
+    def add_callback(&block)
+      id = 0
+      @mutex.synchronize do
+        callbacks[@c_counter] = { block: block, chan_id: nil }
+        id = @c_counter
+        @c_counter += 1
+      end
+      id
     end
 
     def register_authenticated_channel(msg, &block)
-      add_callback(fingerprint(msg),&block)
+      sub_id = add_callback(&block)
+      msg.merge!(subId: sub_id.to_s)
       ws_safe_send(msg.merge(event:'subscribe'))
     end
 
@@ -92,7 +114,8 @@ module Bitfinex
     end
 
     def register_channel(msg, &block)
-      add_callback(fingerprint(msg),&block)
+      sub_id = add_callback(&block)
+      msg.merge!(subId: sub_id.to_s)
       if ws_open
         ws_client.send msg.merge(event: 'subscribe')
       else
@@ -100,25 +123,20 @@ module Bitfinex
       end
     end
 
-    def fingerprint(msg)
-      msg.reject{|k,v| [:event,'chanId','event'].include?(k) }.
-          inject({}){|h, (k,v)| h[k.to_sym]=v.to_s; h}
-    end
-
     def listen
       ws_client.on(:message) do |rmsg|
          msg = JSON.parse(rmsg)
          if msg.kind_of?(Hash) && msg["event"] == "subscribed"
-           save_channel_id(fingerprint(msg), msg["chanId"])
+           save_channel_id(msg["subId"],msg["chanId"])
          elsif msg.kind_of?(Array)
            exec_callback_for(msg)
          end
       end
     end
 
-    def save_channel_id(chan,id)
-      callbacks[chan][:chan_id] = id
-      chan_ids[id.to_i] = chan
+    def save_channel_id(sub_id,chan_id)
+      callbacks[sub_id.to_i][:chan_id] = chan_id
+      chan_ids[chan_id] = sub_id.to_i
     end
 
     def exec_callback_for(msg)

@@ -1,5 +1,6 @@
 module Bitfinex
-  module DepositClient
+  module V1::DepositClient
+
     # Return your deposit address to make a new deposit.
     #
     # @param method [string] Method of deposit (methods accepted: “bitcoin”, “litecoin”, “darkcoin”, “mastercoin” (tethers)).

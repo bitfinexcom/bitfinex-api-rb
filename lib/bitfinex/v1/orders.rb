@@ -1,6 +1,5 @@
 module Bitfinex
-
-  module OrdersClient
+  module V1::OrdersClient
 
     # Submit a new order
     # @param symbol [string] The name of the symbol (see `#symbols`)

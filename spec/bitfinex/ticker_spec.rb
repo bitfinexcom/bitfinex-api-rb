@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Bitfinex::Client do
+describe Bitfinex::V1::TickerClient do
   include_context "api requests"
 
   let(:ticker) { {
@@ -23,5 +23,8 @@ describe Bitfinex::Client do
     it { expect(@ticker["mid"]).to eq("403.99") }
     it { expect(@ticker["bid"]).to eq("403.98") }
   end
+end
+
+describe Bitfinex::V2::TickerClient do
 end
 

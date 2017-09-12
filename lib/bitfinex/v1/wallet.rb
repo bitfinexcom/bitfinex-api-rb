@@ -1,5 +1,5 @@
 module Bitfinex
-  module WalletClient
+  module V1::WalletClient
 
     # See your balances.
     #

@@ -1,5 +1,5 @@
 module Bitfinex
-  module PositionsClient
+  module V1::PositionsClient
 
     # View your active positions.
     #

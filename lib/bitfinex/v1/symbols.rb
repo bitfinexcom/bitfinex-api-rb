@@ -1,6 +1,6 @@
 module Bitfinex
-  module SymbolsClient
-    
+  module V1::SymbolsClient
+
     # Get a list of valid symbol IDs.
     #
     # @return [Array]
@@ -17,6 +17,6 @@ module Bitfinex
     # client.symbols_details
     def symbols_details
       get("symbols_details").body
-    end 
+    end
   end
 end

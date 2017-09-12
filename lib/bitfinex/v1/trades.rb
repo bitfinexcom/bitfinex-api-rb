@@ -1,5 +1,5 @@
 module Bitfinex
-  module TradesClient
+  module V1::TradesClient
 
     # Get a list of the most recent trades for the given symbol.
     #
@@ -7,11 +7,11 @@ module Bitfinex
     # @param params :timestamp [time] Only show trades at or after this timestamp.
     # @param params :limit_trades [int] Limit the number of trades returned. Must be >= 1.
     # @return [Array]
-    # @example: 
+    # @example:
     #   client.trades
     def trades(symbol="btcusd", params={})
       check_params(params, %i{timestamp limit_trades})
-      get("trades/#{symbol}", params: params).body
+      get("trades/#{symbol}", params).body
     end
 
     # Listen to the trades using websocket.

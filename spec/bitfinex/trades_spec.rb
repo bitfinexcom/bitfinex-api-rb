@@ -1,21 +1,21 @@
 require "spec_helper"
 
-describe Bitfinex::TradesClient do
+describe Bitfinex::Client do
   include_context "api requests"
 
   let(:trades) { [{
-    "timestamp"=>1455527016, 
-     "tid"=>15627115, 
-     "price"=>"403.97", 
-     "amount"=>"0.5", 
-     "exchange"=>"bitfinex", 
+    "timestamp"=>1455527016,
+     "tid"=>15627115,
+     "price"=>"403.97",
+     "amount"=>"0.5",
+     "exchange"=>"bitfinex",
      "type"=>"buy"
     },{
-     "timestamp"=>1455526974, 
-     "tid"=>15627111, 
-     "price"=>"404.01", 
-     "amount"=>"2.45116479", 
-     "exchange"=>"bitfinex", 
+     "timestamp"=>1455526974,
+     "tid"=>15627111,
+     "price"=>"404.01",
+     "amount"=>"2.45116479",
+     "exchange"=>"bitfinex",
      "type"=>"sell"
   }]}
 
@@ -30,7 +30,7 @@ describe Bitfinex::TradesClient do
       it { expect(@trades.size).to eq(2) }
       it { expect(@trades[0]["tid"]).to eq(15627115) }
     end
-    
+
 
     context "passing the wrong params" do
       before do

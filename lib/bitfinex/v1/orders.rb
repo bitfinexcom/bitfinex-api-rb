@@ -44,7 +44,7 @@ module Bitfinex
     # @example:
     #   client.multiple_orders([{symbol: "usdbtc", amount: 10, price: 0, exchange: "bitfinex", side: "buy", type: "market"}])
     def multiple_orders(orders)
-      authenticated_post("order/new/multi", params: orders).body
+      authenticated_post("order/new/multi", params: {orders: orders}).body
     end
 
     # Cancel an order

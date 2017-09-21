@@ -28,7 +28,7 @@ module Bitfinex
     # @example:
     #   client.movements
     def movements(currency="usd", params = {})
-      check_params(params, %i{method since until limit})
+      check_params(params, %i{method since until limit since_movement until_movement})
       params.merge!({currency: currency})
       authenticated_post("history/movements", params: params).body
     end

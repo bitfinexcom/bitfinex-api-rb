@@ -62,7 +62,7 @@ module Bitfinex
     #   client.trades("tETHUSD")
     def trades(symbol="tBTCUSD", params={})
       check_params(params, %i{limit start end sort})
-      get("trades/#{symbol}", params).body
+      get("trades/#{symbol}/hist", params).body
     end
 
     # Get active orders

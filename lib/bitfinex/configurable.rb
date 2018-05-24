@@ -1,4 +1,4 @@
-odule Bitfinex
+module Bitfinex
   module Configurable
     @config = nil
     def self.included(base)
@@ -6,7 +6,10 @@ odule Bitfinex
 
     def configure
       yield config
+      self.load_submodules
     end
+
+    private
 
     def config
       @config ||= Configuration.new

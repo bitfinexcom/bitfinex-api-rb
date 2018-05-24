@@ -1,21 +1,14 @@
 module Bitfinex
   module Configurable
     def self.included(base)
-      base.extend(ClassMethods)
+    end
+
+    def configure
+      yield config
     end
 
     def config
-      self.class.config
-    end
-
-    module ClassMethods
-      def configure
-        yield config
-      end
-
-      def config
-        @configuration ||= Configuration.new
-      end
+      @config ||= Configuration.new
     end
   end
 
@@ -35,6 +28,8 @@ module Bitfinex
       self.rest_open_timeout = 30
       self.debug_connection = false
       self.api_version = 1
+      self.secret = ENV['BITFINEX_API_SECRET']
+      self.api_key = ENV['BITFINEX_API_KEY']
     end
 
     # Helper that configure to version 2
@@ -44,5 +39,4 @@ module Bitfinex
       self.websocket_api_endpoint = "wss://api.bitfinex.com/ws/2/"
     end
   end
-
 end

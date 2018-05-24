@@ -1,4 +1,4 @@
-module Bitfinex
+odule Bitfinex
   class Client
     include Bitfinex::RestConnection
     include Bitfinex::WebsocketConnection
@@ -7,6 +7,12 @@ module Bitfinex
 
 
     def initialize
+      @mutex = Mutex.new
+      @c_counter = 1
+      load_submodules
+    end
+
+    def load_submodules
       if config.api_version == 1
         extend Bitfinex::V1::TickerClient
         extend Bitfinex::V1::TradesClient
@@ -30,9 +36,6 @@ module Bitfinex
         extend Bitfinex::V2::TradingClient
         extend Bitfinex::V2::MarginClient
       end
-
-      @mutex = Mutex.new
-      @c_counter = 1
     end
   end
 end

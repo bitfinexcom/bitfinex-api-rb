@@ -1,5 +1,6 @@
-module Bitfinex
+odule Bitfinex
   module Configurable
+    @config = nil
     def self.included(base)
     end
 

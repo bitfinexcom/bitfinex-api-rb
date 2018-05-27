@@ -1,4 +1,4 @@
-odule Bitfinex
+module Bitfinex
   class Client
     include Bitfinex::RestConnection
     include Bitfinex::WebsocketConnection

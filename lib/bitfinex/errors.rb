@@ -1,3 +1,4 @@
+
 require 'faraday'
 
 module Bitfinex
@@ -16,17 +17,18 @@ module Bitfinex
 
   class CustomErrors < Faraday::Response::Middleware
     def on_complete(env)
+      msg = env.body.is_a?(Array) ? env.body : env.body('message')
       case env[:status]
       when 400
-        raise BadRequestError, env.body['message']
+        raise BadRequestError, msg
       when 401
-        raise UnauthorizedError, env.body['message']
+        raise UnauthorizedError, msg
       when 403
-        raise ForbiddenError, env.body['message']
+        raise ForbiddenError, msg
       when 404
-        raise NotFoundError, env.body['message']
+        raise NotFoundError, msg
       when 500
-        raise InternalServerError, env.body['message']
+        raise InternalServerError, msg
       else
         super
       end

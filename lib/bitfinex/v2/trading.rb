@@ -87,6 +87,10 @@ module Bitfinex
       authenticated_post("auth/r/order/#{symbol}:#{order_id}/trades").body
     end
 
+    def order_hist(symbol="tETHUSD", params = {})
+      check_params(params, %i{limit start end sort})
+      authenticated_post("auth/r/orders/#{symbol}/hist", params: params).body
+    end
 
     # Get active positions
     #

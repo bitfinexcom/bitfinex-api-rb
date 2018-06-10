@@ -17,7 +17,7 @@ module Bitfinex
 
   class CustomErrors < Faraday::Response::Middleware
     def on_complete(env)
-      msg = env.body.is_a?(Array) ? env.body : env.body.fetch('message')
+      msg = env.body.is_a?(Array) ? env.body : env.body['message']
       case env[:status]
       when 400
         raise BadRequestError, msg

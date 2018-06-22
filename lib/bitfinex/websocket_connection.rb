@@ -23,7 +23,7 @@ module Bitfinex
 
     def ws_auth(&block)
       unless @ws_auth
-        nonce = (Time.now.to_f * 10_000).to_i.to_s
+        nonce = (Time.now.to_f * 1000000).to_i.to_s
         sub_id = add_callback(&block)
         save_channel_id(sub_id,0)
         if config.api_version == 1

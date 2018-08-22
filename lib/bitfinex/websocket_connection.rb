@@ -6,7 +6,6 @@ module Bitfinex
   module WebsocketConnection
 
     def listen!
-      @ws_auth = false
       subscribe_to_channels
       listen
       ws_client.run!
@@ -14,8 +13,10 @@ module Bitfinex
 
     def ws_close
       @ws_open = false
-      @ws_auth = false
-      reset_auth_registration
+      if @ws_auth
+        reset_auth_registration
+        @ws_auth = false
+      end
       ws_client.stop
     end
 
@@ -151,8 +152,10 @@ module Bitfinex
             ws_client.stop
           when 20060 # Entering in Maintenance mode
             unsubscribe!
-            ws_unauth
-            reset_auth_registration if @ws_auth
+            if @ws_auth
+              ws_unauth
+              reset_auth_registration
+            end
           when 20061 # Maintenance finished
             ws_auth(&callbacks[:auth][:block])
             subscribe!
@@ -197,7 +200,6 @@ module Bitfinex
         @reconnect = options[:reconnect] || false
         @reconnect_after = options[:reconnect_after] || 30
         @reconnect_lag = options[:reconnect_lag] || 60
-        @ping = nil
       end
 
       def on(msg, &blk)
@@ -228,9 +230,11 @@ module Bitfinex
         @ws.onmessage = method(:ws_receive)
         @ws.onclose = method(:ws_closed)
         @ws.onerror = method(:ws_error)
+        @ping = nil
       end
 
       def send(msg)
+        raise ConnectionClosed if stopped?
         unless closing? || closed?
           connect! unless alive? || connecting?
           msg = msg.is_a?(Hash) ? msg.to_json : msg
@@ -254,6 +258,10 @@ module Bitfinex
         @ws && @ws.ready_state == Faye::WebSocket::API::CLOSED
       end
 
+      def stopped?
+        @stop
+      end
+
       private
 
       def ping_timer
@@ -266,9 +274,7 @@ module Bitfinex
       def lag_timer
         @lag_timer =
           EM::PeriodicTimer.new(20) do
-            if ping && ping > @reconnect_lag * 1_000
-              stop
-            end
+            stop if ping && ping > @reconnect_lag * 1_000
           end          
       end
 
@@ -293,13 +299,7 @@ module Bitfinex
         @lag_timer.cancel
         @reconnect_timer.cancel if @reconnect_timer
         EM.stop if @stop
-        
-        sleep 2
-        @ping = nil
-
-        if @reconnect
-          reconnect_timer
-        end
+        reconnect_timer if @reconnect
       end
 
       def ws_error(event)

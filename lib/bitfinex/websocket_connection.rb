@@ -61,7 +61,7 @@ module Bitfinex
     end
 
     def unsubscribe!
-      chan_ids.size.times.reject { |i| chan_ids[i].nil? }.each do |chan|
+      chan_ids.compact.each do |chan|
         ws_client.send({ 'event': 'unsubscribe', 'chanId': chan })
       end
     end

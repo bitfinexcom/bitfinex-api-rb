@@ -151,6 +151,7 @@ module Bitfinex
             ws_client.stop
           when 20060 # Entering in Maintenance mode
             unsubscribe!
+            ws_unauth
             reset_auth_registration if @ws_auth
           when 20061 # Maintenance finished
             ws_auth(&callbacks[:auth][:block])

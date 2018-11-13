@@ -30,8 +30,11 @@ module Bitfinex
       @enabled_flags = 0
       @is_open = false
       @is_authenticated = false
+      @seq_audit = false
       @channel_map = {}
       @order_books = {}
+      @last_pub_seq = nil
+      @last_auth_seq = nil
     end
 
     def on_open (e)
@@ -82,11 +85,62 @@ module Bitfinex
     end
 
     def process_message (msg)
+      if @seq_audit
+        validate_message_seq(msg)
+      end
+
       if msg.kind_of?(Array)
         process_channel_message(msg)
       elsif msg.kind_of?(Hash)
         process_event_message(msg)
       end
+    end
+
+    def validate_message_seq (msg)
+      return unless @seq_audit
+      return unless msg.kind_of?(Array)
+      return unless msg.size > 2
+
+      # The auth sequence # is the last value in channel 0 non-hb packets
+      if msg[0] == 0 && msg[1] != 'hb'
+        auth_seq = msg[-1]
+      else
+        auth_seq = nil
+      end
+
+      # all other packets provide a public sequence # as the last value. For
+      # chan 0 packets, these are included as the 2nd to last value
+      #
+      # note that error notifications lack seq
+      if msg[0] == 0 && msg[1] != 'hb' && !(msg[1] && msg[2][6] == 'ERROR')
+        pub_seq = msg[-2]
+      else
+        pub_seq = msg[-1]
+      end
+
+      return unless pub_seq.is_a?(Numeric)
+
+      if @last_pub_seq.nil?
+        @last_pub_seq = pub_seq
+        return
+      end
+
+      if pub_seq != (@last_pub_seq + 1) # check pub seq
+        @l.warn "invalid pub seq #; last #{@last_pub_seq}, got #{pub_seq}"
+      end
+
+      @last_pub_seq = pub_seq
+
+      return unless auth_seq.is_a?(Numeric)
+      return if auth_seq == 0
+      return if msg[1] == 'n' && msg[2][6] == 'ERROR' # error notifications
+      return if auth_seq == @last_auth_seq # seq didn't advance
+
+      if !@last_auth_seq.nil? && auth_seq != @last_auth_seq + 1
+        @l.warn "invalid auth seq #; last #{@last_auth_seq}, got #{auth_seq}"
+      end
+
+      @last_auth_seq = auth_seq
     end
 
     def process_channel_message (msg)
@@ -153,8 +207,6 @@ module Bitfinex
 
     def handle_order_book_message (msg, chan)
       ob = msg[1]
-
-      p chan
 
       if @manage_obs
         key = "#{chan['symbol']}:#{chan['prec']}:#{chan['len']}"

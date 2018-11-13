@@ -6,12 +6,12 @@ client = Bitfinex::WSv2.new({
 })
 
 client.on(:candles) do |key, msg|
-  puts "recv candle message for key #{key}"
+  p "recv candle message for key #{key}"
 
   if msg.kind_of?(Array)
-    puts msg.map { |c| c.serialize.join('|') }
+    p msg.map { |c| c.serialize.join('|') }
   else
-    puts msg.serialize.join('|')
+    p msg.serialize.join('|')
   end
 end
 

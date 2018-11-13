@@ -6,8 +6,8 @@ client = Bitfinex::WSv2.new({
 })
 
 client.on(:order_book) do |sym, msg|
-  puts "recv order book message for symbol #{sym}"
-  puts msg.serialize
+  p "recv order book message for symbol #{sym}"
+  p msg.serialize
 end
 
 client.on(:open) do

@@ -11,7 +11,7 @@ client.on(:open) do
 end
 
 client.on(:auth) do
-  puts 'succesfully authenticated'
+  p 'succesfully authenticated'
 
   o = Bitfinex::Models::Order.new({
     :type => 'EXCHANGE LIMIT',
@@ -24,11 +24,11 @@ client.on(:auth) do
 end
 
 client.on(:notification) do |n|
-  puts 'received notification: %s' % [n]
+  p 'received notification: %s' % [n]
 end
 
 client.on(:order_new) do |msg|
-  puts 'recv order new: %s' % [msg]
+  p 'recv order new: %s' % [msg]
 end
 
 client.open!

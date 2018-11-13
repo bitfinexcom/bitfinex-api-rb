@@ -6,8 +6,8 @@ client = Bitfinex::WSv2.new({
 })
 
 client.on(:ticker) do |symbol, msg|
-  puts "recv ticker message for symbol #{symbol}"
-  puts msg.serialize.join('|')
+  p "recv ticker message for symbol #{symbol}"
+  p msg.serialize.join('|')
 end
 
 client.on(:open) do

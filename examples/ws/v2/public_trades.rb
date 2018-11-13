@@ -6,23 +6,23 @@ client = Bitfinex::WSv2.new({
 })
 
 client.on(:public_trades) do |sym, msg|
-  puts "recv public trades message for symbol #{sym}"
+  p "recv public trades message for symbol #{sym}"
 
   if msg.kind_of?(Array)
-    puts msg.map { |t| t.serialize.join('|') }
+    p msg.map { |t| t.serialize.join('|') }
   else
-    puts msg.serialize.join('|')
+    p msg.serialize.join('|')
   end
 end
 
 client.on(:public_trade_entry) do |sym, msg|
-  puts "recv public trade entry for symbol #{sym}"
-  puts msg.serialize.join('|')
+  p "recv public trade entry for symbol #{sym}"
+  p msg.serialize.join('|')
 end
 
 client.on(:public_trade_update) do |sym, msg|
-  puts "recv public trade update for symbol #{sym}"
-  puts msg.serialize.join('|')
+  p "recv public trade update for symbol #{sym}"
+  p msg.serialize.join('|')
 end
 
 client.on(:open) do

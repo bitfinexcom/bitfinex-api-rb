@@ -12,11 +12,11 @@ client.on(:open) do
 end
 
 client.on(:auth) do
-  puts 'succesfully authenticated'
+  p 'succesfully authenticated'
 end
 
 client.on(:notification) do |n|
-  puts 'received notification: %s' % [n]
+  p 'received notification: %s' % [n]
 end
 
 client.on(:position_snapshot) do |positions|

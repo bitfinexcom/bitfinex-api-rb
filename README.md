@@ -46,7 +46,11 @@ To use version 2 of the WS API, construct a new client with your credentials, bi
 client = Bitfinex::WSv2.new({
   :url => ENV['WS_URL'],
   :api_key => ENV['API_KEY'],
-  :api_secret => ENV['API_SECRET']
+  :api_secret => ENV['API_SECRET'],
+  :transform => true, # provide models as event data instead of arrays
+  :seq_audit => true, # enable and audit sequence numbers
+  :manage_order_books => true # allows for OB checksum verification
+  :checksum_audit => true, # enables OB checksum verification (needs manage_order_books)
 })
 
 client.on(:open) do
@@ -76,6 +80,59 @@ end
 
 client.open!
 ```
+
+### Available Events
+#### Lifecycle Events
+* `:open`
+* `:close`
+* `:error`
+* `:auth:`
+
+#### Info Events
+* `:server_restart`
+* `:server_maintenance_start`
+* `:server_maintenance_end`
+* `:unsubscribed`
+* `:subscribed`
+
+#### Data Events
+* `:ticker`
+* `:public_trades`
+* `:public_trade_entry`
+* `:public_trade_update`
+* `:candles`
+* `:checksum`
+* `:order_book`
+* `:notification`
+* `:trade_entry`
+* `:trade_update`
+* `:order_snapshot`
+* `:order_update`
+* `:order_new`
+* `:order_close`
+* `:position_snapshot`
+* `:position_new`
+* `:position_update`
+* `:position_close`
+* `:funding_offer_snapshot`
+* `:funding_offer_new`
+* `:funding_offer_update`
+* `:funding_offer_close`
+* `:funding_credit_snapshot`
+* `:funding_credit_new`
+* `:funding_credit_update`
+* `:funding_credit_close`
+* `:funding_loan_snapshot`
+* `:funding_loan_new`
+* `:funding_loan_update`
+* `:funding_loan_close`
+* `:wallet_snapshot`
+* `:wallet_update`
+* `:balance_update`
+* `:marign_info_update`
+* `:funding_info_update`
+* `:funding_trade_entry`
+* `:funding_trade_update`
 
 Check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
 

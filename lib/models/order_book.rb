@@ -26,6 +26,8 @@ module Bitfinex
         @bids = []
         @asks = []
 
+        snap = [snap] if !snap[0].kind_of?(Array)
+
         snap.each do |entry|
           if entry.size == 4
             if entry[3] < 0

@@ -2,11 +2,12 @@ require_relative '../../../lib/bitfinex.rb'
 
 client = Bitfinex::WSv2.new({
   :url => ENV['WS_URL'],
+  :transform => true
 })
 
 client.on(:order_book) do |sym, msg|
   puts "recv order book message for symbol #{sym}"
-  puts msg.join('|')
+  puts msg.serialize
 end
 
 client.on(:open) do

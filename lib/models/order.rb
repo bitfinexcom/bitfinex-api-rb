@@ -50,13 +50,14 @@ module Bitfinex
         super(data, FIELDS, BOOL_FIELDS)
 
         @flags = 0 unless @flags.is_a?(Numeric)
-
-        set_oco(data[:oco]) if data.has_key?(:oco)
-        set_hidden(data[:hidden]) if data.has_key?(:hidden)
-        set_post_only(data[:post_only]) if data.has_key?(:post_only)
-
         @amount_orig = @amount if @amount_orig.nil? && !@amount.nil?
         @last_amount = @amount
+
+        if data.kind_of?(Hash)
+          set_oco(data[:oco]) if data.has_key?(:oco)
+          set_hidden(data[:hidden]) if data.has_key?(:hidden)
+          set_post_only(data[:post_only]) if data.has_key?(:post_only)
+        end
       end
 
       def self.unserialize (data)

@@ -22,5 +22,10 @@ module Bitfinex
     def claim_position(position_id, amount)
       authenticated_post("position/claim", params: {position_id: position_id, amount: amount}).body
     end
+
+    # Closes the specified position with a market order
+    def close_position(position_id)
+      authenticated_post("position/close", params: {position_id: position_id}).body
+    end
   end
 end

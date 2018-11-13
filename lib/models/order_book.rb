@@ -42,9 +42,11 @@ module Bitfinex
           end
         end
 
-        priceI = self.raw
-          ? snap[0].size == 4 ? 2 : 1
-          : 0
+        if self.raw
+          priceI = snap[0].size == 4 ? 2 : 1
+        else
+          priceI = 0
+        end
 
         @bids.sort! { |a, b| b[priceI] <=> a[priceI]}
         @asks.sort! { |a, b| a[priceI] <=> b[priceI]}
@@ -55,9 +57,11 @@ module Bitfinex
       end
 
       def top_bid
-        priceI = self.raw
-          ? (@bids[0].size == 4 || @asks[0].size == 4) ? 2 : 1
-          : 0
+        if self.raw
+          priceI = (@bids[0].size == 4 || @asks[0].size == 4) ? 2 : 1
+        else
+          priceI = 0
+        end
         
         (top_bid_level || [])[priceI] || nil
       end
@@ -67,10 +71,12 @@ module Bitfinex
       end
 
       def top_ask
-         priceI = self.raw
-          ? (@bids[0].size == 4 || @asks[0].size == 4) ? 2 : 1
-          : 0
-        
+        if self.raw
+          priceI = (@bids[0].size == 4 || @asks[0].size == 4) ? 2 : 1
+        else
+          priceI = 0
+        end
+       
         (top_ask_level || [])[priceI] || nil
       end
 
@@ -137,25 +143,29 @@ module Bitfinex
           end
         end
 
-        Zlib::crc32(data.join(':'))
+        [Zlib::crc32(data.join(':'))].pack("I").unpack("i")[0]
       end
 
-      def update_width (entry)
-        priceI = @raw
-          ? entry.size == 4 ? 2 : 1
-          : 0
-        count = @raw
-          ? -1
-          : entry.size == 4 ? entry[2] : entry[1]
+      def update_with (entry)
+        if @raw
+          priceI = entry.size == 4 ? 2 : 1
+          count = -1
+        else
+          priceI = 0
+          count = entry.size == 4 ? entry[2] : entry[1]
+        end
+
         price = entry[priceI]
         oID = entry[0] # only for raw books
         amount = entry.size == 4 ? entry[3] : entry[2]
-        dir = entry.size == 4
-          ? amount < 0 : 1 : -1
-          : amount < 0 : -1 : 1
-        side = entry.size == 4
-          ? amount < 0 ? @bids : @asks
-          ? amount < 0 ? @asks : @bids
+
+        if entry.size == 4
+          dir = amount < 0 ? 1 : -1
+          side = amount < 0 ? @bids : @asks
+        else
+          dir = amount < 0 ? -1 : 1
+          side = amount < 0 ? @asks : @bids
+        end
 
         insertIndex = -1
 
@@ -202,6 +212,51 @@ module Bitfinex
         end
 
         return true
+      end
+
+      def self.unserialize (arr, raw = false)
+        if arr[0].kind_of?(Array)
+          entries = arr.map { |e| OrderBook.unserialize(e, raw) }
+          bids = entries.select { |e| (e[:rate] ? -e[:amount] : e[:amount]) > 0 }
+          asks = entries.select { |e| (e[:rate] ? -e[:amount] : e[:amount]) < 0 }
+
+          return {
+            :bids => bids,
+            :asks => asks
+          }
+        end
+
+        if arr.size == 4
+          if raw
+            return {
+              :order_id => arr[0],
+              :period => arr[1],
+              :rate => arr[2],
+              :amount => arr[3]
+            }
+          else
+            return {
+              :rate => arr[0],
+              :period => arr[1],
+              :count => arr[2],
+              :amount => arr[3]
+            }
+          end
+        else
+          if raw
+            return {
+              :order_id => arr[0],
+              :price => arr[1],
+              :amount => arr[2]
+            }
+          else
+            return {
+              :price => arr[0],
+              :count => arr[1],
+              :amount => arr[2]
+            }
+          end
+        end
       end
     end
   end

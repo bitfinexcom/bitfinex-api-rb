@@ -2,6 +2,7 @@ require 'faye/websocket'
 require 'eventmachine'
 require 'logger'
 require 'emittr'
+require_relative '../models/order_book'
 
 module Bitfinex
   class WSv2
@@ -11,17 +12,26 @@ module Bitfinex
     INFO_MAINTENANCE_START = 20060
     INFO_MAINTENANCE_END = 20061
 
+    FLAG_DEC_S = 8,         # enables all decimals as strings
+    FLAG_TIME_S = 32,       # enables all timestamps as strings
+    FLAG_TIMESTAMP = 32768, # timestamps in milliseconds
+    FLAG_SEQ_ALL = 65536,   # enable sequencing
+    FLAG_CHECKSUM = 131072  # enable OB checksums, top 25 levels per side
+
     def initialize (params = {})
       @l = Logger.new(STDOUT)
       @l.progname = 'ws2'
 
-      @enabledFlags = 0
-      @channelMap = {}
-      @is_open = false
-      @is_authenticated = false
       @url = params[:url] || 'wss://api.bitfinex.com/ws/2'
       @api_key = params[:api_key]
       @api_secret = params[:api_secret]
+      @manage_obs = params[:manage_order_books]
+
+      @enabled_flags = 0
+      @is_open = false
+      @is_authenticated = false
+      @channel_map = {}
+      @order_books = {}
     end
 
     def on_open (e)
@@ -80,12 +90,12 @@ module Bitfinex
     end
 
     def process_channel_message (msg)
-      if !@channelMap.include?(msg[0])
+      if !@channel_map.include?(msg[0])
         @l.error "recv message on unknown channel: #{msg[0]}"
         return
       end
 
-      chan = @channelMap[msg[0]]
+      chan = @channel_map[msg[0]]
       type = msg[1]
 
       if msg.size < 2 || type == 'hb'
@@ -100,7 +110,11 @@ module Bitfinex
       when 'candles'
         handle_candles_message(msg, chan)
       when 'book'
-        handle_order_book_message(msg, chan)
+        if type == 'cs'
+          handle_order_book_checksum_message(msg, chan)
+        else
+          handle_order_book_message(msg, chan)
+        end
       when 'auth'
         handle_auth_message(msg, chan)
       end
@@ -118,8 +132,45 @@ module Bitfinex
       emit(:candles, chan['key'], msg)
     end
 
+    def handle_order_book_checksum_message (msg, chan)
+      key = "#{chan['symbol']}:#{chan['prec']}:#{chan['len']}"
+      emit(:checksum, chan['symbol'], msg)
+
+      return unless @manage_obs
+      return unless @order_books.has_key?(key)
+
+      remote_cs = msg[2]
+      local_cs = @order_books[key].checksum
+
+      if local_cs != remote_cs
+        err = "OB checksum mismatch, have #{local_cs} want #{remote_cs} [#{chan['symbol']}"
+        @l.error err
+        emit(:error, err)
+      else
+        @l.info "OB checksum OK #{local_cs} [#{chan['symbol']}]"
+      end
+    end
+
     def handle_order_book_message (msg, chan)
-      emit(:order_book, chan['symbol'], msg)
+      ob = msg[1]
+
+      p chan
+
+      if @manage_obs
+        key = "#{chan['symbol']}:#{chan['prec']}:#{chan['len']}"
+
+        if !@order_books.has_key?(key)
+          @order_books[key] = Models::OrderBook.new(ob, chan['prec'][0] == 'R')
+        else
+          @order_books[key].update_with(ob)
+        end
+
+        data = @order_books[key]
+      else
+        data = ob
+      end
+
+      emit(:order_book, chan['symbol'], data)
     end
 
     def handle_auth_message (msg, chan)
@@ -242,7 +293,7 @@ module Bitfinex
         return
       end
 
-      @channelMap[msg['chanId']] = { 'channel' => 'auth' }
+      @channel_map[msg['chanId']] = { 'channel' => 'auth' }
       @is_authenticated = true
       emit(:auth, msg)
 
@@ -287,20 +338,42 @@ module Bitfinex
         @l.error "config failed: #{msg['message']}"
       else
         @l.info "flags updated to #{msg['flags']}"
-        @enabledFlags = msg['flags']
+        @enabled_flags = msg['flags']
       end
     end
 
     def handle_subscribed_event (msg)
       @l.info "subscribed to #{msg['channel']} [#{msg['chanId']}]"
-      @channelMap[msg['chanId']] = msg
+      @channel_map[msg['chanId']] = msg
       emit(:subscribed, msg['chanId'])
     end
 
     def handle_unsubscribed_event (msg)
       @l.info "unsubscribed from #{msg['chanId']}"
-      @channelMap.delete(msg['chanId'])
+      @channel_map.delete(msg['chanId'])
       emit(:unsubscribed, msg['chanId'])
+    end
+
+    def enable_flag (flag)
+      return unless @is_open
+
+      @ws.send(JSON.generate({
+        :event => 'conf',
+        :flags => @enabled_flags | flag
+      }))
+    end
+
+    def is_flag_enabled (flag)
+      (@enabled_flags & flag) == flag
+    end
+
+    def enable_sequencing (audit = true)
+      @seq_audit = audit
+      enable_flag(FLAG_SEQ_ALL)
+    end
+
+    def enable_ob_checksums
+      enable_flag(FLAG_CHECKSUM)
     end
 
     def auth! (calc = 0, dms = 0)

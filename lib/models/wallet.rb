@@ -5,7 +5,7 @@ module Bitfinex
     class Wallet < Model
       BOOL_FIELDS = []
       FIELDS = {
-        :type: 0,
+        :type => 0,
         :currency => 1,
         :balance => 2,
         :unsettled_interest => 3,

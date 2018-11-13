@@ -2,7 +2,7 @@ require_relative './model'
 
 module Bitfinex
   module Models
-    class FundingOffer < Model
+    class FundingLoan < Model
       BOOL_FIELDS = ['notify', 'hidden', 'renew', 'no_close']
       FIELDS = {
         :id => 0,

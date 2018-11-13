@@ -3,6 +3,7 @@ require 'eventmachine'
 require 'logger'
 require 'emittr'
 require_relative '../models/order_book'
+require_relative '../models/order'
 
 module Bitfinex
   class WSv2
@@ -452,8 +453,24 @@ module Bitfinex
       Time.now.to_i.to_s
     end
 
-    def sign(payload)
+    def sign (payload)
       OpenSSL::HMAC.hexdigest('sha384', @api_secret, payload)
+    end
+
+    def submit_order (order)
+      return if !@is_authenticated
+
+      if order.kind_of?(Array)
+        packet = order
+      elsif order.instance_of?(Models::Order)
+        packet = order.to_new_order_packet
+      elsif order.kind_of?(Hash)
+        packet = Models::Order.new(order).to_new_order_packet
+      else
+        raise Exception, 'tried to submit order of unkown type'
+      end
+
+      @ws.send(JSON.generate([0, 'on', nil, packet]))
     end
   end
 end

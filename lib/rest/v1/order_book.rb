@@ -11,7 +11,7 @@ module Bitfinex
     #   client.orderbook("btcusd")
     def orderbook(symbol="btcusd", params = {})
       check_params(params, %i{limit_bids limit_asks group})
-      get("book/#{symbol}", params: params).body
+      get("book/#{symbol}", params).body
     end
   end
 end

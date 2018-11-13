@@ -2,8 +2,28 @@ require 'faye/websocket'
 require 'eventmachine'
 require 'logger'
 require 'emittr'
+require_relative '../models/alert'
+require_relative '../models/balance_info'
+require_relative '../models/candle'
+require_relative '../models/currency'
+require_relative '../models/funding_credit'
+require_relative '../models/funding_info'
+require_relative '../models/funding_loan'
+require_relative '../models/funding_offer'
+require_relative '../models/funding_ticker'
+require_relative '../models/funding_trade'
+require_relative '../models/ledger_entry'
+require_relative '../models/margin_info'
+require_relative '../models/movement'
+require_relative '../models/notification'
 require_relative '../models/order_book'
 require_relative '../models/order'
+require_relative '../models/position'
+require_relative '../models/public_trade'
+require_relative '../models/trade'
+require_relative '../models/trading_ticker'
+require_relative '../models/user_info'
+require_relative '../models/wallet'
 
 module Bitfinex
   class WSv2
@@ -27,6 +47,7 @@ module Bitfinex
       @api_key = params[:api_key]
       @api_secret = params[:api_secret]
       @manage_obs = params[:manage_order_books]
+      @transform = params[:transform]
 
       @enabled_flags = 0
       @is_open = false
@@ -176,15 +197,41 @@ module Bitfinex
     end
 
     def handle_ticker_message (msg, chan)
-      emit(:ticker, chan['symbol'], msg)
+      payload = msg[1]
+
+      if chan['symbol'][0] === 't'
+        emit(:ticker, chan['symbol'], @transform ? Models::TradingTicker.new(payload) : payload)
+      else
+        emit(:ticker, chan['symbol'], @transform ? Models::FundingTicker.new(payload) : payload)
+      end
     end
 
     def handle_trades_message (msg, chan)
-      emit(:public_trades, chan['symbol'], msg)
+      if msg[1].kind_of?(Array)
+        payload = msg[1]
+        emit(:public_trades, chan['symbol'], @transform ? payload.map { |t| Models::PublicTrade.new(t) } : payload)
+      else
+        payload = @transform ? Models::PublicTrade.new(msg[2]) : msg[2]
+        type = msg[1]
+
+        emit(:public_trades, chan['symbol'], payload)
+
+        if type == 'te'
+          emit(:public_trade_entry, chan['symbol'], payload)
+        elsif type == 'tu'
+          emit(:public_trade_update, chan['symbol'], payload)
+        end
+      end
     end
 
     def handle_candles_message (msg, chan)
-      emit(:candles, chan['key'], msg)
+      payload = msg[1]
+
+      if payload[0].kind_of?(Array)
+        emit(:candles, chan['key'], @transform ? payload.map { |c| Models::Candle.new(c) } : payload)
+      else
+        emit(:candles, chan['key'], @transform ? Models::Candle.new(payload) : payload)
+      end
     end
 
     def handle_order_book_checksum_message (msg, chan)
@@ -219,6 +266,8 @@ module Bitfinex
         end
 
         data = @order_books[key]
+      elsif @transform
+        data = Models::OrderBook.new(ob)
       else
         data = ob
       end
@@ -233,65 +282,65 @@ module Bitfinex
 
       case type
       when 'n'
-        emit(:notification, payload)
+        emit(:notification, @transform ? Models::Notification.new(payload) : payload)
       when 'te'
-        emit(:trade_entry, payload)
+        emit(:trade_entry, @transform ? Models::Trade.new(payload) : payload)
       when 'tu'
-        emit(:trade_update, payload)
+        emit(:trade_update, @transform ? Models::Trade.new(payload) : payload)
       when 'os'
-        emit(:order_snapshot, payload)
+        emit(:order_snapshot, @transform ? payload.map { |o| Models::Order.new(o) } : payload)
       when 'ou'
-        emit(:order_update, payload)
+        emit(:order_update, @transform ? Models::Order.new(payload) : payload)
       when 'on'
-        emit(:order_new, payload)
+        emit(:order_new, @transform ? Models::Order.new(payload) : payload)
       when 'oc'
-        emit(:order_close, payload)
+        emit(:order_close, @transform ? Models::Order.new(payload) : payload)
       when 'ps'
-        emit(:position_snapshot, payload)
+        emit(:position_snapshot, @transform ? payload.map { |p| Models::Position.new(p) } : payload)
       when 'pn'
-        emit(:position_new, payload)
+        emit(:position_new, @transform ? Models::Position.new(payload) : payload)
       when 'pu'
-        emit(:position_update, payload)
+        emit(:position_update, @transform ? Models::Position.new(payload) : payload)
       when 'pc'
-        emit(:position_close, payload)
+        emit(:position_close, @transform ? Models::Position.new(payload) : payload)
       when 'fos'
-        emit(:funding_offer_snapshot, payload)
+        emit(:funding_offer_snapshot, @transform ? payload.map { |fo| Models::FundingOffer.new(fo) } : payload)
       when 'fon'
-        emit(:funding_offer_new, payload)
+        emit(:funding_offer_new, @transform ? Models::FundingOffer.new(payload) : payload)
       when 'fou'
-        emit(:funding_offer_update, payload)
+        emit(:funding_offer_update, @transform ? Models::FundingOffer.new(payload) : payload)
       when 'foc'
-        emit(:funding_offer_close, payload)
+        emit(:funding_offer_close, @transform ? Models::FundingOffer.new(payload) : payload)
       when 'fcs'
-        emit(:funding_credit_snapshot, payload)
+        emit(:funding_credit_snapshot, @transform ? payload.map { |fc| Models::FundingCredit.new(fc) } : payload)
       when 'fcn'
-        emit(:funding_credit_new, payload)
+        emit(:funding_credit_new, @transform ? Models::FundingCredit.new(payload) : payload)
       when 'fcu'
-        emit(:funding_credit_update, payload)
+        emit(:funding_credit_update, @transform ? Models::FundingCredit.new(payload) : payload)
       when 'fcc'
-        emit(:funding_credit_close, payload)
+        emit(:funding_credit_close, @transform ? Models::FundingCredit.new(payload) : payload)
       when 'fls'
-        emit(:funding_loan_snapshot, payload)
+        emit(:funding_loan_snapshot, @transform ? payload.map { |fl| Models::FundingLoan.new(fl) } : payload)
       when 'fln'
-        emit(:funding_loan_new, payload)
+        emit(:funding_loan_new, @transform ? Models::FundingLoan.new(payload) : payload)
       when 'flu'
-        emit(:funding_loan_update, payload)
+        emit(:funding_loan_update, @transform ? Models::FundingLoan.new(payload) : payload)
       when 'flc'
-        emit(:funding_loan_close, payload)
+        emit(:funding_loan_close, @transform ? Models::FundingLoan.new(payload) : payload)
       when 'ws'
-        emit(:wallet_snapshot, payload)
+        emit(:wallet_snapshot, @transform ? payload.map { |w| Models::Wallet.new(payload) } : payload)
       when 'wu'
-        emit(:wallet_update, payload)
+        emit(:wallet_update, @transform ? Models::Wallet.new(payload) : payload)
       when 'bu'
-        emit(:balance_update, payload)
+        emit(:balance_update, @transform ? Models::BalanceInfo.new(payload) : payload)
       when 'miu'
-        emit(:margin_info_update, payload)
+        emit(:margin_info_update, @transform ? Models::MarginInfo.new(payload) : payload)
       when 'fiu'
-        emit(:funding_info_update, payload)
+        emit(:funding_info_update, @transform ? Models::FundingInfo.new(payload) : payload)
       when 'fte'
-        emit(:funding_trade_entry, payload)
+        emit(:funding_trade_entry, @transform ? Models::FundingTrade.new(payload) : payload)
       when 'ftu'
-        emit(:funding_trade_update, payload)
+        emit(:funding_trade_update, @transform ? Models::FundingTrade.new(payload) : payload)
       end
     end
 

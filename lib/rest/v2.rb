@@ -21,7 +21,7 @@ module Bitfinex
     include Bitfinex::RESTv2Utils
 
     def initialize(args = {})
-      self.api_endpoint = "#{args[:url]}/v2/" || "https://api.bitfinex.com/v2/"
+      self.api_endpoint = args[:url] ? "#{args[:url]}/v2/" : "https://api.bitfinex.com/v2/"
       self.proxy = args[:proxy] || nil
       self.debug_connection = false
       self.api_version = 2

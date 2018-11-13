@@ -37,7 +37,7 @@ module Bitfinex
     include Bitfinex::RESTv1Wallet
 
     def initialize(args = {})
-      self.api_endpoint = "#{args[:url]}/v1/" || "https://api.bitfinex.com/v1/"
+      self.api_endpoint = args[:url] ? "#{args[:url]}/v1/" : "https://api.bitfinex.com/v1/"
       self.proxy = args[:proxy] || nil
       self.debug_connection = false
       self.api_version = 1

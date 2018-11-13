@@ -49,6 +49,7 @@ module Bitfinex
       @manage_obs = params[:manage_order_books]
       @transform = !!params[:transform]
       @seq_audit = !!params[:seq_audit]
+      @checksum_audit = !!params[:checksum_audit]
 
       @enabled_flags = 0
       @is_open = false
@@ -64,9 +65,8 @@ module Bitfinex
       @is_open = true
       emit(:open)
 
-      if @seq_audit
-        enable_sequencing
-      end
+      enable_sequencing if @seq_audit
+      enable_ob_checksums if @checksum_audit
     end
 
     def on_message (e)

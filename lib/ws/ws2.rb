@@ -563,6 +563,10 @@ module Bitfinex
       OpenSSL::HMAC.hexdigest('sha384', @api_secret, payload)
     end
 
+    def request_calc (prefixes)
+      @ws.send(JSON.generate([0, 'calc', nil, prefixes.map { |p| [p] }]))
+    end
+
     def update_order (changes, &cb)
       id = changes[:id] || changes['id']
       @ws.send(JSON.generate([0, 'ou', nil, changes]))

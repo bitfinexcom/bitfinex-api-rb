@@ -300,7 +300,7 @@ module Bitfinex
         if status == 'SUCCESS'
           @pending_blocks[k].call(@transform ? Models::Order.new(payload) : payload)
         else
-          @pending_blocks[k].call(Exception.new("#{status}: #{message}"))
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
         end
 
         @pending_blocks.delete(k)
@@ -313,7 +313,7 @@ module Bitfinex
         if status == 'SUCCESS'
           @pending_blocks[k].call(payload)
         else
-          @pending_blocks[k].call(Exception.new("#{status}: #{message}"))
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
         end
 
         @pending_blocks.delete(k)

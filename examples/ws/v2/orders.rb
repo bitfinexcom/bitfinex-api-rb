@@ -24,8 +24,15 @@ client.on(:auth) do
   client.submit_order(o) do |order_packet|
     p "recv order confirmation packet with ID #{order_packet.id}"
 
-    client.cancel_order(order_packet) do |canceled_order|
-      p "canceled order with ID #{canceled_order[0]}"
+    client.update_order({
+      :id => order_packet.id,
+      :price => '3.0'
+    }) do |update_packet|
+      p "updated order #{update_packet.id} with price #{update_packet.price}"
+
+      client.cancel_order(order_packet) do |canceled_order|
+        p "canceled order with ID #{canceled_order[0]}"
+      end
     end
   end
 end

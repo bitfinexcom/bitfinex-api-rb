@@ -317,6 +317,17 @@ module Bitfinex
         end
 
         @pending_blocks.delete(k)
+      when 'ou-req'
+        id = payload[0]
+        k = "order-update-#{id}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(@transform ? Models::Order.new(payload) : payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
+        end
       end
     end
 
@@ -550,6 +561,15 @@ module Bitfinex
 
     def sign (payload)
       OpenSSL::HMAC.hexdigest('sha384', @api_secret, payload)
+    end
+
+    def update_order (changes, &cb)
+      id = changes[:id] || changes['id']
+      @ws.send(JSON.generate([0, 'ou', nil, changes]))
+
+      if !cb.nil?
+        @pending_blocks["order-update-#{id}"] = cb
+      end
     end
 
     def cancel_order (order, &cb)

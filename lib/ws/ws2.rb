@@ -2,6 +2,7 @@ require 'faye/websocket'
 require 'eventmachine'
 require 'logger'
 require 'emittr'
+
 require_relative '../models/alert'
 require_relative '../models/balance_info'
 require_relative '../models/candle'
@@ -56,6 +57,7 @@ module Bitfinex
       @is_authenticated = false
       @channel_map = {}
       @order_books = {}
+      @pending_blocks = {}
       @last_pub_seq = nil
       @last_auth_seq = nil
     end
@@ -279,6 +281,45 @@ module Bitfinex
       emit(:order_book, chan['symbol'], data)
     end
 
+    # Resolves/rejects any pending promise associated with the notification
+    def handle_notification_promises (n)
+      type = n[1]
+      payload = n[4]
+      status = n[6]
+      msg = n[7]
+
+      return unless payload.kind_of?(Array) # expect order payload
+
+      case type
+      when 'on-req'
+        cid = payload[2]
+        k = "order-new-#{cid}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(@transform ? Models::Order.new(payload) : payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{message}"))
+        end
+
+        @pending_blocks.delete(k)
+      when 'oc-req'
+        id = payload[0]
+        k = "order-cancel-#{id}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{message}"))
+        end
+
+        @pending_blocks.delete(k)
+      end
+    end
+
     def handle_auth_message (msg, chan)
       type = msg[1]
       return if type == 'hb'
@@ -287,6 +328,7 @@ module Bitfinex
       case type
       when 'n'
         emit(:notification, @transform ? Models::Notification.new(payload) : payload)
+        handle_notification_promises(payload)
       when 'te'
         emit(:trade_entry, @transform ? Models::Trade.new(payload) : payload)
       when 'tu'
@@ -510,7 +552,29 @@ module Bitfinex
       OpenSSL::HMAC.hexdigest('sha384', @api_secret, payload)
     end
 
-    def submit_order (order)
+    def cancel_order (order, &cb)
+      return if !@is_authenticated
+
+      if order.is_a?(Numeric)
+        id = order
+      elsif order.is_a?(Array)
+        id = order[0]
+      elsif order.instance_of?(Models::Order)
+        id = order.id
+      elsif order.kind_of?(Hash)
+        id = order[:id] || order['id']
+      else
+        raise Exception, 'tried to cancel order with invalid ID'
+      end
+
+      @ws.send(JSON.generate([0, 'oc', nil, { :id => id }]))
+
+      if !cb.nil?
+        @pending_blocks["order-cancel-#{id}"] = cb
+      end
+    end
+
+    def submit_order (order, &cb)
       return if !@is_authenticated
 
       if order.kind_of?(Array)
@@ -524,6 +588,10 @@ module Bitfinex
       end
 
       @ws.send(JSON.generate([0, 'on', nil, packet]))
+
+      if packet.has_key?(:cid) && !cb.nil?
+        @pending_blocks["order-new-#{packet[:cid]}"] = cb
+      end
     end
   end
 end

@@ -3,7 +3,8 @@ require_relative '../../../lib/bitfinex.rb'
 client = Bitfinex::WSv2.new({
   :url => ENV['WS_URL'],
   :api_key => ENV['API_KEY'],
-  :api_secret => ENV['API_SECRET']
+  :api_secret => ENV['API_SECRET'],
+  :transform => true
 })
 
 client.on(:open) do
@@ -20,11 +21,17 @@ client.on(:auth) do
     :symbol => 'tEOSUSD'
   })
 
-  client.submit_order(o)
+  client.submit_order(o) do |order_packet|
+    p "recv order confirmation packet with ID #{order_packet.id}"
+
+    client.cancel_order(order_packet) do |canceled_order|
+      p "canceled order with ID #{canceled_order[0]}"
+    end
+  end
 end
 
 client.on(:notification) do |n|
-  p 'received notification: %s' % [n]
+  p 'received notification: %s' % [n.serialize.join('|')]
 end
 
 client.on(:order_new) do |msg|

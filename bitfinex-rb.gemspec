@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'emittr', '~> 0.1.0', '>= 0.1.0'
   spec.add_runtime_dependency 'dotenv', '~> 2.5.0', '>= 2.5.0'
   spec.add_runtime_dependency 'faraday_adapter_socks', '~> 0.1.1', '>= 0.1.1'
+  spec.add_runtime_dependency 'zlib', '~> 1.0.0', '>= 1.0.0'
 end

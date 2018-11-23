@@ -2,6 +2,7 @@ require 'faye/websocket'
 require 'eventmachine'
 require 'logger'
 require 'emittr'
+
 require_relative '../models/alert'
 require_relative '../models/balance_info'
 require_relative '../models/candle'
@@ -26,6 +27,13 @@ require_relative '../models/user_info'
 require_relative '../models/wallet'
 
 module Bitfinex
+  ###
+  # Implements version 2 of the Bitfinex WebSocket API, taking an evented
+  # approach. Incoming packets trigger event broadcasts with names relevant to
+  # the individual packets. Provides order manipulation methods that support
+  # callback blocks, which are called when the relevant confirmation
+  # notifications are received
+  ###
   class WSv2
     include Emittr::Events
 
@@ -39,6 +47,18 @@ module Bitfinex
     FLAG_SEQ_ALL = 65536,   # enable sequencing
     FLAG_CHECKSUM = 131072  # enable OB checksums, top 25 levels per side
 
+    ###
+    # Creates a new instance of the class
+    #
+    # @param [Hash] params
+    # @param [string] params.url - connection URL
+    # @param [string] params.api_key
+    # @param [string] params.api_secret
+    # @param [boolean] params.manage_order_books - if true, order books are persisted internally, allowing for automatic checksum verification
+    # @param [boolean] params.transform - if true, full models are returned in place of array data
+    # @param [boolean] params.seq_audit - enables automatic seq number verification
+    # @param [boolean] params.checksum_audit - enables automatic OB checksum verification (requires manage_order_books)
+    ###
     def initialize (params = {})
       @l = Logger.new(STDOUT)
       @l.progname = 'ws2'
@@ -56,11 +76,12 @@ module Bitfinex
       @is_authenticated = false
       @channel_map = {}
       @order_books = {}
+      @pending_blocks = {}
       @last_pub_seq = nil
       @last_auth_seq = nil
     end
 
-    def on_open (e)
+    def on_open (e) # :nodoc:
       @l.info 'client open'
       @is_open = true
       emit(:open)
@@ -69,7 +90,7 @@ module Bitfinex
       enable_ob_checksums if @checksum_audit
     end
 
-    def on_message (e)
+    def on_message (e) # :nodoc:
       @l.info "recv #{e.data}"
 
       msg = JSON.parse(e.data)
@@ -78,12 +99,15 @@ module Bitfinex
       emit(:message, msg)
     end
 
-    def on_close (e)
+    def on_close (e) # :nodoc:
       @l.info 'client closed'
       @is_open = false
       emit(:close)
     end
 
+    ###
+    # Opens the websocket client inside an eventmachine run block
+    ###
     def open!
       if @is_open
         raise Exception, 'already open'
@@ -106,11 +130,14 @@ module Bitfinex
       }
     end
 
+    ###
+    # Closes the websocket client
+    ###
     def close!
       @ws.close
     end
 
-    def process_message (msg)
+    def process_message (msg) # :nodoc:
       if @seq_audit
         validate_message_seq(msg)
       end
@@ -122,7 +149,7 @@ module Bitfinex
       end
     end
 
-    def validate_message_seq (msg)
+    def validate_message_seq (msg) # :nodoc:
       return unless @seq_audit
       return unless msg.kind_of?(Array)
       return unless msg.size > 2
@@ -169,7 +196,7 @@ module Bitfinex
       @last_auth_seq = auth_seq
     end
 
-    def process_channel_message (msg)
+    def process_channel_message (msg) # :nodoc:
       if !@channel_map.include?(msg[0])
         @l.error "recv message on unknown channel: #{msg[0]}"
         return
@@ -200,7 +227,7 @@ module Bitfinex
       end
     end
 
-    def handle_ticker_message (msg, chan)
+    def handle_ticker_message (msg, chan) # :nodoc:
       payload = msg[1]
 
       if chan['symbol'][0] === 't'
@@ -210,7 +237,7 @@ module Bitfinex
       end
     end
 
-    def handle_trades_message (msg, chan)
+    def handle_trades_message (msg, chan) # :nodoc:
       if msg[1].kind_of?(Array)
         payload = msg[1]
         emit(:public_trades, chan['symbol'], @transform ? payload.map { |t| Models::PublicTrade.new(t) } : payload)
@@ -228,7 +255,7 @@ module Bitfinex
       end
     end
 
-    def handle_candles_message (msg, chan)
+    def handle_candles_message (msg, chan) # :nodoc:
       payload = msg[1]
 
       if payload[0].kind_of?(Array)
@@ -238,7 +265,7 @@ module Bitfinex
       end
     end
 
-    def handle_order_book_checksum_message (msg, chan)
+    def handle_order_book_checksum_message (msg, chan) # :nodoc:
       key = "#{chan['symbol']}:#{chan['prec']}:#{chan['len']}"
       emit(:checksum, chan['symbol'], msg)
 
@@ -257,7 +284,7 @@ module Bitfinex
       end
     end
 
-    def handle_order_book_message (msg, chan)
+    def handle_order_book_message (msg, chan) # :nodoc:
       ob = msg[1]
 
       if @manage_obs
@@ -279,7 +306,57 @@ module Bitfinex
       emit(:order_book, chan['symbol'], data)
     end
 
-    def handle_auth_message (msg, chan)
+    # Resolves/rejects any pending promise associated with the notification
+    def handle_notification_promises (n) # :nodoc:
+      type = n[1]
+      payload = n[4]
+      status = n[6]
+      msg = n[7]
+
+      return unless payload.kind_of?(Array) # expect order payload
+
+      case type
+      when 'on-req'
+        cid = payload[2]
+        k = "order-new-#{cid}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(@transform ? Models::Order.new(payload) : payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
+        end
+
+        @pending_blocks.delete(k)
+      when 'oc-req'
+        id = payload[0]
+        k = "order-cancel-#{id}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
+        end
+
+        @pending_blocks.delete(k)
+      when 'ou-req'
+        id = payload[0]
+        k = "order-update-#{id}"
+
+        return unless @pending_blocks.has_key?(k)
+
+        if status == 'SUCCESS'
+          @pending_blocks[k].call(@transform ? Models::Order.new(payload) : payload)
+        else
+          @pending_blocks[k].call(Exception.new("#{status}: #{msg}"))
+        end
+      end
+    end
+
+    def handle_auth_message (msg, chan) # :nodoc:
       type = msg[1]
       return if type == 'hb'
       payload = msg[2]
@@ -287,6 +364,7 @@ module Bitfinex
       case type
       when 'n'
         emit(:notification, @transform ? Models::Notification.new(payload) : payload)
+        handle_notification_promises(payload)
       when 'te'
         emit(:trade_entry, @transform ? Models::Trade.new(payload) : payload)
       when 'tu'
@@ -348,6 +426,16 @@ module Bitfinex
       end
     end
 
+    ###
+    # Subscribes to the specified channel; params dictate the channel filter
+    #
+    # @param [string] channel - i.e. 'trades', 'candles', etc
+    # @param [Hash] params
+    # @param [string?] params.symbol
+    # @param [string?] params.prec - for order book channels
+    # @param [string?] params.len - for order book channels
+    # @param [string?] params.key - for candle channels
+    ###
     def subscribe (channel, params = {})
       @l.info 'subscribing to channel %s [%s]' % [channel, params]
       @ws.send(JSON.generate(params.merge({
@@ -356,18 +444,40 @@ module Bitfinex
       })))
     end
 
+    ###
+    # Subscribes to a ticker channel by symbol
+    #
+    # @param [string] sym - i.e. tBTCUSD
+    ###
     def subscribe_ticker (sym)
       subscribe('ticker', { :symbol => sym })
     end
 
+    ###
+    # Subscribes to a trades channel by symbol
+    #
+    # @param [string] sym - i.e. tBTCUSD
+    ###
     def subscribe_trades (sym)
       subscribe('trades', { :symbol => sym })
     end
 
+    ###
+    # Subscribes to a candle channel by key
+    #
+    # @param [string] key - i.e. trade:1m:tBTCUSD
+    ###
     def subscribe_candles (key)
       subscribe('candles', { :key => key })
     end
 
+    ###
+    # Subscribes to an order book channel
+    #
+    # @param [string] sym - i.e. tBTCUSD
+    # @param [string] prec - i.e. R0, P0, etc
+    # @param [string] len - i.e. 25, 100, etc
+    ###
     def subscribe_order_book (sym, prec, len)
       subscribe('book', {
         :symbol => sym,
@@ -376,7 +486,7 @@ module Bitfinex
       })
     end
 
-    def process_event_message (msg)
+    def process_event_message (msg) # :nodoc:
       case msg['event']
       when 'auth'
         handle_auth_event(msg)
@@ -393,7 +503,7 @@ module Bitfinex
       end
     end
 
-    def handle_auth_event (msg)
+    def handle_auth_event (msg) # :nodoc:
       if msg['status'] != 'OK'
         @l.error "auth failed: #{msg['message']}"
         return
@@ -406,7 +516,7 @@ module Bitfinex
       @l.info 'authenticated'
     end
 
-    def handle_info_event (msg)
+    def handle_info_event (msg) # :nodoc:
       if msg.include?('version')
         if msg['version'] != 2
           close!
@@ -435,11 +545,11 @@ module Bitfinex
       end
     end
 
-    def handle_error_event (msg)
+    def handle_error_event (msg) # :nodoc:
       @l.error msg
     end
 
-    def handle_config_event (msg)
+    def handle_config_event (msg) # :nodoc:
       if msg['status'] != 'OK'
         @l.error "config failed: #{msg['message']}"
       else
@@ -448,18 +558,23 @@ module Bitfinex
       end
     end
 
-    def handle_subscribed_event (msg)
+    def handle_subscribed_event (msg) # :nodoc:
       @l.info "subscribed to #{msg['channel']} [#{msg['chanId']}]"
       @channel_map[msg['chanId']] = msg
       emit(:subscribed, msg['chanId'])
     end
 
-    def handle_unsubscribed_event (msg)
+    def handle_unsubscribed_event (msg) # :nodoc:
       @l.info "unsubscribed from #{msg['chanId']}"
       @channel_map.delete(msg['chanId'])
       emit(:unsubscribed, msg['chanId'])
     end
 
+    ###
+    # Enable an individual flag (see FLAG_* constants)
+    #
+    # @param [number] flag
+    ###
     def enable_flag (flag)
       return unless @is_open
 
@@ -469,19 +584,43 @@ module Bitfinex
       }))
     end
 
+    ###
+    # Checks if an individual flag is enabled (see FLAG_* constants)
+    #
+    # @param [number] flag
+    # @return [boolean] enabled
+    ###
     def is_flag_enabled (flag)
       (@enabled_flags & flag) == flag
     end
 
+    ###
+    # Sets the flag to activate sequence numbers on incoming packets
+    #
+    # @param [boolean] audit - if true (default), incoming seq numbers will be checked for consistency
+    ###
     def enable_sequencing (audit = true)
       @seq_audit = audit
       enable_flag(FLAG_SEQ_ALL)
     end
 
-    def enable_ob_checksums
+    ###
+    # Sets the flag to activate order book checksums. Managed order books are
+    # required for automatic checksum audits.
+    #
+    # @param [boolean] audit - if true (default), incoming checksums will be compared to local checksums
+    ###
+    def enable_ob_checksums (audit = true)
+      @checksum_audit = audit
       enable_flag(FLAG_CHECKSUM)
     end
 
+    ###
+    # Authenticates the socket connection
+    #
+    # @param [number] calc
+    # @param [number] dms - dead man switch, active 4
+    ###
     def auth! (calc = 0, dms = 0)
       if @is_authenticated
         raise Exception, 'already authenticated'
@@ -502,15 +641,74 @@ module Bitfinex
       }))
     end
 
-    def new_nonce
+    def new_nonce # :nodoc:
       Time.now.to_i.to_s
     end
 
-    def sign (payload)
+    def sign (payload) # :nodoc:
       OpenSSL::HMAC.hexdigest('sha384', @api_secret, payload)
     end
 
-    def submit_order (order)
+    ###
+    # Requests a calculation to be performed
+    # @see https://docs.bitfinex.com/v2/reference#ws-input-calc
+    #
+    # @param [Array] prefixes - i.e. ['margin_base']
+    ###
+    def request_calc (prefixes)
+      @ws.send(JSON.generate([0, 'calc', nil, prefixes.map { |p| [p] }]))
+    end
+
+    ###
+    # Update an order with a changeset by ID
+    #
+    # @param [Hash] changes - must contain ID
+    # @param [Block] cb - triggered upon receipt of confirmation notification
+    ###
+    def update_order (changes, &cb)
+      id = changes[:id] || changes['id']
+      @ws.send(JSON.generate([0, 'ou', nil, changes]))
+
+      if !cb.nil?
+        @pending_blocks["order-update-#{id}"] = cb
+      end
+    end
+
+    ###
+    # Cancel an order by ID
+    #
+    # @param [Hash|Array|Order|number] order - must contain or be ID
+    # @param [Block] cb - triggered upon receipt of confirmation notification
+    ###
+    def cancel_order (order, &cb)
+      return if !@is_authenticated
+
+      if order.is_a?(Numeric)
+        id = order
+      elsif order.is_a?(Array)
+        id = order[0]
+      elsif order.instance_of?(Models::Order)
+        id = order.id
+      elsif order.kind_of?(Hash)
+        id = order[:id] || order['id']
+      else
+        raise Exception, 'tried to cancel order with invalid ID'
+      end
+
+      @ws.send(JSON.generate([0, 'oc', nil, { :id => id }]))
+
+      if !cb.nil?
+        @pending_blocks["order-cancel-#{id}"] = cb
+      end
+    end
+
+    ###
+    # Submit a new order
+    #
+    # @param [Hash|Array|Order] order
+    # @param [Block] cb - triggered upon receipt of confirmation notification
+    ###
+    def submit_order (order, &cb)
       return if !@is_authenticated
 
       if order.kind_of?(Array)
@@ -524,6 +722,10 @@ module Bitfinex
       end
 
       @ws.send(JSON.generate([0, 'on', nil, packet]))
+
+      if packet.has_key?(:cid) && !cb.nil?
+        @pending_blocks["order-new-#{packet[:cid]}"] = cb
+      end
     end
   end
 end

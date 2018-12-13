@@ -5,16 +5,17 @@ module Bitfinex
     class TradingTicker < Model
       BOOL_FIELDS = []
       FIELDS = {
-        bid: 0,
-        bid_size: 1,
-        ask: 2,
-        ask_size: 3,
-        daily_change: 4,
-        daily_change_perc: 5,
-        last_price: 6,
-        volume: 7,
-        high: 8,
-        low: 9
+        symbol: 0,
+        bid: 1,
+        bid_size: 2,
+        ask: 3,
+        ask_size: 4,
+        daily_change: 5,
+        daily_change_perc: 6,
+        last_price: 7,
+        volume: 8,
+        high: 9,
+        low: 10
       }
 
       FIELDS.each do |key, index|

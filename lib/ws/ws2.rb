@@ -229,11 +229,12 @@ module Bitfinex
 
     def handle_ticker_message (msg, chan) # :nodoc:
       payload = msg[1]
+      payload_with_sym = [chan['symbol']].concat(payload)
 
       if chan['symbol'][0] === 't'
-        emit(:ticker, chan['symbol'], @transform ? Models::TradingTicker.new(payload) : payload)
+        emit(:ticker, chan['symbol'], @transform ? Models::TradingTicker.new(payload_with_sym) : payload)
       else
-        emit(:ticker, chan['symbol'], @transform ? Models::FundingTicker.new(payload) : payload)
+        emit(:ticker, chan['symbol'], @transform ? Models::FundingTicker.new(payload_with_sym) : payload)
       end
     end
 

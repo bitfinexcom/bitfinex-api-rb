@@ -7,4 +7,4 @@ client = Bitfinex::RESTv2.new({
   :api_secret => ENV['API_SECRET']
 })
 
-puts client.ticker('tBTCUSD', 'tETHUSD')
+puts client.ticker('tBTCUSD', 'fUSD')

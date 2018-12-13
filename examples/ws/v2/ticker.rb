@@ -12,6 +12,7 @@ end
 
 client.on(:open) do
   client.subscribe_ticker('tBTCUSD')
+  client.subscribe_ticker('fUSD')
 end
 
 client.open!

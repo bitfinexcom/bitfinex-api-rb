@@ -49,7 +49,7 @@ client = Bitfinex::WSv2.new({
   :transform => true, # provide models as event data instead of arrays
   :seq_audit => true, # enable and audit sequence numbers
   :manage_order_books => true, # allows for OB checksum verification
-  :checksum_audit => true, # enables OB checksum verification (needs manage_order_books)
+  :checksum_audit => true # enables OB checksum verification (needs manage_order_books)
 })
 
 client.on(:open) do

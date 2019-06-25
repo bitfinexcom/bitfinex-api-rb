@@ -1,0 +1,5 @@
+1.0.4
+
+- Adds PR/Issue templates
+- Adds travis linting
+- bump json dep 2.1.0 -> 2.2.0

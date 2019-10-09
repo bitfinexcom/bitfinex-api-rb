@@ -1,31 +1,71 @@
-# Bitfinex Trading API for Ruby. Bitcoin, Ether and Litecoin trading
+# Bitfinex Trading API for Ruby
 
 [![Code Climate](https://codeclimate.com/repos/56db27e5b86182573b0045ed/badges/bd763083d70114379a41/gpa.svg)](https://codeclimate.com/repos/56db27e5b86182573b0045ed/feed)
 
-* Official implementation
-* REST API
-* WebSockets API 
-* REST API version 2
-* WebSockets API version 2
+A Ruby reference implementation of the Bitfinex REST & WebSocket APIs.
 
+This repo is primarily made up of 3 classes: RESTv1, RESTv2, and WSv2, which implement their respective versions of the Bitfinex API. It is recommended that you use the REST APIs for reading data, and the WebSocket API for submitting orders and interacting with the Bitfinex platform.
+
+Check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
+
+### Features
+* Official implementation
+* REST API v1
+* REST API v2
+* WebSockets API version 2
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'bitfinex-rb', :require => "bitfinex"
+```ruby
+gem 'bitfinex-rb', :require => "bitfinex"
+```
 
 And then execute:
-
-    $ bundle
+```bash
+bundle
+```
 
 Or install it yourself as:
+```bash
+gem install bitfinex-rb
+```
 
-    $ gem install bitfinex-rb
+### Quickstart
+```ruby
+client = Bitfinex::WSv2.new({
+  :api_key => ENV['API_KEY'],
+  :api_secret => ENV['API_SECRET'],
+  :transform => true, # provide models as event data instead of arrays
+})
 
-This repo is primarily made up of 3 classes: RESTv1, RESTv2, and WSv2, which implement their respective versions of the Bitfinex API. It is recommended that you use the REST APIs for reading data, and the WebSocket API for submitting orders and interacting with the Bitfinex platform.
+client.on(:open) do
+  client.auth!
+end
 
-## Usage of RESTv1/RESTv2
+client.on(:auth) do
+  puts 'succesfully authenticated'
+
+  o = Bitfinex::Models::Order.new({
+    :type => 'EXCHANGE LIMIT',
+    :price => 3.0152235,
+    :amount => 2.0235235263262,
+    :symbol => 'tEOSUSD'
+  })
+
+  client.submit_order(o)
+end
+```
+
+### Docs
+
+Refer to `docs/events.md` for a list of available events which can be consumed. Official API docs pending.
+
+For ready to run examples, see the `examples/` folder.
+
+### Examples
+#### Usage of RESTv1/RESTv2
 
 To use the REST APIs, construct a new API client with your account credentials:
 
@@ -38,7 +78,7 @@ client = Bitfinex::RESTv2.new({
 
 Then use it to submit queries, i.e. `client.balances`
 
-## Usage of WSv2
+#### Usage of WSv2
 To use version 2 of the WS API, construct a new client with your credentials, bind listeners to react to stream events, and open the connection:
 
 ```ruby
@@ -80,7 +120,7 @@ end
 client.open!
 ```
 
-### Order Manipulation
+#### Order Manipulation
 Three methods are provided for dealing with orders: `submit_order`, `update_order` and `cancel_order`. All methods support callback blocks, which are triggered upon receiving the relevant confirmation notifications. Example:
 
 ```ruby
@@ -107,64 +147,9 @@ client.submit_order(o) do |order_packet|
 end
 ```
 
-### Available Events
-#### Lifecycle Events
-* `:open`
-* `:close`
-* `:error`
-* `:auth:`
+### Contributing
 
-#### Info Events
-* `:server_restart`
-* `:server_maintenance_start`
-* `:server_maintenance_end`
-* `:unsubscribed`
-* `:subscribed`
-
-#### Data Events
-* `:ticker`
-* `:public_trades`
-* `:public_trade_entry`
-* `:public_trade_update`
-* `:candles`
-* `:checksum`
-* `:order_book`
-* `:notification`
-* `:trade_entry`
-* `:trade_update`
-* `:order_snapshot`
-* `:order_update`
-* `:order_new`
-* `:order_close`
-* `:position_snapshot`
-* `:position_new`
-* `:position_update`
-* `:position_close`
-* `:funding_offer_snapshot`
-* `:funding_offer_new`
-* `:funding_offer_update`
-* `:funding_offer_close`
-* `:funding_credit_snapshot`
-* `:funding_credit_new`
-* `:funding_credit_update`
-* `:funding_credit_close`
-* `:funding_loan_snapshot`
-* `:funding_loan_new`
-* `:funding_loan_update`
-* `:funding_loan_close`
-* `:wallet_snapshot`
-* `:wallet_update`
-* `:balance_update`
-* `:marign_info_update`
-* `:funding_info_update`
-* `:funding_trade_entry`
-* `:funding_trade_update`
-
-Check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/bitfinex/fork )
+1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

@@ -60,9 +60,9 @@ end
 
 ### Docs
 
-Refer to `docs/events.md` for a list of available events which can be consumed. Official API docs pending.
+[Refer to `docs/events.md`](/docs/events.md) for a list of available events which can be consumed. Official API docs pending.
 
-For ready to run examples, see the `examples/` folder.
+For ready to run examples, see the [`examples/` folder](/examples).
 
 ### Examples
 #### Usage of RESTv1/RESTv2

@@ -10,11 +10,12 @@ module Bitfinex
     # @param params :is_postonly [bool] (optional) true if the order should be post only. Default is false. Only relevant for limit orders
     # @param params :ocoorder [bool] Set an additional STOP OCO order that will be linked with the current order
     # @param params :buy_price_oco [decimal] If ocoorder is true, this field represent the price of the OCO stop order to place
+    # @param params :sell_price_oco [decimal] If ocoorder is true, this field represent the price of the OCO stop order to place
     # @return [Hash]
     # @example:
     #   client.new_order("usdbtc", 100, "market", "sell", 0)
     def new_order(symbol, amount, type, side, price = nil, params = {})
-      check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco use_all_available})
+      check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco use_all_available sell_price_oco})
 
       # for 'market' order, we need to pass a random positive price, not nil
       price ||= 0.001 if type == "market" || type == "exchange market"

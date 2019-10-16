@@ -153,7 +153,6 @@ module Bitfinex
         end
 
         data = {
-          :gid => @gid,
           :cid => cid,
           :symbol => @symbol,
           :type => @type,
@@ -161,6 +160,9 @@ module Bitfinex
           :flags => @flags || 0,
           :meta => @meta
         }
+        if !@gid.nil?
+          data[:gid] = @gid
+        end
 
         data[:price] = BigDecimal.new(@price, 5).to_s if !@price.nil?
         data[:price_trailing] = BigDecimal.new(@price_trailing, 5).to_s if !@price_trailing.nil?

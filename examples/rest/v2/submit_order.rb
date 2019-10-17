@@ -14,4 +14,9 @@ o = Bitfinex::Models::Order.new({
   :symbol => 'tBTCUSD'
 })
 
-puts client.submit_order(o)
+# submit an order
+print client.submit_order(o)
+# update an order
+print client.update_order({ :id => 1185657359, :price => '14730' })
+# cancel an order
+print client.cancel_order({ :id => 1185657349 })

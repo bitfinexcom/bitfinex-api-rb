@@ -62,7 +62,6 @@ module Bitfinex
     # @return [Array] Raw notification
     ###
     def withdraw (wallet, method, amount, address)
-      #`/v2/auth/w/withdraw` (params: `wallet`, `method`, `amount`, `address
       payload = { :wallet => wallet, :method => method, :amount => amount, :address => address }
       authenticated_post("auth/w/withdraw", params: { :id => id }).body
     end

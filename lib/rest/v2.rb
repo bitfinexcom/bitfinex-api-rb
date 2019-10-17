@@ -7,6 +7,7 @@ require_relative './v2/trading'
 require_relative './v2/utils'
 require_relative './v2/orders'
 require_relative './v2/wallet'
+require_relative './v2/funding'
 
 module Bitfinex
   class RESTv2
@@ -23,6 +24,7 @@ module Bitfinex
     include Bitfinex::RESTv2Utils
     include Bitfinex::RESTv2Orders
     include Bitfinex::RESTv2Wallet
+    include Bitfinex::RESTv2Funding
 
     def initialize(args = {})
       self.api_endpoint = args[:url] ? "#{args[:url]}/v2/" : "https://api.bitfinex.com/v2/"

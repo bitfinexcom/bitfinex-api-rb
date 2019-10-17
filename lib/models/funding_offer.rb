@@ -33,6 +33,20 @@ module Bitfinex
       def self.unserialize (data)
         return Model.unserialize(data, FIELDS, BOOL_FIELDS)
       end
+
+      def to_new_order_packet
+        data = {
+          :type => @type,
+          :symbol => @symbol,
+          :amount => BigDecimal.new(@amount, 8).to_s,
+          :rate => BigDecimal.new(@rate, 8).to_s,
+          :period => 2
+        }
+        if !@flags.nil?
+          data[:flags] = @flags
+        end
+        data
+      end
     end
   end
 end

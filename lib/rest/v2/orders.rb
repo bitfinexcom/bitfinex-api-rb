@@ -28,7 +28,7 @@ module Bitfinex
     # @param [Hash|Array|Order] order
     # @param [Block] cb - triggered upon receipt of confirmation notification
     ###
-    def submit_order(order, &cb)
+    def submit_order(order)
       if order.kind_of?(Array)
         packet = order
       elsif order.instance_of?(Models::Order)
@@ -38,8 +38,49 @@ module Bitfinex
       else
         raise Exception, 'tried to submit order of unkown type'
       end
-      payload = JSON.generate(packet)
       authenticated_post("auth/w/order/submit", params: packet).body
+    end
+
+    ###
+    # Update an order with a changeset by ID
+    #
+    # @param [Hash] changes - must contain ID
+    # @param [Block] cb - triggered upon receipt of confirmation notification
+    ###
+    def update_order (changes)
+      id = changes[:id] || changes['id']
+      authenticated_post("auth/w/order/update", params: changes).body
+    end
+
+    ###
+    # Cancel an order by ID
+    #
+    # @param [Hash|Array|Order|number] order - must contain or be ID
+    # @param [Block] cb - triggered upon receipt of confirmation notification
+    ###
+    def cancel_order (order)
+      if order.is_a?(Numeric)
+        id = order
+      elsif order.is_a?(Array)
+        id = order[0]
+      elsif order.instance_of?(Models::Order)
+        id = order.id
+      elsif order.kind_of?(Hash)
+        id = order[:id] || order['id']
+      else
+        raise Exception, 'tried to cancel order with invalid ID'
+      end
+      authenticated_post("auth/w/order/cancel", params: { :id => id }).body
+    end
+
+    # TODO - requires websocket implementation as well
+    def cancel_multi ()
+      raise Exception, 'not implemented'
+    end
+
+    # TODO - requires websocket implementation as well
+    def order_multi ()
+      raise Exception, 'not implemented'
     end
   end
 end

@@ -1,14 +1,5 @@
 module Bitfinex
   module RESTv2Personal
-
-    # Get account wallets
-    #
-    # @example:
-    #   client.wallets
-    def wallets
-      authenticated_post("auth/r/wallets").body
-    end
-
     # Get account historical daily performance
     #
     # @example:

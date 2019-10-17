@@ -16,14 +16,28 @@ module Bitfinex
         :amount_orig => 7,
         :type => 8,
         :type_prev => 9,
+        :mts_tif => 10,
+        # placeholder
         :flags => 12,
         :status => 13,
+        # placeholder
+        # placeholder
         :price => 16,
         :price_avg => 17,
         :price_trailing => 18,
         :price_aux_limit => 19,
-        :notify => 23,
-        :placed_id => 25
+        # placeholder
+        # placeholder
+        # placeholder
+        # placeholder
+        :notify => 24,
+        :placed_id => 25,
+        # placeholder
+        # placeholder
+        :routing => 28,
+        # placeholder
+        # placeholder
+        :meta => 31
       }
 
       FLAG_OCO = 2 ** 14         # 16384
@@ -39,7 +53,7 @@ module Bitfinex
         attr_accessor key
       end
 
-      attr_accessor :last_amount, :meta
+      attr_accessor :last_amount, :lev
 
       def self.gen_cid
         @@last_cid += 1
@@ -57,6 +71,9 @@ module Bitfinex
           set_oco(data[:oco]) if data.has_key?(:oco)
           set_hidden(data[:hidden]) if data.has_key?(:hidden)
           set_post_only(data[:post_only]) if data.has_key?(:post_only)
+          if data.has_key?(:lev)
+            @lev = data[:lev]
+          end
         end
       end
 
@@ -162,6 +179,9 @@ module Bitfinex
         }
         if !@gid.nil?
           data[:gid] = @gid
+        end
+        if !@lev.nil?
+          data[:lev] = @lev
         end
 
         data[:price] = BigDecimal.new(@price, 5).to_s if !@price.nil?

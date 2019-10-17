@@ -25,13 +25,12 @@ module Bitfinex
     ###
     # Submit a new order
     #
-    # @param [Hash|Array|Order] order
-    # @param [Block] cb - triggered upon receipt of confirmation notification
+    # @param [Hash|Order] order
+    #
+    # @return [Array] Raw notification
     ###
     def submit_order(order)
-      if order.kind_of?(Array)
-        packet = order
-      elsif order.instance_of?(Models::Order)
+      if order.instance_of?(Models::Order)
         packet = order.to_new_order_packet
       elsif order.kind_of?(Hash)
         packet = Models::Order.new(order).to_new_order_packet
@@ -45,7 +44,8 @@ module Bitfinex
     # Update an order with a changeset by ID
     #
     # @param [Hash] changes - must contain ID
-    # @param [Block] cb - triggered upon receipt of confirmation notification
+    #
+    # @return [Array] Raw notification
     ###
     def update_order (changes)
       id = changes[:id] || changes['id']
@@ -56,7 +56,8 @@ module Bitfinex
     # Cancel an order by ID
     #
     # @param [Hash|Array|Order|number] order - must contain or be ID
-    # @param [Block] cb - triggered upon receipt of confirmation notification
+    #
+    # @return [Array] Raw notification
     ###
     def cancel_order (order)
       if order.is_a?(Numeric)

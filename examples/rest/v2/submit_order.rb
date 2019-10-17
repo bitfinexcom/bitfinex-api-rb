@@ -8,15 +8,16 @@ client = Bitfinex::RESTv2.new({
 })
 
 o = Bitfinex::Models::Order.new({
-  :type => 'EXCHANGE LIMIT',
-  :price => 14750,
-  :amount => 1,
-  :symbol => 'tBTCUSD'
+  :type => 'LIMIT',
+  :price => 8000,
+  :amount => 0.1,
+  :symbol => 'tBTCF0:USDF0',
+  :lev => 4
 })
 
-# submit an order
+# Submit an order
 print client.submit_order(o)
-# update an order
+# Update an order
 print client.update_order({ :id => 1185657359, :price => '14730' })
-# cancel an order
+# Cancel an order
 print client.cancel_order({ :id => 1185657349 })

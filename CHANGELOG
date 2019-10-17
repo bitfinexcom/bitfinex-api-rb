@@ -1,3 +1,20 @@
+1.0.5
+
+- Adds function rest/v2 submit_order
+- Adds function rest/v2 update_order
+- Adds function rest/v2 cancel_order
+- Adds function rest/v2 submit_funding_offer
+- Adds function rest/v2 cancel_funding_offer
+- Adds function rest/v2 close_funding
+- Adds function rest/v2 submit_funding_auto
+- Adds function rest/v2 transfer
+- Adds function rest/v2 deposit_address
+- Adds function rest/v2 create_deposit_address
+- Adds function rest/v2 withdraw
+- Adds function rest/v2 claim_position
+- Updates order model to allow lev field
+- Updates position model to accept more data fields
+
 1.0.4
 
 - Adds PR/Issue templates

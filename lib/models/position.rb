@@ -14,7 +14,17 @@ module Bitfinex
         :pl => 6,
         :pl_perc => 7,
         :liquidation_price => 8,
-        :leverage => 9
+        :leverage => 9,
+        # placeholder
+        :id => 11,
+        :mts_create => 12,
+        :mts_update => 13,
+        # placeholder
+        :type => 15,
+        # placeholder
+        :collateral => 17,
+        :callateral_min => 18,
+        :meta => 19
       }
 
       FIELDS.each do |key, index|

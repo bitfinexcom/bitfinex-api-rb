@@ -7,4 +7,9 @@ client = Bitfinex::RESTv2.new({
   :api_secret => ENV['API_SECRET']
 })
 
+# print all wallets
 puts client.wallets
+# print bitcoin deposit address
+puts client.deposit_address('exchange', 'bitcoin')
+# create/print new deposit address
+puts client.create_deposit_address('exchange', 'bitcoin')

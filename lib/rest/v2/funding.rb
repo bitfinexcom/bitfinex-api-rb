@@ -67,7 +67,7 @@ module Bitfinex
     end
 
     ###
-    # Close a funding loan/credit
+    # Submit a new auto funding request
     #
     # @param [string] currency - urrency for which to enable auto-renew
     # @param [number] amount - amount to be auto-renewed (Minimum 50 USD equivalent)

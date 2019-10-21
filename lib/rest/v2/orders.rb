@@ -48,7 +48,6 @@ module Bitfinex
     # @return [Array] Raw notification
     ###
     def update_order (changes)
-      id = changes[:id] || changes['id']
       authenticated_post("auth/w/order/update", params: changes).body
     end
 

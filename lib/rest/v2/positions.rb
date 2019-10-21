@@ -17,7 +17,7 @@ module Bitfinex
       elsif position.kind_of?(Hash)
         id = position[:id] || position['id']
       else
-        raise Exception, 'tried to cancel position with invalid ID'
+        raise Exception, 'tried to claim position with invalid ID'
       end
       authenticated_post("auth/w/position/claim", params: { :id => id }).body
     end

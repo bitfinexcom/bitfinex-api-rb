@@ -29,8 +29,8 @@ module Bitfinex
         # placeholder
         # placeholder
         # placeholder
-        # placeholder
-        :notify => 24,
+        :notify => 23,
+        :hidden => 24,
         :placed_id => 25,
         # placeholder
         # placeholder

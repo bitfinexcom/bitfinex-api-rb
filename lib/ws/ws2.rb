@@ -52,6 +52,7 @@ module Bitfinex
     #
     # @param [Hash] params
     # @param [string] params.url - connection URL
+    # @param [string] params.aff_code - optional affiliate code to be applied to all orders
     # @param [string] params.api_key
     # @param [string] params.api_secret
     # @param [boolean] params.manage_order_books - if true, order books are persisted internally, allowing for automatic checksum verification
@@ -64,6 +65,7 @@ module Bitfinex
       @l.progname = 'ws2'
 
       @url = params[:url] || 'wss://api.bitfinex.com/ws/2'
+      @aff_code = params[:aff_code]
       @api_key = params[:api_key]
       @api_secret = params[:api_secret]
       @manage_obs = params[:manage_order_books]
@@ -720,6 +722,14 @@ module Bitfinex
         packet = Models::Order.new(order).to_new_order_packet
       else
         raise Exception, 'tried to submit order of unkown type'
+      end
+
+      if !@aff_code.nil?
+        unless packet[:meta]
+          packet[:meta] = {}
+        end
+
+        packet[:meta][:aff_code] = @aff_code
       end
 
       @ws.send(JSON.generate([0, 'on', nil, packet]))

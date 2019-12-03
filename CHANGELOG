@@ -1,3 +1,6 @@
+1.0.6
+- Adds order affiliate code support to rest & ws v2 transports
+
 1.0.5
 
 - Adds function rest/v2 submit_order

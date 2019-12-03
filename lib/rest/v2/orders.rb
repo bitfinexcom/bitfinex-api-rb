@@ -37,6 +37,15 @@ module Bitfinex
       else
         raise Exception, 'tried to submit order of unkown type'
       end
+
+      if !@aff_code.nil?
+        unless packet[:meta]
+          packet[:meta] = {}
+        end
+
+        packet[:meta][:aff_code] = @aff_code
+      end
+
       authenticated_post("auth/w/order/submit", params: packet).body
     end
 

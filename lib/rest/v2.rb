@@ -37,6 +37,7 @@ module Bitfinex
       self.rest_open_timeout = 30
       self.api_key = args[:api_key]
       self.api_secret = args[:api_secret]
+      self.aff_code = args[:aff_code]
     end
 
     def config
@@ -48,7 +49,8 @@ module Bitfinex
         :rest_open_timeout => self.rest_open_timeout,
         :proxy => self.proxy,
         :api_key => self.api_key,
-        :api_secret => self.api_secret
+        :api_secret => self.api_secret,
+        :aff_code => self.aff_code
       }
     end
   end

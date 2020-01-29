@@ -14,7 +14,7 @@ module Bitfinex
   class RESTv2
     attr_accessor :api_endpoint, :debug, :debug_connection, :api_version
     attr_accessor :rest_timeout, :rest_open_timeout, :proxy
-    attr_accessor :api_key, :api_secret
+    attr_accessor :api_key, :api_secret, :aff_code
 
     include Bitfinex::RESTClient
     include Bitfinex::RESTv2Margin

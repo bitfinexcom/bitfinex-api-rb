@@ -1,3 +1,7 @@
+1.0.7
+
+- Fixes issue with RESTv2 client initialization.
+
 1.0.6
 - Adds order affiliate code support to rest & ws v2 transports
 

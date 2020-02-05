@@ -78,7 +78,7 @@ module Bitfinex
     # @return [Array] Raw notification
     ###
     def submit_funding_auto(currency, amount, period, rate='0', status=1)
-      dec_amount = BigDecimal.new(amount, 8).to_s
+      dec_amount = BigDecimal(amount, 8).to_s
       payload = { :status => status, :currency => currency, :amount => dec_amount, :period => period, :rate => rate }
       authenticated_post("auth/w/funding/auto", params: payload).body
     end

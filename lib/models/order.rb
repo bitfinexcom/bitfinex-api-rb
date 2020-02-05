@@ -173,7 +173,7 @@ module Bitfinex
           :cid => cid,
           :symbol => @symbol,
           :type => @type,
-          :amount => BigDecimal.new(@amount, 8).to_s,
+          :amount => BigDecimal(@amount, 8).to_s,
           :flags => @flags || 0,
           :meta => @meta
         }
@@ -184,14 +184,14 @@ module Bitfinex
           data[:lev] = @lev
         end
 
-        data[:price] = BigDecimal.new(@price, 5).to_s if !@price.nil?
-        data[:price_trailing] = BigDecimal.new(@price_trailing, 5).to_s if !@price_trailing.nil?
+        data[:price] = BigDecimal(@price, 5).to_s if !@price.nil?
+        data[:price_trailing] = BigDecimal(@price_trailing, 5).to_s if !@price_trailing.nil?
 
         if !@price_aux_limit.nil?
           if is_oco
-            data[:price_oco_stop] = BigDecimal.new(@price_aux_limit, 5).to_s
+            data[:price_oco_stop] = BigDecimal(@price_aux_limit, 5).to_s
           else
-            data[:price_aux_limit] = BigDecimal.new(@price_aux_limit, 5).to_s
+            data[:price_aux_limit] = BigDecimal(@price_aux_limit, 5).to_s
           end
         end
 

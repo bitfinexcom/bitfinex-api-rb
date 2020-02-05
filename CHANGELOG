@@ -1,3 +1,7 @@
+1.0.8
+
+- Fixes warning about BigDecimal.new deprecation
+
 1.0.7
 
 - Fixes issue with RESTv2 client initialization.

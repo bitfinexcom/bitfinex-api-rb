@@ -20,7 +20,7 @@ module Bitfinex
     # @return [Array] Raw notification
     ###
     def transfer (from, to, currency_from, currency_to, amount)
-      payload = { :from => from, :to => to, :currency => currency, :currency_to => currency_to, :amount => amount }
+      payload = { :from => from, :to => to, :currency => currency_from, :currency_to => currency_to, :amount => amount }
       authenticated_post("auth/w/transfer", params: payload).body
     end
 

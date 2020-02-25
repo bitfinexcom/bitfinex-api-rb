@@ -1,3 +1,7 @@
+1.0.9
+
+- Fixes bug with API v2 transfer
+
 1.0.8
 
 - Fixes warning about BigDecimal.new deprecation

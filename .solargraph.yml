@@ -1,0 +1,4 @@
+reporters:
+- rubocop
+- typecheck
+- update_errors

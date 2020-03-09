@@ -1,0 +1,3741 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Bitfinex::WSv2
+  
+    &mdash; Documentation by YARD 0.9.24
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Bitfinex::WSv2";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (W)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Bitfinex.html" title="Bitfinex (module)">Bitfinex</a></span></span>
+     &raquo; 
+    <span class="title">WSv2</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Bitfinex::WSv2
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Bitfinex::WSv2</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Emittr::Events</dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/ws/ws2.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Implements version 2 of the Bitfinex WebSocket API, taking an evented
+approach. Incoming packets trigger event broadcasts with names relevant to
+the individual packets. Provides order manipulation methods that support
+callback blocks, which are called when the relevant confirmation
+notifications are received</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="INFO_SERVER_RESTART-constant" class="">INFO_SERVER_RESTART =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>20_051</span></pre></dd>
+      
+        <dt id="INFO_MAINTENANCE_START-constant" class="">INFO_MAINTENANCE_START =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>20_060</span></pre></dd>
+      
+        <dt id="INFO_MAINTENANCE_END-constant" class="">INFO_MAINTENANCE_END =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>20_061</span></pre></dd>
+      
+        <dt id="FLAG_DEC_S-constant" class="">FLAG_DEC_S =
+          <div class="docstring">
+  <div class="discussion">
+    <p>enables all decimals as strings</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="FLAG_TIME_S-constant" class="">FLAG_TIME_S =
+          <div class="docstring">
+  <div class="discussion">
+    <p>enables all timestamps as strings</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="FLAG_TIMESTAMP-constant" class="">FLAG_TIMESTAMP =
+          <div class="docstring">
+  <div class="discussion">
+    <p>timestamps in milliseconds</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32_768</span></pre></dd>
+      
+        <dt id="FLAG_SEQ_ALL-constant" class="">FLAG_SEQ_ALL =
+          <div class="docstring">
+  <div class="discussion">
+    <p>enable sequencing</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>65_536</span></pre></dd>
+      
+        <dt id="FLAG_CHECKSUM-constant" class="">FLAG_CHECKSUM =
+          <div class="docstring">
+  <div class="discussion">
+    <p>enable OB checksums, top 25 levels per side</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>131_072</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#auth!-instance_method" title="#auth! (instance method)">#<strong>auth!</strong>(calc = 0, dms = 0)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Authenticates the socket connection.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cancel_order-instance_method" title="#cancel_order (instance method)">#<strong>cancel_order</strong>(order, &amp;cb)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Cancel an order by ID.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close!-instance_method" title="#close! (instance method)">#<strong>close!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Closes the websocket client.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enable_flag-instance_method" title="#enable_flag (instance method)">#<strong>enable_flag</strong>(flag)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Enable an individual flag (see FLAG_* constants).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enable_ob_checksums-instance_method" title="#enable_ob_checksums (instance method)">#<strong>enable_ob_checksums</strong>(audit = true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sets the flag to activate order book checksums.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enable_sequencing-instance_method" title="#enable_sequencing (instance method)">#<strong>enable_sequencing</strong>(audit = true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sets the flag to activate sequence numbers on incoming packets.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_auth_event-instance_method" title="#handle_auth_event (instance method)">#<strong>handle_auth_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_auth_message-instance_method" title="#handle_auth_message (instance method)">#<strong>handle_auth_message</strong>(msg, _chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_candles_message-instance_method" title="#handle_candles_message (instance method)">#<strong>handle_candles_message</strong>(msg, chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_config_event-instance_method" title="#handle_config_event (instance method)">#<strong>handle_config_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_error_event-instance_method" title="#handle_error_event (instance method)">#<strong>handle_error_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_info_event-instance_method" title="#handle_info_event (instance method)">#<strong>handle_info_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_notification_promises-instance_method" title="#handle_notification_promises (instance method)">#<strong>handle_notification_promises</strong>(n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Resolves/rejects any pending promise associated with the notification.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_order_book_checksum_message-instance_method" title="#handle_order_book_checksum_message (instance method)">#<strong>handle_order_book_checksum_message</strong>(msg, chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_order_book_message-instance_method" title="#handle_order_book_message (instance method)">#<strong>handle_order_book_message</strong>(msg, chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_subscribed_event-instance_method" title="#handle_subscribed_event (instance method)">#<strong>handle_subscribed_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_ticker_message-instance_method" title="#handle_ticker_message (instance method)">#<strong>handle_ticker_message</strong>(msg, chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_trades_message-instance_method" title="#handle_trades_message (instance method)">#<strong>handle_trades_message</strong>(msg, chan)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_unsubscribed_event-instance_method" title="#handle_unsubscribed_event (instance method)">#<strong>handle_unsubscribed_event</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(params = {})  &#x21d2; WSv2 </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a new instance of the class.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_flag_enabled-instance_method" title="#is_flag_enabled (instance method)">#<strong>is_flag_enabled</strong>(flag)  &#x21d2; boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Checks if an individual flag is enabled (see FLAG_* constants).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_nonce-instance_method" title="#new_nonce (instance method)">#<strong>new_nonce</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open!-instance_method" title="#open! (instance method)">#<strong>open!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Opens the websocket client inside an eventmachine run block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process_channel_message-instance_method" title="#process_channel_message (instance method)">#<strong>process_channel_message</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process_event_message-instance_method" title="#process_event_message (instance method)">#<strong>process_event_message</strong>(msg)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#request_calc-instance_method" title="#request_calc (instance method)">#<strong>request_calc</strong>(prefixes)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Requests a calculation to be performed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign-instance_method" title="#sign (instance method)">#<strong>sign</strong>(payload)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#submit_order-instance_method" title="#submit_order (instance method)">#<strong>submit_order</strong>(order, &amp;cb)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Submit a new order.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe-instance_method" title="#subscribe (instance method)">#<strong>subscribe</strong>(channel, params = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to the specified channel; params dictate the channel filter.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe_candles-instance_method" title="#subscribe_candles (instance method)">#<strong>subscribe_candles</strong>(key)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to a candle channel by key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe_order_book-instance_method" title="#subscribe_order_book (instance method)">#<strong>subscribe_order_book</strong>(sym, prec, len)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to an order book channel.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe_ticker-instance_method" title="#subscribe_ticker (instance method)">#<strong>subscribe_ticker</strong>(sym)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to a ticker channel by symbol.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe_trades-instance_method" title="#subscribe_trades (instance method)">#<strong>subscribe_trades</strong>(sym)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to a trades channel by symbol.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_order-instance_method" title="#update_order (instance method)">#<strong>update_order</strong>(changes, &amp;cb)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Update an order with a changeset by ID.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(params = {})  &#x21d2; <tt><span class='object_link'><a href="" title="Bitfinex::WSv2 (class)">WSv2</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a new instance of the class</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params.aff_code</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:url</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>connection URL</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:api_key</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:api_secret</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:manage_order_books</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>if true, order books are
+persisted internally, allowing for automatic checksum verification</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:transform</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>if true, full models are returned in
+place of array data</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:seq_audit</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>enables auto seq number verification</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:checksum_audit</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>enables automatic OB checksum
+verification (requires manage_order_books)</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@l</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>STDOUT</span><span class='rparen'>)</span>
+  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_progname'>progname</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ws2</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='ivar'>@url</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:url</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wss://api.bitfinex.com/ws/2</span><span class='tstring_end'>&#39;</span></span>
+  <span class='ivar'>@aff_code</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aff_code</span><span class='rbracket'>]</span>
+  <span class='ivar'>@api_key</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:api_key</span><span class='rbracket'>]</span>
+  <span class='ivar'>@api_secret</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:api_secret</span><span class='rbracket'>]</span>
+  <span class='ivar'>@manage_obs</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:manage_order_books</span><span class='rbracket'>]</span>
+  <span class='ivar'>@transform</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:transform</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@seq_audit</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:seq_audit</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@checksum_audit</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:checksum_audit</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='ivar'>@enabled_flags</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='ivar'>@is_open</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@is_authenticated</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@channel_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@order_books</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@pending_blocks</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@last_pub_seq</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@last_auth_seq</span> <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="auth!-instance_method">
+  
+    #<strong>auth!</strong>(calc = 0, dms = 0)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Authenticates the socket connection</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>calc</span>
+      
+      
+        <span class='type'>(<tt>number</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>dms</span>
+      
+      
+        <span class='type'>(<tt>number</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>dead man switch, active 4</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Exception</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 644</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_auth!'>auth!</span><span class='lparen'>(</span><span class='id identifier rubyid_calc'>calc</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_dms'>dms</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>already authenticated</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='ivar'>@is_authenticated</span>
+
+  <span class='id identifier rubyid_auth_nonce'>auth_nonce</span> <span class='op'>=</span> <span class='id identifier rubyid_new_nonce'>new_nonce</span>
+  <span class='id identifier rubyid_auth_payload'>auth_payload</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AUTH</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_auth_nonce'>auth_nonce</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_auth_nonce'>auth_nonce</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_sig'>sig</span> <span class='op'>=</span> <span class='id identifier rubyid_sign'>sign</span><span class='lparen'>(</span><span class='id identifier rubyid_auth_payload'>auth_payload</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+                           <span class='label'>event:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                           <span class='label'>apiKey:</span> <span class='ivar'>@api_key</span><span class='comma'>,</span>
+                           <span class='label'>authSig:</span> <span class='id identifier rubyid_sig'>sig</span><span class='comma'>,</span>
+                           <span class='label'>authPayload:</span> <span class='id identifier rubyid_auth_payload'>auth_payload</span><span class='comma'>,</span>
+                           <span class='label'>authNonce:</span> <span class='id identifier rubyid_auth_nonce'>auth_nonce</span><span class='comma'>,</span>
+                           <span class='label'>dms:</span> <span class='id identifier rubyid_dms'>dms</span><span class='comma'>,</span>
+                           <span class='label'>calc:</span> <span class='id identifier rubyid_calc'>calc</span>
+                         <span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cancel_order-instance_method">
+  
+    #<strong>cancel_order</strong>(order, &amp;cb)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Cancel an order by ID</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>Hash|Array|Order|number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>must contain or be ID</li>
+</ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cb</span>
+      
+      
+        <span class='type'>(<tt>Block</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>triggered upon receipt of confirmation notification</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 699</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cancel_order'>cancel_order</span><span class='lparen'>(</span><span class='id identifier rubyid_order'>order</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_cb'>cb</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@is_authenticated</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Numeric</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_instance_of?'>instance_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_order'>order</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tried to cancel order with invalid ID</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>oc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-cancel-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_cb'>cb</span> <span class='kw'>unless</span> <span class='id identifier rubyid_cb'>cb</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="close!-instance_method">
+  
+    #<strong>close!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Closes the websocket client</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 157</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close!'>close!</span>
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="enable_flag-instance_method">
+  
+    #<strong>enable_flag</strong>(flag)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Enable an individual flag (see FLAG_* constants)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>flag</span>
+      
+      
+        <span class='type'>(<tt>number</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+598
+599
+600
+601
+602
+603
+604
+605</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 598</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_enable_flag'>enable_flag</span><span class='lparen'>(</span><span class='id identifier rubyid_flag'>flag</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@is_open</span>
+
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+                           <span class='label'>event:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>conf</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                           <span class='label'>flags:</span> <span class='ivar'>@enabled_flags</span> <span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span>
+                         <span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="enable_ob_checksums-instance_method">
+  
+    #<strong>enable_ob_checksums</strong>(audit = true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Sets the flag to activate order book checksums. Managed order books are
+required for automatic checksum audits.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>audit</span>
+      
+      
+        <span class='type'>(<tt>boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>if true (default), incoming checksums will be compared to local checksums</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+633
+634
+635
+636</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 633</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_enable_ob_checksums'>enable_ob_checksums</span><span class='lparen'>(</span><span class='id identifier rubyid_audit'>audit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@checksum_audit</span> <span class='op'>=</span> <span class='id identifier rubyid_audit'>audit</span>
+  <span class='id identifier rubyid_enable_flag'>enable_flag</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#FLAG_CHECKSUM-constant" title="Bitfinex::WSv2::FLAG_CHECKSUM (constant)">FLAG_CHECKSUM</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="enable_sequencing-instance_method">
+  
+    #<strong>enable_sequencing</strong>(audit = true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Sets the flag to activate sequence numbers on incoming packets</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>audit</span>
+      
+      
+        <span class='type'>(<tt>boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>if true (default), incoming seq numbers will be checked for consistency</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+622
+623
+624
+625</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 622</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_enable_sequencing'>enable_sequencing</span><span class='lparen'>(</span><span class='id identifier rubyid_audit'>audit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@seq_audit</span> <span class='op'>=</span> <span class='id identifier rubyid_audit'>audit</span>
+  <span class='id identifier rubyid_enable_flag'>enable_flag</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#FLAG_SEQ_ALL-constant" title="Bitfinex::WSv2::FLAG_SEQ_ALL (constant)">FLAG_SEQ_ALL</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_auth_event-instance_method">
+  
+    #<strong>handle_auth_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 529</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_auth_event'>handle_auth_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OK</span><span class='tstring_end'>&#39;</span></span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>auth failed: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@channel_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>channel</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+  <span class='ivar'>@is_authenticated</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:auth</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>authenticated</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_auth_message-instance_method">
+  
+    #<strong>handle_auth_message</strong>(msg, _chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 379</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_auth_message'>handle_auth_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid__chan'>_chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hb</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+
+  <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>n</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:notification</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Notification.html" title="Bitfinex::Models::Notification (class)">Notification</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Notification.html#initialize-instance_method" title="Bitfinex::Models::Notification#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_handle_notification_promises'>handle_notification_promises</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>te</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:trade_entry</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Trade.html" title="Bitfinex::Models::Trade (class)">Trade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Trade.html#initialize-instance_method" title="Bitfinex::Models::Trade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:trade_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Trade.html" title="Bitfinex::Models::Trade (class)">Trade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Trade.html#initialize-instance_method" title="Bitfinex::Models::Trade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>os</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:order_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_o'>o</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ou</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:order_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>on</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:order_new</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>oc</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:order_close</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ps</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:position_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Position.html" title="Bitfinex::Models::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Position.html#initialize-instance_method" title="Bitfinex::Models::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pn</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:position_new</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Position.html" title="Bitfinex::Models::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Position.html#initialize-instance_method" title="Bitfinex::Models::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:position_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Position.html" title="Bitfinex::Models::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Position.html#initialize-instance_method" title="Bitfinex::Models::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pc</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:position_close</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Position.html" title="Bitfinex::Models::Position (class)">Position</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Position.html#initialize-instance_method" title="Bitfinex::Models::Position#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fos</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_offer_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fo'>fo</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingOffer.html" title="Bitfinex::Models::FundingOffer (class)">FundingOffer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingOffer.html#initialize-instance_method" title="Bitfinex::Models::FundingOffer#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_fo'>fo</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fon</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_offer_new</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingOffer.html" title="Bitfinex::Models::FundingOffer (class)">FundingOffer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingOffer.html#initialize-instance_method" title="Bitfinex::Models::FundingOffer#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fou</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_offer_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingOffer.html" title="Bitfinex::Models::FundingOffer (class)">FundingOffer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingOffer.html#initialize-instance_method" title="Bitfinex::Models::FundingOffer#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foc</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_offer_close</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingOffer.html" title="Bitfinex::Models::FundingOffer (class)">FundingOffer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingOffer.html#initialize-instance_method" title="Bitfinex::Models::FundingOffer#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fcs</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_credit_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fc'>fc</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingCredit.html" title="Bitfinex::Models::FundingCredit (class)">FundingCredit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingCredit.html#initialize-instance_method" title="Bitfinex::Models::FundingCredit#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_fc'>fc</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fcn</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_credit_new</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingCredit.html" title="Bitfinex::Models::FundingCredit (class)">FundingCredit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingCredit.html#initialize-instance_method" title="Bitfinex::Models::FundingCredit#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fcu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_credit_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingCredit.html" title="Bitfinex::Models::FundingCredit (class)">FundingCredit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingCredit.html#initialize-instance_method" title="Bitfinex::Models::FundingCredit#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fcc</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_credit_close</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingCredit.html" title="Bitfinex::Models::FundingCredit (class)">FundingCredit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingCredit.html#initialize-instance_method" title="Bitfinex::Models::FundingCredit#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fls</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_loan_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fl'>fl</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingLoan.html" title="Bitfinex::Models::FundingLoan (class)">FundingLoan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingLoan.html#initialize-instance_method" title="Bitfinex::Models::FundingLoan#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_fl'>fl</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fln</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_loan_new</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingLoan.html" title="Bitfinex::Models::FundingLoan (class)">FundingLoan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingLoan.html#initialize-instance_method" title="Bitfinex::Models::FundingLoan#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>flu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_loan_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingLoan.html" title="Bitfinex::Models::FundingLoan (class)">FundingLoan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingLoan.html#initialize-instance_method" title="Bitfinex::Models::FundingLoan#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>flc</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_loan_close</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingLoan.html" title="Bitfinex::Models::FundingLoan (class)">FundingLoan</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingLoan.html#initialize-instance_method" title="Bitfinex::Models::FundingLoan#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ws</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:wallet_snapshot</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Wallet.html" title="Bitfinex::Models::Wallet (class)">Wallet</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Wallet.html#initialize-instance_method" title="Bitfinex::Models::Wallet#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:wallet_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Wallet.html" title="Bitfinex::Models::Wallet (class)">Wallet</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Wallet.html#initialize-instance_method" title="Bitfinex::Models::Wallet#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:balance_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/BalanceInfo.html" title="Bitfinex::Models::BalanceInfo (class)">BalanceInfo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/BalanceInfo.html#initialize-instance_method" title="Bitfinex::Models::BalanceInfo#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>miu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:margin_info_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/MarginInfo.html" title="Bitfinex::Models::MarginInfo (class)">MarginInfo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/MarginInfo.html#initialize-instance_method" title="Bitfinex::Models::MarginInfo#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fiu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_info_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingInfo.html" title="Bitfinex::Models::FundingInfo (class)">FundingInfo</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingInfo.html#initialize-instance_method" title="Bitfinex::Models::FundingInfo#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fte</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_trade_entry</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingTrade.html" title="Bitfinex::Models::FundingTrade (class)">FundingTrade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingTrade.html#initialize-instance_method" title="Bitfinex::Models::FundingTrade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftu</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:funding_trade_update</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingTrade.html" title="Bitfinex::Models::FundingTrade (class)">FundingTrade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingTrade.html#initialize-instance_method" title="Bitfinex::Models::FundingTrade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_candles_message-instance_method">
+  
+    #<strong>handle_candles_message</strong>(msg, chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+278
+279
+280
+281
+282
+283
+284
+285
+286</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 278</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_candles_message'>handle_candles_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:candles</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Candle.html" title="Bitfinex::Models::Candle (class)">Candle</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Candle.html#initialize-instance_method" title="Bitfinex::Models::Candle#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:candles</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Candle.html" title="Bitfinex::Models::Candle (class)">Candle</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Candle.html#initialize-instance_method" title="Bitfinex::Models::Candle#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_config_event-instance_method">
+  
+    #<strong>handle_config_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+572
+573
+574
+575
+576
+577
+578
+579</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 572</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_config_event'>handle_config_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OK</span><span class='tstring_end'>&#39;</span></span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config failed: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>flags updated to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>flags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@enabled_flags</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>flags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_error_event-instance_method">
+  
+    #<strong>handle_error_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+568
+569
+570</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 568</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_error_event'>handle_error_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_msg'>msg</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_info_event-instance_method">
+  
+    #<strong>handle_info_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 542</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_info_event'>handle_info_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>version</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>version</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='int'>2</span>
+      <span class='id identifier rubyid_close!'>close!</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server not running API v2: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>version</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>platform</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server running API v2 (platform: %s (%d))</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform'>platform</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>under maintenance</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>operating normally</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform'>platform</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_msg'>msg</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>code</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>code</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#INFO_SERVER_RESTART-constant" title="Bitfinex::WSv2::INFO_SERVER_RESTART (constant)">INFO_SERVER_RESTART</a></span></span>
+      <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server restarted, please reconnect</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:server_restart</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#INFO_MAINTENANCE_START-constant" title="Bitfinex::WSv2::INFO_MAINTENANCE_START (constant)">INFO_MAINTENANCE_START</a></span></span>
+      <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server maintenance period started!</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:maintenance_start</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#INFO_MAINTENANCE_END-constant" title="Bitfinex::WSv2::INFO_MAINTENANCE_END (constant)">INFO_MAINTENANCE_END</a></span></span>
+      <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server maintenance period ended!</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:maintenance_end</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_notification_promises-instance_method">
+  
+    #<strong>handle_notification_promises</strong>(n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Resolves/rejects any pending promise associated with the notification</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 330</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_notification_promises'>handle_notification_promises</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_n'>n</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_n'>n</span><span class='lbracket'>[</span><span class='int'>4</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_n'>n</span><span class='lbracket'>[</span><span class='int'>6</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_msg'>msg</span> <span class='op'>=</span> <span class='id identifier rubyid_n'>n</span><span class='lbracket'>[</span><span class='int'>7</span><span class='rbracket'>]</span>
+
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='comment'># expect order payload
+</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>on-req</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_cid'>cid</span> <span class='op'>=</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-new-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cid'>cid</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@pending_blocks</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>SUCCESS</span><span class='tstring_end'>&#39;</span></span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'>Exception</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_status'>status</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@pending_blocks</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>oc-req</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-cancel-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@pending_blocks</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>SUCCESS</span><span class='tstring_end'>&#39;</span></span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'>Exception</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_status'>status</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@pending_blocks</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ou-req</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-update-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@pending_blocks</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>SUCCESS</span><span class='tstring_end'>&#39;</span></span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'>Exception</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_status'>status</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_order_book_checksum_message-instance_method">
+  
+    #<strong>handle_order_book_checksum_message</strong>(msg, chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 288</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_order_book_checksum_message'>handle_order_book_checksum_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>prec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>len</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:checksum</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@manage_obs</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@order_books</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_remote_cs'>remote_cs</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_local_cs'>local_cs</span> <span class='op'>=</span> <span class='ivar'>@order_books</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_checksum'>checksum</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_local_cs'>local_cs</span> <span class='op'>!=</span> <span class='id identifier rubyid_remote_cs'>remote_cs</span>
+    <span class='id identifier rubyid_err'>err</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OB checksum mismatch, have </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_local_cs'>local_cs</span><span class='embexpr_end'>}</span><span class='tstring_content'> want </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_remote_cs'>remote_cs</span><span class='embexpr_end'>}</span><span class='tstring_content'> [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_err'>err</span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:error</span><span class='comma'>,</span> <span class='id identifier rubyid_err'>err</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OB checksum OK </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_local_cs'>local_cs</span><span class='embexpr_end'>}</span><span class='tstring_content'> [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_order_book_message-instance_method">
+  
+    #<strong>handle_order_book_message</strong>(msg, chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 307</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_order_book_message'>handle_order_book_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_ob'>ob</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@manage_obs</span>
+    <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>prec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>len</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@order_books</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+      <span class='ivar'>@order_books</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/OrderBook.html" title="Bitfinex::Models::OrderBook (class)">OrderBook</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/OrderBook.html#initialize-instance_method" title="Bitfinex::Models::OrderBook#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ob'>ob</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>prec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='ivar'>@order_books</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_update_with'>update_with</span><span class='lparen'>(</span><span class='id identifier rubyid_ob'>ob</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='ivar'>@order_books</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
+  <span class='kw'>elsif</span> <span class='ivar'>@transform</span>
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/OrderBook.html" title="Bitfinex::Models::OrderBook (class)">OrderBook</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/OrderBook.html#initialize-instance_method" title="Bitfinex::Models::OrderBook#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ob'>ob</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_ob'>ob</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:order_book</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_subscribed_event-instance_method">
+  
+    #<strong>handle_subscribed_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+581
+582
+583
+584
+585</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 581</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_subscribed_event'>handle_subscribed_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>subscribed to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>channel</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@channel_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span>
+  <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:subscribed</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_ticker_message-instance_method">
+  
+    #<strong>handle_ticker_message</strong>(msg, chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 249</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_ticker_message'>handle_ticker_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload_with_sym'>payload_with_sym</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>===</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:ticker</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/TradingTicker.html" title="Bitfinex::Models::TradingTicker (class)">TradingTicker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/TradingTicker.html#initialize-instance_method" title="Bitfinex::Models::TradingTicker#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload_with_sym'>payload_with_sym</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:ticker</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/FundingTicker.html" title="Bitfinex::Models::FundingTicker (class)">FundingTicker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/FundingTicker.html#initialize-instance_method" title="Bitfinex::Models::FundingTicker#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_payload_with_sym'>payload_with_sym</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_trades_message-instance_method">
+  
+    #<strong>handle_trades_message</strong>(msg, chan)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 260</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_trades_message'>handle_trades_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:public_trades</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/PublicTrade.html" title="Bitfinex::Models::PublicTrade (class)">PublicTrade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/PublicTrade.html#initialize-instance_method" title="Bitfinex::Models::PublicTrade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='ivar'>@transform</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/PublicTrade.html" title="Bitfinex::Models::PublicTrade (class)">PublicTrade</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/PublicTrade.html#initialize-instance_method" title="Bitfinex::Models::PublicTrade#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:public_trades</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>te</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:public_trade_entry</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tu</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:public_trade_update</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_unsubscribed_event-instance_method">
+  
+    #<strong>handle_unsubscribed_event</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+587
+588
+589
+590
+591</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 587</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_unsubscribed_event'>handle_unsubscribed_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unsubscribed from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@channel_map</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='symbol'>:unsubscribed</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>chanId</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_flag_enabled-instance_method">
+  
+    #<strong>is_flag_enabled</strong>(flag)  &#x21d2; <tt>boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Checks if an individual flag is enabled (see FLAG_* constants)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>flag</span>
+      
+      
+        <span class='type'>(<tt>number</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>enabled</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+613
+614
+615</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 613</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_flag_enabled'>is_flag_enabled</span><span class='lparen'>(</span><span class='id identifier rubyid_flag'>flag</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='ivar'>@enabled_flags</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_flag'>flag</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_flag'>flag</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_nonce-instance_method">
+  
+    #<strong>new_nonce</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+662
+663
+664</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 662</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_nonce'>new_nonce</span> <span class='comment'># :nodoc:
+</span>  <span class='lparen'>(</span><span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='int'>1000</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_floor'>floor</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open!-instance_method">
+  
+    #<strong>open!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Opens the websocket client inside an eventmachine run block</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Exception</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_open!'>open!</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>already open</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='ivar'>@is_open</span>
+
+  <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>do</span>
+    <span class='ivar'>@ws</span> <span class='op'>=</span> <span class='const'>Faye</span><span class='op'>::</span><span class='const'>WebSocket</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@url</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:open</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span>
+      <span class='id identifier rubyid_on_open'>on_open</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:message</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span>
+      <span class='id identifier rubyid_on_message'>on_message</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:close</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span>
+      <span class='id identifier rubyid_on_close'>on_close</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="process_channel_message-instance_method">
+  
+    #<strong>process_channel_message</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 220</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_process_channel_message'>process_channel_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>unless</span> <span class='ivar'>@channel_map</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>recv message on unknown channel: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_chan'>chan</span> <span class='op'>=</span> <span class='ivar'>@channel_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;</span> <span class='int'>2</span> <span class='op'>||</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hb</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='kw'>case</span> <span class='id identifier rubyid_chan'>chan</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>channel</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ticker</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_ticker_message'>handle_ticker_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>trades</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_trades_message'>handle_trades_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>candles</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_candles_message'>handle_candles_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>book</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cs</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_handle_order_book_checksum_message'>handle_order_book_checksum_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_handle_order_book_message'>handle_order_book_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_auth_message'>handle_auth_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='id identifier rubyid_chan'>chan</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="process_event_message-instance_method">
+  
+    #<strong>process_event_message</strong>(msg)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 512</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_process_event_message'>process_event_message</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_msg'>msg</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_auth_event'>handle_auth_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subscribed</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_subscribed_event'>handle_subscribed_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>unsubscribed</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_unsubscribed_event'>handle_unsubscribed_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>info</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_info_event'>handle_info_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>conf</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_config_event'>handle_config_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_handle_error_event'>handle_error_event</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="request_calc-instance_method">
+  
+    #<strong>request_calc</strong>(prefixes)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Requests a calculation to be performed</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>prefixes</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. [&#39;margin_base&#39;]</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.bitfinex.com/v2/reference#ws-input-calc" target="_parent" title="https://docs.bitfinex.com/v2/reference#ws-input-calc">https://docs.bitfinex.com/v2/reference#ws-input-calc</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+676
+677
+678</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 676</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_request_calc'>request_calc</span><span class='lparen'>(</span><span class='id identifier rubyid_prefixes'>prefixes</span><span class='rparen'>)</span>
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>calc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_prefixes'>prefixes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_p'>p</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sign-instance_method">
+  
+    #<strong>sign</strong>(payload)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+666
+667
+668</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 666</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign'>sign</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
+</span>  <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>HMAC</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sha384</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='ivar'>@api_secret</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="submit_order-instance_method">
+  
+    #<strong>submit_order</strong>(order, &amp;cb)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Submit a new order</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>Hash|Array|Order</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cb</span>
+      
+      
+        <span class='type'>(<tt>Block</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>triggered upon receipt of confirmation notification</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 725</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_submit_order'>submit_order</span><span class='lparen'>(</span><span class='id identifier rubyid_order'>order</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_cb'>cb</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@is_authenticated</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_packet'>packet</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_instance_of?'>instance_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_packet'>packet</span> <span class='op'>=</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_to_new_order_packet'>to_new_order_packet</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_packet'>packet</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Models/Order.html#initialize-instance_method" title="Bitfinex::Models::Order#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_order'>order</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_new_order_packet'><span class='object_link'><a href="Models/Order.html#to_new_order_packet-instance_method" title="Bitfinex::Models::Order#to_new_order_packet (method)">to_new_order_packet</a></span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tried to submit order of unkown type</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>unless</span> <span class='ivar'>@aff_code</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_packet'>packet</span><span class='lbracket'>[</span><span class='symbol'>:meta</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_packet'>packet</span><span class='lbracket'>[</span><span class='symbol'>:meta</span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_packet'>packet</span><span class='lbracket'>[</span><span class='symbol'>:meta</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:aff_code</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@aff_code</span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>on</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_packet'>packet</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_packet'>packet</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:cid</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_cb'>cb</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-new-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_packet'>packet</span><span class='lbracket'>[</span><span class='symbol'>:cid</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_cb'>cb</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe-instance_method">
+  
+    #<strong>subscribe</strong>(channel, params = {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Subscribes to the specified channel; params dictate the channel filter</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>channel</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>i.e. &#39;trades&#39;, &#39;candles&#39;, etc</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:symbol</span>
+          <span class="type">(<tt>string?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:prec</span>
+          <span class="type">(<tt>string?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>for order book channels</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:len</span>
+          <span class="type">(<tt>string?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>for order book channels</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:key</span>
+          <span class="type">(<tt>string?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>for candle channels</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+460
+461
+462
+463
+464
+465
+466
+467
+468</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 460</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_channel'>channel</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@l</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subscribing to channel %&lt;c&gt;s [%&lt;p&gt;h]</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>c:</span> <span class='id identifier rubyid_channel'>channel</span><span class='comma'>,</span> <span class='label'>p:</span> <span class='id identifier rubyid_params'>params</span>
+  <span class='rparen'>)</span>
+
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span>
+    <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>event:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subscribe</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>channel:</span> <span class='id identifier rubyid_channel'>channel</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe_candles-instance_method">
+  
+    #<strong>subscribe_candles</strong>(key)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Subscribes to a candle channel by key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. trade:1m:tBTCUSD</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+493
+494
+495</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 493</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe_candles'>subscribe_candles</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>candles</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>key:</span> <span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe_order_book-instance_method">
+  
+    #<strong>subscribe_order_book</strong>(sym, prec, len)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Subscribes to an order book channel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>sym</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. tBTCUSD</li>
+</ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>prec</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. R0, P0, etc</li>
+</ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>len</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. 25, 100, etc</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+504
+505
+506
+507
+508
+509
+510</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 504</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe_order_book'>subscribe_order_book</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='comma'>,</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='id identifier rubyid_len'>len</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>book</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+              <span class='label'>symbol:</span> <span class='id identifier rubyid_sym'>sym</span><span class='comma'>,</span>
+              <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span>
+              <span class='label'>len:</span> <span class='id identifier rubyid_len'>len</span>
+            <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe_ticker-instance_method">
+  
+    #<strong>subscribe_ticker</strong>(sym)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Subscribes to a ticker channel by symbol</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>sym</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. tBTCUSD</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+475
+476
+477</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 475</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe_ticker'>subscribe_ticker</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ticker</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>symbol:</span> <span class='id identifier rubyid_sym'>sym</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe_trades-instance_method">
+  
+    #<strong>subscribe_trades</strong>(sym)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Subscribes to a trades channel by symbol</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>sym</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>i.e. tBTCUSD</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+484
+485
+486</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 484</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe_trades'>subscribe_trades</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>trades</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>symbol:</span> <span class='id identifier rubyid_sym'>sym</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_order-instance_method">
+  
+    #<strong>update_order</strong>(changes, &amp;cb)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Update an order with a changeset by ID</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>changes</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>must contain ID</li>
+</ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cb</span>
+      
+      
+        <span class='type'>(<tt>Block</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul>
+<li>triggered upon receipt of confirmation notification</li>
+</ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+686
+687
+688
+689
+690
+691</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ws/ws2.rb', line 686</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_order'>update_order</span><span class='lparen'>(</span><span class='id identifier rubyid_changes'>changes</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_cb'>cb</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_changes'>changes</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_changes'>changes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='ivar'>@ws</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ou</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_changes'>changes</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@pending_blocks</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order-update-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_cb'>cb</span> <span class='kw'>unless</span> <span class='id identifier rubyid_cb'>cb</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 10 01:11:51 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.24 (ruby-2.7.0).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,1 +1,1 @@
---markup-provider=redcarpet --markup=markdown --readme=README.md --no-private - LICENSE.txt
+--markup-provider=redcarpet --markup=markdown --readme=DOCUMENTATION.md --no-private - LICENSE.txt

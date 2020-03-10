@@ -34,6 +34,44 @@ module Bitfinex
   # the individual packets. Provides order manipulation methods that support
   # callback blocks, which are called when the relevant confirmation
   # notifications are received
+  #
+  # @example
+  #   client = Bitfinex::WSv2.new({
+  #     :url => ENV['WS_URL'],
+  #     :api_key => ENV['API_KEY'],
+  #     :api_secret => ENV['API_SECRET'],
+  #     :transform => true, # provide models as event data instead of arrays
+  #     :seq_audit => true, # enable and audit sequence numbers
+  #     :manage_order_books => true, # allows for OB checksum verification
+  #     :checksum_audit => true # enables OB checksum verification (needs manage_order_books)
+  #   })
+  #
+  #   client.on(:open) do
+  #     client.auth!
+  #   end
+  #
+  #   client.on(:auth) do
+  #     puts 'succesfully authenticated'
+  #
+  #     o = Bitfinex::Models::Order.new({
+  #       :type => 'EXCHANGE LIMIT',
+  #       :price => 3.0152235,
+  #       :amount => 2.0235235263262,
+  #       :symbol => 'tEOSUSD'
+  #     })
+  #
+  #     client.submit_order(o)
+  #   end
+  #
+  #   client.on(:notification) do |n|
+  #     puts 'received notification: %s' % [n]
+  #   end
+  #
+  #   client.on(:order_new) do |msg|
+  #     puts 'recv order new: %s' % [msg]
+  #   end
+  #
+  #   client.open!
   class WSv2 # rubocop:disable Metrics/ClassLength
     include Emittr::Events
 

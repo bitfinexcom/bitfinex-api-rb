@@ -1,24 +1,28 @@
-module Bitfinex
-  module RESTv2Trading
+# frozen_string_literal: true
 
+module Bitfinex
+  # RESTv2 API trading methods
+  module RESTv2Trading
     # Provides a way to access charting candle info
     #
     # @param symbol [string] The symbol you want information about.
     # @param timeframe [string] Available values: '1m', '5m', '15m',
     #        '30m', '1h', '3h', '6h', '12h', '1D', '7D', '14D', '1M'
     # @param section [string] Available values: "last", "hist"
-    # @param params :limit [int32] Number of candles requested
-    # @param params :start [int32] Filter start (ms)
-    # @param params :end   [int32] Filter end (ms)
-    # @param params :sort  [int32] if = 1 it sorts
-    #        results returned with old > new
+    # @param params [Hash]
+    # @option params [Number] :limit Number of candles requested
+    # @option params [Number] :start Filter start (ms)
+    # @option params [Number] :end Filter end (ms)
+    # @option params [Number] :sort if = 1 it sorts with old > new
     #
     # @return [Array]
     #
     # @example:
     #   client.candles('tBTCUSD')
-    def candles(symbol = 'tBTCUSD', timeframe = '1m', section = "hist", params = {})
-      check_params(params, %i{limit start end sort})
+    def candles(
+      symbol = 'tBTCUSD', timeframe = '1m', section = 'hist', params = {}
+    )
+      check_params(params, %i[limit start end sort])
       get("candles/trade:#{timeframe}:#{symbol}/#{section}", params).body
     end
 
@@ -41,8 +45,8 @@ module Bitfinex
     #
     # @example:
     #   client.orderbook("btcusd")
-    def books(symbol="btcusd", precision="P0", params = {})
-      check_params(params, %i{len})
+    def books(symbol = 'btcusd', precision = 'P0', params = {})
+      check_params(params, %i[len])
       get("book/#{symbol}/#{precision}", params: params).body
     end
 
@@ -50,29 +54,29 @@ module Bitfinex
     # of the trade, such as price, size and time.
     #
     # @param symbol [string] the name of the symbol
-    # @param params :limit [int32] Number of records
-    # @param params :start [int32] Millisecond start time
-    # @param params :end   [int32] Millisecond end time
-    # @param params :sort  [int32] if = 1 it sorts
-    #     results returned with old > new
+    # @param params [Hash]
+    # @option params [Number] :limit Number of records
+    # @option params [Number] :start Millisecond start time
+    # @option params [Number] :end Millisecond end time
+    # @option params [Number] :sort if = 1 it sorts with old > new
     #
     # @return [Array]
     #
     # @example:
     #   client.trades("tETHUSD")
-    def trades(symbol="tBTCUSD", params={})
-      check_params(params, %i{limit start end sort})
+    def trades(symbol = 'tBTCUSD', params = {})
+      check_params(params, %i[limit start end sort])
       get("trades/#{symbol}", params).body
     end
 
     # Get active positions
     #
-    # return [Array]
+    # @return [Array]
     #
     # @example:
     #    client.active_positions
     def active_positions
-      authenticated_post("auth/r/positions").body
+      authenticated_post('auth/r/positions').body
     end
   end
 end

@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 require_relative '../../../lib/bitfinex.rb'
 
-client = Bitfinex::WSv2.new({
-  :url => ENV['WS_URL'],
-  :transform => true
-})
+client = Bitfinex::WSv2.new(
+  {
+    url: ENV['WS_URL'],
+    transform: true
+  }
+)
 
 client.on(:ticker) do |symbol, msg|
   p "recv ticker message for symbol #{symbol}"

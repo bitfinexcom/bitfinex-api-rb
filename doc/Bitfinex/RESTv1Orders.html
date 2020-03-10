@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Bitfinex::RESTv1Orders
+  
+    &mdash; Documentation by YARD 0.9.24
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Bitfinex::RESTv1Orders";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Bitfinex.html" title="Bitfinex (module)">Bitfinex</a></span></span>
+     &raquo; 
+    <span class="title">RESTv1Orders</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Bitfinex::RESTv1Orders
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="RESTv1.html" title="Bitfinex::RESTv1 (class)">RESTv1</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/rest/v1/orders.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>RESTv1 API order manipulation methods</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cancel_orders-instance_method" title="#cancel_orders (instance method)">#<strong>cancel_orders</strong>(ids = nil)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Cancel an order.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#multiple_orders-instance_method" title="#multiple_orders (instance method)">#<strong>multiple_orders</strong>(orders)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Submit several new orders at once.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_order-instance_method" title="#new_order (instance method)">#<strong>new_order</strong>(symbol, amount, type, side, price = nil, params = {})  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Submit a new order @example:   client.new_order(&quot;usdbtc&quot;, 100, &quot;market&quot;, &quot;sell&quot;, 0).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#order_status-instance_method" title="#order_status (instance method)">#<strong>order_status</strong>(id)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the status of an order.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#orders-instance_method" title="#orders (instance method)">#<strong>orders</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>View your active orders.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#replace_order-instance_method" title="#replace_order (instance method)">#<strong>replace_order</strong>(id, symbol, amount, type, side, price, is_hidden = false, use_remaining = false)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Replace an orders with a new one.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="cancel_orders-instance_method">
+  
+    #<strong>cancel_orders</strong>(ids = nil)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Cancel an order</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_cancel_orders'>cancel_orders</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>100</span><span class='comma'>,</span><span class='int'>231</span><span class='comma'>,</span><span class='int'>400</span><span class='rbracket'>]</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ids</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>or [integer] or nil
+if it&#39;s Array it&#39;s supposed to specify a list of IDS
+if it&#39;s an integer it&#39;s supposed to be a single ID
+if it&#39;s not specified it deletes all the orders placed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cancel_orders'>cancel_orders</span><span class='lparen'>(</span><span class='id identifier rubyid_ids'>ids</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Metrics/MethodLength
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_ids'>ids</span>
+  <span class='kw'>when</span> <span class='const'>Array</span>
+    <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/cancel/multi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span>
+                         <span class='label'>order_ids:</span> <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_i</span><span class='rparen'>)</span>
+                       <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+  <span class='kw'>when</span> <span class='const'>Numeric</span><span class='comma'>,</span> <span class='const'>String</span>
+    <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/cancel</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>order_id:</span> <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+  <span class='kw'>when</span> <span class='const'>NilClass</span>
+    <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/cancel/all</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="ParamsError.html" title="Bitfinex::ParamsError (class)">ParamsError</a></span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="multiple_orders-instance_method">
+  
+    #<strong>multiple_orders</strong>(orders)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Submit several new orders at once</p>
+
+<p>@example:
+  client.multiple_orders([{
+                            symbol: &quot;usdbtc&quot;, amount: 10, price: 0,
+                            exchange: &quot;bitfinex&quot;, side: &quot;buy&quot;,
+                            type: &quot;market&quot;
+                          }])</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>orders</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Array of Hash with the following elements</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>orders</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:symbol</span>
+          <span class="type">(<tt>string</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:amount</span>
+          <span class="type">(<tt>decimal</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:price</span>
+          <span class="type">(<tt>decimal</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:exchange</span>
+          <span class="type">(<tt>string</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>&quot;bitfinex&quot;</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:side</span>
+          <span class="type">(<tt>string</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>either &quot;buy&quot; or &quot;sell&quot;</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:type</span>
+          <span class="type">(<tt>string</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_multiple_orders'>multiple_orders</span><span class='lparen'>(</span><span class='id identifier rubyid_orders'>orders</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/new/multi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>orders:</span> <span class='id identifier rubyid_orders'>orders</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_order-instance_method">
+  
+    #<strong>new_order</strong>(symbol, amount, type, side, price = nil, params = {})  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Submit a new order
+@example:
+  client.new_order(&quot;usdbtc&quot;, 100, &quot;market&quot;, &quot;sell&quot;, 0)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>symbol</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the symbol (see <code>#symbols</code>)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>amount</span>
+      
+      
+        <span class='type'>(<tt>decimal</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Order size: how much to buy or sell</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>order type</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>side</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>&#39;buy&#39; or &#39;sell&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>price</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:is_hidden</span>
+          <span class="type">(<tt>Boolean?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:is_postonly</span>
+          <span class="type">(<tt>Boolean?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:ocoorder</span>
+          <span class="type">(<tt>Boolean?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:buy_price_oco</span>
+          <span class="type">(<tt>Number?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:sell_price_oco</span>
+          <span class="type">(<tt>Number?</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_order'>new_order</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_price'>price</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable all
+</span>  <span class='id identifier rubyid_check_params'>check_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='words_sep'>
+                 </span><span class='tstring_content'>is_hidden</span><span class='words_sep'> </span><span class='tstring_content'>is_postonly</span><span class='words_sep'> </span><span class='tstring_content'>ocoorder</span><span class='words_sep'> </span><span class='tstring_content'>buy_price_oco</span><span class='words_sep'>
+                 </span><span class='tstring_content'>use_all_available</span><span class='words_sep'> </span><span class='tstring_content'>sell_price_oco</span><span class='words_sep'>
+               </span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
+
+  <span class='comment'># for &#39;market&#39; order, we need to pass a random positive price, not nil
+</span>  <span class='id identifier rubyid_price'>price</span> <span class='op'>=</span> <span class='float'>0.001</span> <span class='kw'>if</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>market</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exchange market</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+                  <span class='label'>symbol:</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='id identifier rubyid_amount'>amount</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span>
+                  <span class='label'>side:</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='label'>exchange:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bitfinex</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                  <span class='label'>price:</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%&lt;price&gt;.10f</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>price:</span> <span class='id identifier rubyid_price'>price</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>10</span><span class='rparen'>)</span><span class='rparen'>)</span>
+                <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/new</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="order_status-instance_method">
+  
+    #<strong>order_status</strong>(id)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the status of an order. Is it active? Was it cancelled?
+To what extent has it been executed? etc.</p>
+
+<p>@exmaple:
+  client.order_status(100)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_order_status'>order_status</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/status</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>order_id:</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="orders-instance_method">
+  
+    #<strong>orders</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>View your active orders.</p>
+
+<p>@example:
+  client.orders</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+130
+131
+132</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 130</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_orders'>orders</span>
+  <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>orders</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="replace_order-instance_method">
+  
+    #<strong>replace_order</strong>(id, symbol, amount, type, side, price, is_hidden = false, use_remaining = false)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Replace an orders with a new one</p>
+
+<p>@example:
+  client.replace_order(100,&quot;usdbtc&quot;, 10, &quot;market&quot;, &quot;buy&quot;, 0)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the ID of the order to replace</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>symbol</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>amount</span>
+      
+      
+        <span class='type'>(<tt>decimal</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>side</span>
+      
+      
+        <span class='type'>(<tt>string</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>price</span>
+      
+      
+        <span class='type'>(<tt>decimal</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>is_hidden</span>
+      
+      
+        <span class='type'>(<tt>bool?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>use_remaining</span>
+      
+      
+        <span class='type'>(<tt>bool</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the order</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rest/v1/orders.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_replace_order'>replace_order</span><span class='lparen'>(</span> <span class='comment'># rubocop:disable all
+</span>  <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_price'>price</span><span class='comma'>,</span> <span class='id identifier rubyid_is_hidden'>is_hidden</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_use_remaining'>use_remaining</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>order/cancel/replace</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span>
+                       <span class='label'>order_id:</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span>
+                       <span class='label'>symbol:</span> <span class='id identifier rubyid_symbol'>symbol</span><span class='comma'>,</span>
+                       <span class='label'>amount:</span> <span class='id identifier rubyid_amount'>amount</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span>
+                       <span class='label'>type:</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span>
+                       <span class='label'>side:</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span>
+                       <span class='label'>exchange:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bitfinex</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                       <span class='label'>is_hidden:</span> <span class='id identifier rubyid_is_hidden'>is_hidden</span><span class='comma'>,</span>
+                       <span class='label'>use_remaining:</span> <span class='id identifier rubyid_use_remaining'>use_remaining</span><span class='comma'>,</span>
+                       <span class='label'>price:</span> <span class='id identifier rubyid_price'>price</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+                     <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 10 14:36:21 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.24 (ruby-2.7.0).
+</div>
+
+    </div>
+  </body>
+</html>

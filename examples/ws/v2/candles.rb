@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require_relative '../../../lib/bitfinex.rb'
 
-client = Bitfinex::WSv2.new({
-  :url => ENV['WS_URL'],
-  :transform => true
-})
+client = Bitfinex::WSv2.new(
+  {
+    url: ENV['WS_URL'],
+    transform: true
+  }
+)
 
 client.on(:candles) do |key, msg|
   p "recv candle message for key #{key}"
 
-  if msg.kind_of?(Array)
-    p msg.map { |c| c.serialize.join('|') }
+  if msg.is_a?(Array)
+    p(msg.map { |c| c.serialize.join('|') })
   else
     p msg.serialize.join('|')
   end

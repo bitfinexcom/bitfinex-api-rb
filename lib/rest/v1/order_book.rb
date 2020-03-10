@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
 module Bitfinex
+  # RESTv1 API order book methods
   module RESTv1OrderBook
     # Get the full order book
     #
     # @param symbol [string]
-    # @param params :limit_bids [int] (optional) Limit the number of bids returned. May be 0 in which case the array of bids is empty. Default 50.
-    # @param params :limit_asks [int] (optional) Limit the number of asks returned. May be 0 in which case the array of asks is empty. Default 50.
-    # @param params :group [0/1] (optional) If 1, orders are grouped by price in the orderbook. If 0, orders are not grouped and sorted individually. Default 1
+    # @param params [Hash]
+    # @option params :limit_bids [int?] :limit_bids default 50
+    # @option params :limit_asks [int?] :limit_asks default 50
+    # @option params :group [number?] if 1 orders are group by price
     # @return [Hash] :bids [Array], :asks [Array]
     # @example:
     #   client.orderbook("btcusd")
-    def orderbook(symbol="btcusd", params = {})
-      check_params(params, %i{limit_bids limit_asks group})
+    def orderbook(symbol = 'btcusd', params = {})
+      check_params(params, %i[limit_bids limit_asks group])
       get("book/#{symbol}", params).body
     end
   end

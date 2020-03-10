@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require_relative '../../../lib/bitfinex.rb'
 
-client = Bitfinex::WSv2.new({
-  :url => ENV['WS_URL'],
-  :transform => true
-})
+client = Bitfinex::WSv2.new(
+  {
+    url: ENV['WS_URL'],
+    transform: true
+  }
+)
 
 client.on(:public_trades) do |sym, msg|
   p "recv public trades message for symbol #{sym}"
 
-  if msg.kind_of?(Array)
-    p msg.map { |t| t.serialize.join('|') }
+  if msg.is_a?(Array)
+    p(msg.map { |t| t.serialize.join('|') })
   else
     p msg.serialize.join('|')
   end

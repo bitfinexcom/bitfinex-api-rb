@@ -1,14 +1,17 @@
 # Bitfinex Trading API for Ruby - Bitcoin, Ethereum, Ripple and more
 
-[![Code Climate](https://codeclimate.com/repos/56db27e5b86182573b0045ed/badges/bd763083d70114379a41/gpa.svg)](https://codeclimate.com/repos/56db27e5b86182573b0045ed/feed)
-
 A Ruby reference implementation of the Bitfinex REST & WebSocket APIs.
 
-This repo is primarily made up of 3 classes: RESTv1, RESTv2, and WSv2, which implement their respective versions of the Bitfinex API. It is recommended that you use the REST APIs for reading data, and the WebSocket API for submitting orders and interacting with the Bitfinex platform.
+This repo is primarily made up of 3 classes: RESTv1, RESTv2, and WSv2, which
+implement their respective versions of the Bitfinex API. It is recommended that
+you use the REST APIs for reading data, and the WebSocket API for submitting
+orders and interacting with the Bitfinex platform.
 
-Check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more information.
+Check the [Bitfinex API documentation](http://docs.bitfinex.com/) for more
+information.
 
-### Features
+## Features
+
 * Official implementation
 * REST API v1
 * REST API v2
@@ -23,16 +26,19 @@ gem 'bitfinex-rb', :require => "bitfinex"
 ```
 
 And then execute:
+
 ```bash
 bundle
 ```
 
 Or install it yourself as:
+
 ```bash
 gem install bitfinex-rb
 ```
 
 ### Quickstart
+
 ```ruby
 client = Bitfinex::WSv2.new({
   :api_key => ENV['API_KEY'],
@@ -60,11 +66,11 @@ end
 
 ### Docs
 
-[Refer to `docs/events.md`](/docs/events.md) for a list of available events which can be consumed. Official API docs pending.
-
-For ready to run examples, see the [`examples/` folder](/examples).
+YARD generated documentation is available in `docs/`. For ready to run
+examples, see the [`examples/` folder](/examples).
 
 ### Examples
+
 #### Usage of RESTv1/RESTv2
 
 To use the REST APIs, construct a new API client with your account credentials:
@@ -79,7 +85,9 @@ client = Bitfinex::RESTv2.new({
 Then use it to submit queries, i.e. `client.balances`
 
 #### Usage of WSv2
-To use version 2 of the WS API, construct a new client with your credentials, bind listeners to react to stream events, and open the connection:
+
+To use version 2 of the WS API, construct a new client with your credentials,
+bind listeners to react to stream events, and open the connection:
 
 ```ruby
 client = Bitfinex::WSv2.new({
@@ -121,7 +129,10 @@ client.open!
 ```
 
 #### Order Manipulation
-Three methods are provided for dealing with orders: `submit_order`, `update_order` and `cancel_order`. All methods support callback blocks, which are triggered upon receiving the relevant confirmation notifications. Example:
+
+Three methods are provided for dealing with orders: `submit_order`,
+`update_order` and `cancel_order`. All methods support callback blocks, which
+are triggered upon receiving the relevant confirmation notifications. Example:
 
 ```ruby
 o = Bitfinex::Models::Order.new({

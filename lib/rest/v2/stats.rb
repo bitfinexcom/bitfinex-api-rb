@@ -1,6 +1,8 @@
-module Bitfinex
-  module RESTv2Stats
+# frozen_string_literal: true
 
+module Bitfinex
+  # RESTv2 stats methods
+  module RESTv2Stats
     # Various statistics about the requested pair.
     #
     # @param symbol [string] The symbol you want information about.
@@ -16,8 +18,8 @@ module Bitfinex
     #
     # @example:
     #   client.stats('fUSD', 'pos.size')
-    def stats(symbol = 'fUSD', key = 'funding.size', side = "long", section = "last", size = '1m', params = {})
-      check_params(params, %i{sort})
+    def stats(symbol = 'fUSD', key = 'funding.size', side = 'long', section = 'last', size = '1m', params = {}) #rubocop:disable all
+      check_params(params, %i[sort])
       get("stats1/#{key}:#{size}:#{symbol}:#{side}/#{section}").body
     end
   end

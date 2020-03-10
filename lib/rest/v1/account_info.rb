@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Bitfinex
+  # RESTv1 account information methods
   module RESTv1AccountInfo
     # Get account information
     #
@@ -6,7 +9,7 @@ module Bitfinex
     # @example:
     #   client.account_info
     def account_info
-      resp = authenticated_post("account_infos")
+      resp = authenticated_post('account_infos')
       resp.body
     end
 
@@ -16,7 +19,7 @@ module Bitfinex
     # @example:
     #   client.fees
     def fees
-      resp = authenticated_post("account_fees")
+      resp = authenticated_post('account_fees')
       resp.body
     end
   end

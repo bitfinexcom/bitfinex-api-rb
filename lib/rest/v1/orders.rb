@@ -1,50 +1,60 @@
+# frozen_string_literal: true
+
 module Bitfinex
+  # RESTv1 API order manipulation methods
   module RESTv1Orders
+    ###
     # Submit a new order
     # @param symbol [string] The name of the symbol (see `#symbols`)
     # @param amount [decimal] Order size: how much to buy or sell
-    # @param type [string] Either “market” / “limit” / “stop” / “trailing-stop” / “fill-or-kill” / “exchange market” / “exchange limit” / “exchange stop” / “exchange trailing-stop” / “exchange fill-or-kill”. (type starting by “exchange ” are exchange orders, others are margin trading orders)
-    # @param side [string] Either “buy” or “sell”
-    # @param price [decimal] Price to buy or sell at. Must be positive. Use random number for market orders.
-    # @param params :is_hidden [bool] (optional) true if the order should be hidden. Default is false
-    # @param params :is_postonly [bool] (optional) true if the order should be post only. Default is false. Only relevant for limit orders
-    # @param params :ocoorder [bool] Set an additional STOP OCO order that will be linked with the current order
-    # @param params :buy_price_oco [decimal] If ocoorder is true, this field represent the price of the OCO stop order to place
-    # @param params :sell_price_oco [decimal] If ocoorder is true, this field represent the price of the OCO stop order to place
+    # @param type [string] order type
+    # @param side [string] 'buy' or 'sell'
+    # @param price [Number]
+    # @param params [Hash]
+    # @option params [Boolean?] :is_hidden
+    # @option params [Boolean?] :is_postonly
+    # @option params [Boolean?] :ocoorder
+    # @option params [Number?] :buy_price_oco
+    # @option params [Number?] :sell_price_oco
     # @return [Hash]
     # @example:
     #   client.new_order("usdbtc", 100, "market", "sell", 0)
-    def new_order(symbol, amount, type, side, price = nil, params = {})
-      check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco use_all_available sell_price_oco})
+    ###
+    def new_order(symbol, amount, type, side, price = nil, params = {}) # rubocop:disable all
+      check_params(params, %i[
+                     is_hidden is_postonly ocoorder buy_price_oco
+                     use_all_available sell_price_oco
+                   ])
 
       # for 'market' order, we need to pass a random positive price, not nil
-      price ||= 0.001 if type == "market" || type == "exchange market"
-
+      price = 0.001 if ['market', 'exchange market'].include?(type)
       params.merge!({
-        symbol: symbol,
-        amount: amount.to_s,
-        type: type,
-        side: side,
-        exchange: 'bitfinex',
-        price: "%.10f" % price.to_f.round(10) # Decimalize float price (necessary for small numbers)
-      })
-      authenticated_post("order/new", params: params).body
+                      symbol: symbol, amount: amount.to_s, type: type,
+                      side: side, exchange: 'bitfinex',
+                      price: format('%<price>.10f', price: price.to_f.round(10))
+                    })
+
+      authenticated_post('order/new', params: params).body
     end
 
     # Submit several new orders at once
     #
     # @param orders [Array] Array of Hash with the following elements
-    # @param orders :symbol [string] The name of the symbol
-    # @param orders :amount [decimal] Order size: how much to buy or sell
-    # @param orders :price [decimal] Price to buy or sell at. May omit if a market order
-    # @param orders :exchange [string] "bitfinex"
-    # @param orders :side [string] Either “buy” or “sell”
-    # @param orders :type [string] Either “market” / “limit” / “stop” / “trailing-stop” / “fill-or-kill”
-    # @return [Hash] with a `object_id` that is an `Array`
+    # @option orders [string] :symbol
+    # @option orders [decimal] :amount
+    # @option orders [decimal] :price
+    # @option orders [string] :exchange "bitfinex"
+    # @option orders [string] :side either "buy" or "sell"
+    # @option orders [string] :type
+    # @return [Hash]
     # @example:
-    #   client.multiple_orders([{symbol: "usdbtc", amount: 10, price: 0, exchange: "bitfinex", side: "buy", type: "market"}])
+    #   client.multiple_orders([{
+    #                             symbol: "usdbtc", amount: 10, price: 0,
+    #                             exchange: "bitfinex", side: "buy",
+    #                             type: "market"
+    #                           }])
     def multiple_orders(orders)
-      authenticated_post("order/new/multi", params: {orders: orders}).body
+      authenticated_post('order/new/multi', params: { orders: orders }).body
     end
 
     # Cancel an order
@@ -56,14 +66,16 @@ module Bitfinex
     # @return [Hash]
     # @example
     #   client.cancel_orders([100,231,400])
-    def cancel_orders(ids=nil)
+    def cancel_orders(ids = nil) # rubocop:disable Metrics/MethodLength
       case ids
       when Array
-        authenticated_post("order/cancel/multi", params: {order_ids: ids.map(&:to_i)}).body
+        authenticated_post('order/cancel/multi', params: {
+                             order_ids: ids.map(&:to_i)
+                           }).body
       when Numeric, String
-        authenticated_post("order/cancel", params: {order_id: ids.to_i}).body
+        authenticated_post('order/cancel', params: { order_id: ids.to_i }).body
       when NilClass
-        authenticated_post("order/cancel/all").body
+        authenticated_post('order/cancel/all').body
       else
         raise ParamsError
       end
@@ -72,41 +84,43 @@ module Bitfinex
     # Replace an orders with a new one
     #
     # @param id [int] the ID of the order to replace
-    # @param symbol [string] the name of the symbol
-    # @param amount [decimal] Order size: how much to buy or sell
-    # @param type [string] Either “market” / “limit” / “stop” / “trailing-stop” / “fill-or-kill” / “exchange market” / “exchange limit” / “exchange stop” / “exchange trailing-stop” / “exchange fill-or-kill”. (type starting by “exchange ” are exchange orders, others are margin trading orders)
-    # @param side [string] Either “buy” or “sell”
-    # @param price [decimal] Price to buy or sell at. May omit if a market order
-    # @param is_hidden [bool] (optional) true if the order should be hidden. Default is false
-    # @param use_remaining [bool] (optional) will use the amount remaining of the canceled order as the amount of the new order. Default is false
+    # @param symbol [string]
+    # @param amount [decimal]
+    # @param type [string]
+    # @param side [string]
+    # @param price [decimal]
+    # @param is_hidden [bool?]
+    # @param use_remaining [bool]
     # @return [Hash] the order
     # @example:
     #   client.replace_order(100,"usdbtc", 10, "market", "buy", 0)
-    def replace_order(id, symbol, amount, type, side, price, is_hidden=false, use_remaining=false)
-      params = {
-        order_id: id.to_i,
-        symbol: symbol,
-        amount: amount.to_s,
-        type: type,
-        side: side,
-        exchange: 'bitfinex',
-        is_hidden: is_hidden,
-        use_remaining: use_remaining,
-        price: price.to_s
-      }
-      authenticated_post("order/cancel/replace", params: params).body
+    def replace_order( # rubocop:disable all
+      id, symbol, amount, type, side, price, is_hidden = false,
+      use_remaining = false
+    )
+      authenticated_post('order/cancel/replace', params: {
+                           order_id: id.to_i,
+                           symbol: symbol,
+                           amount: amount.to_s,
+                           type: type,
+                           side: side,
+                           exchange: 'bitfinex',
+                           is_hidden: is_hidden,
+                           use_remaining: use_remaining,
+                           price: price.to_s
+                         }).body
     end
 
-    # Get the status of an order. Is it active? Was it cancelled? To what extent has it been executed? etc.
+    # Get the status of an order. Is it active? Was it cancelled?
+    # To what extent has it been executed? etc.
     #
     # @param id
     # @return [Hash]
     # @exmaple:
     #   client.order_status(100)
     def order_status(id)
-      authenticated_post("order/status", params: {order_id: id.to_i}).body
+      authenticated_post('order/status', params: { order_id: id.to_i }).body
     end
-
 
     # View your active orders.
     #
@@ -114,7 +128,7 @@ module Bitfinex
     # @example:
     #   client.orders
     def orders
-      authenticated_post("orders").body
+      authenticated_post('orders').body
     end
   end
 end

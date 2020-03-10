@@ -1,46 +1,50 @@
+# frozen_string_literal: true
+
 module Bitfinex
+  # RESTv2 personal data methods
   module RESTv2Personal
     # Get account historical daily performance
     #
     # @example:
     #   client.performance
     def performance
-      authenticated_post("auth/r/stats/perf::1D/hist")
+      authenticated_post('auth/r/stats/perf::1D/hist')
     end
 
     # Get the list of alerts
     #
+    # @param type [String]
     # @example:
     #   client.alerts
     def alerts(type = 'price')
-      authenticated_post("auth/r/alerts", params: {type: type}).body
+      authenticated_post('auth/r/alerts', params: { type: type }).body
     end
 
     # Set a new alert
     #
-    # @param price
-    # @param symbol
-    # @param type
+    # @param price [Number]
+    # @param symbol [String]
+    # @param type [String]
     #
     # @example:
     #   client.alert(3000, "tBTCUSD")
-    def alert(price, symbol = "tBTCUSD", type = "price")
+    def alert(price, symbol = 'tBTCUSD', type = 'price')
       params = {
         type: type,
         price: price,
         symbol: symbol
       }
-      authenticated_post("auth/w/alert/set", params: params).body
+      authenticated_post('auth/w/alert/set', params: params).body
     end
 
     # Delete an existing alert
     #
-    # @param price
-    # @param symbol
+    # @param price [Number]
+    # @param symbol [String]
     #
     # @example:
     #   client.delete_alert(3000, "tBTCUSD")
-    def delete_alert(price, symbol = "tBTCUSD")
+    def delete_alert(price, symbol = 'tBTCUSD')
       authenticated_post("auth/w/alert/price:#{symbol}:#{price}/del").body
     end
 
@@ -63,7 +67,7 @@ module Bitfinex
         type: type,
         rate: rate
       }
-      authenticated_post("auth/calc/order/avail", params: params).body
+      authenticated_post('auth/calc/order/avail', params: params).body
     end
   end
 end

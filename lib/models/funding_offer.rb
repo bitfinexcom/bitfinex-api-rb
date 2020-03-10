@@ -1,50 +1,78 @@
+# frozen_string_literal: true
+
 require_relative './model'
 
 module Bitfinex
   module Models
+    # Funding Offer model
     class FundingOffer < Model
-      BOOL_FIELDS = ['notify', 'hidden', 'renew']
-      FIELDS = {
-        :id => 0,
-        :symbol => 1,
-        :mts_create => 2,
-        :mts_update => 3,
-        :amount => 4,
-        :amount_orig => 5,
-        :type => 6,
-        :flags => 9,
-        :status => 10,
-        :rate => 14,
-        :period => 15,
-        :notify => 16,
-        :hidden => 17,
-        :renew => 19,
-        :rate_real => 20
-      }
+      BOOL_FIELDS = %w[notify hidden renew].freeze # @private
 
-      FIELDS.each do |key, index|
+      # Hash<->Array field index mapping
+      FIELDS = {
+        id: 0,
+        symbol: 1,
+        mts_create: 2,
+        mts_update: 3,
+        amount: 4,
+        amount_orig: 5,
+        type: 6,
+        flags: 9,
+        status: 10,
+        rate: 14,
+        period: 15,
+        notify: 16,
+        hidden: 17,
+        renew: 19,
+        rate_real: 20
+      }.freeze
+
+      FIELDS.each do |key, _index|
         attr_accessor key
       end
 
-      def initialize (data)
+      # @param data [Hash]
+      # @option data [Number] :id
+      # @option data [String] :symbol
+      # @option data [Number] :mts_create
+      # @option data [Number] :mts_update
+      # @option data [Number] :amount
+      # @option data [Number] :amount_orig
+      # @option data [String] :type
+      # @option data [Number] :flags
+      # @option data [String] :status
+      # @option data [Number] :rate
+      # @option data [Number] :period
+      # @option data [Boolean] :notify
+      # @option data [Boolean] :hidden
+      # @option data [Boolean] :renew
+      # @option data [Number] :rate_real
+      def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end
 
-      def self.unserialize (data)
-        return Model.unserialize(data, FIELDS, BOOL_FIELDS)
+      # Convert array funding offer to a Hash
+      #
+      # @param data [Array]
+      # @return [Hash]
+      def self.unserialize(data)
+        Model.unserialize(data, FIELDS, BOOL_FIELDS)
       end
 
+      # Returns a packet that can be used to create a new funding offer with
+      # this instance's data (type, symbol, amount, rate, period, flags)
+      #
+      # @return [Hash]
       def to_new_order_packet
         data = {
-          :type => @type,
-          :symbol => @symbol,
-          :amount => BigDecimal(@amount, 8).to_s,
-          :rate => BigDecimal(@rate, 8).to_s,
-          :period => 2
+          type: @type,
+          symbol: @symbol,
+          amount: BigDecimal(@amount, 8).to_s,
+          rate: BigDecimal(@rate, 8).to_s,
+          period: 2
         }
-        if !@flags.nil?
-          data[:flags] = @flags
-        end
+
+        data[:flags] = @flags unless @flags.nil?
         data
       end
     end

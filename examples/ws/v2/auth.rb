@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 require_relative '../../../lib/bitfinex.rb'
 
-client = Bitfinex::WSv2.new({
-  :url => ENV['WS_URL'],
-  :api_key => ENV['API_KEY'],
-  :api_secret => ENV['API_SECRET'],
-  :transform => true
-})
+client = Bitfinex::WSv2.new(
+  {
+    url: ENV['WS_URL'],
+    api_key: ENV['API_KEY'],
+    api_secret: ENV['API_SECRET'],
+    transform: true
+  }
+)
 
 client.on(:open) do
   client.auth!
@@ -16,7 +20,7 @@ client.on(:auth) do
 end
 
 client.on(:notification) do |n|
-  p 'received notification: %s' % [n]
+  p format('received notification: %<n>s', n: n)
 end
 
 client.on(:position_snapshot) do |positions|

@@ -1,32 +1,45 @@
+# frozen_string_literal: true
+
 require_relative './model'
 
 module Bitfinex
   module Models
+    # Ledger Entry class
     class LedgerEntry < Model
-      BOOL_FIELDS = []
-      FIELDS = {
-        :id => 0,
-        :currency => 1,
-        :mts => 3,
-        :amount => 5,
-        :balance => 6,
-        :description => 8,
-        :wallet => nil
-      }
+      BOOL_FIELDS = [].freeze # @private
 
-      FIELDS.each do |key, index|
+      # Hash<->Array field index mapping
+      FIELDS = {
+        id: 0,
+        currency: 1,
+        mts: 3,
+        amount: 5,
+        balance: 6,
+        description: 8,
+        wallet: nil
+      }.freeze
+
+      FIELDS.each do |key, _index|
         attr_accessor key
       end
 
-      def initialize (data)
+      # @param data [Hash]
+      # @option data [Number] :id
+      # @option data [String] :currency
+      # @option data [Number] :mts
+      # @option data [Number] :amount
+      # @option data [Number] :balance
+      # @option data [String] :description
+      def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
 
-        spl = self.description.split('wallet')
-        self.wallet = (spl && spl[1]) ? spl[1].trim() : nil
+        spl = description.split('wallet')
+        self.wallet = spl && spl[1] ? spl[1].trim : nil
       end
 
-      def self.unserialize (data)
-        return Model.unserialize(data, FIELDS, BOOL_FIELDS)
+      # Convert an array format ledger entry to a Hash
+      def self.unserialize(data)
+        Model.unserialize(data, FIELDS, BOOL_FIELDS)
       end
     end
   end

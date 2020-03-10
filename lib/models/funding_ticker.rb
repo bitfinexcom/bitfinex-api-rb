@@ -1,9 +1,14 @@
+# frozen_string_literal: true
+
 require_relative './model'
 
 module Bitfinex
   module Models
+    # Funding Ticker model
     class FundingTicker < Model
-      BOOL_FIELDS = []
+      BOOL_FIELDS = [].freeze # @private
+
+      # Hash<->Array field index mapping
       FIELDS = {
         symbol: 0,
         frr: 1,
@@ -19,20 +24,38 @@ module Bitfinex
         volume: 11,
         high: 12,
         low: 13
-      }
+      }.freeze
 
-      FIELDS.each do |key, index|
+      FIELDS.each do |key, _index|
         attr_accessor key
       end
 
-      def initialize (data)
+      # @param data [Hash]
+      # @option data [String] :symbol
+      # @option data [Number] :frr
+      # @option data [Number] :bid
+      # @option data [Number] :bid_size
+      # @option data [Number] :bid_period
+      # @option data [Number] :ask
+      # @option data [Number] :ask_size
+      # @option data [Number] :ask_period
+      # @option data [Number] :daily_change
+      # @option data [Number] :daily_change_perc
+      # @option data [Number] :last_price
+      # @option data [Number] :volume
+      # @option data [Number] :high
+      # @option data [Number] :low
+      def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end
 
-      def self.unserialize (data)
-        return Model.unserialize(data, FIELDS, BOOL_FIELDS)
+      # Convert array funding ticker to a Hash
+      #
+      # @param data [Array]
+      # @return [Hash]
+      def self.unserialize(data)
+        Model.unserialize(data, FIELDS, BOOL_FIELDS)
       end
-
     end
   end
 end

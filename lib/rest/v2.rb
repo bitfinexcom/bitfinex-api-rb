@@ -14,6 +14,14 @@ require_relative './v2/positions'
 
 module Bitfinex
   # RESTv2 API Interface
+  #
+  # @example
+  #   client = Bitfinex::RESTv2.new(
+  #     {
+  #       api_key: '...',
+  #       api_secret: '...'
+  #     }
+  #   )
   class RESTv2
     # @return [String]
     attr_accessor :api_endpoint

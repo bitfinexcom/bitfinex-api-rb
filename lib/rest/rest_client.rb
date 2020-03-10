@@ -7,6 +7,9 @@ module Bitfinex
   # Base REST API client methods
   ###
   module RESTClient
+    # @param params [Hash]
+    # @param allowed_params [Array<Symbol>]
+    # @return [nil]
     def check_params(params, allowed_params)
       raise ParamsError unless if (params.keys - allowed_params).empty? # rubocop:disable Style/GuardClause
                                  params
@@ -17,6 +20,10 @@ module Bitfinex
 
     private
 
+    # @param url [String]
+    # @param params [Hash]
+    # @return [nil]
+    # @private
     def get(url, params = {})
       rest_connection.get do |req|
         req.url build_url(url)
@@ -32,14 +39,21 @@ module Bitfinex
       end
     end
 
+    # @return [RESTClient] new or existing connection
+    # @private
     def rest_connection
       @conn ||= new_rest_connection # rubocop:disable Naming/MemoizedInstanceVariableName
     end
 
+    # @param url [String]
+    # @return [String]
+    # @private
     def build_url(url)
       URI.join(base_api_endpoint, url)
     end
 
+    # @return [RESTClient] new connection
+    # @private
     def new_rest_connection
       Faraday.new(url: base_api_endpoint, proxy: config[:proxy]) do |conn|
         conn.use Bitfinex::CustomErrors
@@ -51,10 +65,16 @@ module Bitfinex
       end
     end
 
+    # @return [String]
+    # @private
     def base_api_endpoint
       config[:api_endpoint]
     end
 
+    # @param url [String]
+    # @param options [Hash]
+    # @return [nil]
+    # @private
     def authenticated_post(url, options = {}) # rubocop:disable all
       raise Bitfinex::InvalidAuthKeyError unless valid_key?
 
@@ -88,6 +108,11 @@ module Bitfinex
       end
     end
 
+    # @param url [String]
+    # @param params [Hash]
+    # @param nonce [Numeric]
+    # @return [String] base64 encoded payload JSON
+    # @private
     def build_payload(url, params, nonce)
       payload = {}
       payload['nonce'] = nonce
@@ -96,14 +121,21 @@ module Bitfinex
       Base64.strict_encode64(payload.to_json)
     end
 
+    # @return [Numeric]
+    # @private
     def new_nonce
       (Time.now.to_f * 1000).floor.to_s
     end
 
+    # @param payload [Hash]
+    # @return [String]
+    # @private
     def sign(payload)
       OpenSSL::HMAC.hexdigest('sha384', config[:api_secret], payload)
     end
 
+    # @return [Boolean]
+    # @private
     def valid_key?
       !(config[:api_key] && config[:api_secret]).nil?
     end

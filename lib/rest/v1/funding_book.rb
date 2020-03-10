@@ -1,14 +1,14 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 API funding book methods
   module RESTv1FundingBook
     # Get the full margin funding book
     #
-    # @param currency [string] (optional) Speficy the currency, default "USD"
+    # @param currency [String] (optional) Speficy the currency, default "USD"
     # @param params [Hash]
-    # @option params [int] :limit_bids
-    # @option params [int] :limit_asks
+    # @option params [Numeric] :limit_bids
+    # @option params [Numeric] :limit_asks
     # @return [Hash] of :bids and :asks arrays
     # @example:
     #   client.funding_book

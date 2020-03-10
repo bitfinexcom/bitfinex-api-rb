@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -30,27 +30,77 @@ module Bitfinex
         position_pair: 21
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :side
+
+      # @return [Numeric]
+      attr_accessor :mts_create
+
+      # @return [Numeric]
+      attr_accessor :mts_update
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :flags
+
+      # @return [String]
+      attr_accessor :status
+
+      # @return [Numeric]
+      attr_accessor :rate
+
+      # @return [Numeric]
+      attr_accessor :period
+
+      # @return [Numeric]
+      attr_accessor :mts_opening
+
+      # @return [Numeric]
+      attr_accessor :mts_last_payout
+
+      # @return [Boolean]
+      attr_accessor :notify
+
+      # @return [Boolean]
+      attr_accessor :hidden
+
+      # @return [Boolean]
+      attr_accessor :renew
+
+      # @return [Numeric]
+      attr_accessor :rate_real
+
+      # @return [Boolean]
+      attr_accessor :no_close
+
+      # @return [String]
+      attr_accessor :position_pair
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :symbol
       # @option data [String] :side
-      # @option data [Number] :mts_create
-      # @option data [Number] :mts_update
-      # @option data [Number] :amount
-      # @option data [Number] :flags
+      # @option data [Numeric] :mts_create
+      # @option data [Numeric] :mts_update
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :flags
       # @option data [String] :status
-      # @option data [Number] :rate
-      # @option data [Number] :period
-      # @option data [Number] :mts_opening
-      # @option data [Number] :mts_last_payout
+      # @option data [Numeric] :rate
+      # @option data [Numeric] :period
+      # @option data [Numeric] :mts_opening
+      # @option data [Numeric] :mts_last_payout
       # @option data [Boolean] :notify
       # @option data [Boolean] :hidden
       # @option data [Boolean] :renew
-      # @option data [Number] :rate_real
+      # @option data [Numeric] :rate_real
       # @option data [Boolean] :no_close
       # @option data [String] :position_pair
       def initialize(data)

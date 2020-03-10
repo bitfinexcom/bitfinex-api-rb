@@ -5,12 +5,19 @@ require 'zlib'
 module Bitfinex
   module Models
     # Order Book model
-    class OrderBook
-      attr_reader :raw, :bids, :asks
+    class OrderBook # rubocop:disable Metrics/ClassLength
+      # @return [Boolean]
+      attr_reader :raw
+
+      # @return [Array]
+      attr_reader :bids
+
+      # @return [Array]
+      attr_reader :asks
 
       # @param snap [Array<Array>, Hash, OrderBook] book snapshot
       # @param raw [Boolean]
-      def initialize(snap = [], raw = false)
+      def initialize(snap = [], raw = false) # rubocop:disable Metrics/MethodLength
         @raw = raw
 
         if snap.instance_of?(OrderBook)
@@ -31,7 +38,7 @@ module Bitfinex
       #
       # @param snap [Array] book snapshot
       # @return [nil]
-      def update_from_snapshot(snap = [])
+      def update_from_snapshot(snap = []) # rubocop:disable all
         @bids = []
         @asks = []
 
@@ -39,13 +46,13 @@ module Bitfinex
 
         snap.each do |entry|
           if entry.size == 4
-            if entry[3] < 0
+            if entry[3].negative?
               @bids.push(entry)
             else
               @asks.push(entry)
             end
           else
-            if entry[2] < 0
+            if entry[2].negative? # rubocop:disable Style/IfInsideElse
               @asks.push(entry)
             else
               @bids.push(entry)
@@ -72,15 +79,15 @@ module Bitfinex
 
       # Fetch the best bid price
       #
-      # @return [Number]
+      # @return [Numeric]
       def top_bid
-        priceI = if raw
-                   @bids[0].size == 4 || @asks[0].size == 4 ? 2 : 1
-                 else
-                   0
-                 end
+        price_i = if raw
+                    @bids[0].size == 4 || @asks[0].size == 4 ? 2 : 1
+                  else
+                    0
+                  end
 
-        (top_bid_level || [])[priceI] || nil
+        (top_bid_level || [])[price_i] || nil
       end
 
       # Fetch the best ask level
@@ -92,45 +99,45 @@ module Bitfinex
 
       # Fetch the best ask price
       #
-      # @return [Number]
+      # @return [Numeric]
       def top_ask
-        priceI = if raw
-                   @bids[0].size == 4 || @asks[0].size == 4 ? 2 : 1
-                 else
-                   0
-                 end
+        price_i = if raw
+                    @bids[0].size == 4 || @asks[0].size == 4 ? 2 : 1
+                  else
+                    0
+                  end
 
-        (top_ask_level || [])[priceI] || nil
+        (top_ask_level || [])[price_i] || nil
       end
 
       # Fetch the order book mid price (halfway between top bid and top ask)
       #
-      # @return [Number]
+      # @return [Numeric]
       def mid_price
         ask = top_ask || 0
         bid = top_bid || 0
 
-        return bid if ask == 0
-        return ask if bid == 0
+        return bid if ask.zero?
+        return ask if bid.zero?
 
         (bid + ask) / 2
       end
 
       # Fetch the spread between the top bid and top ask
       #
-      # @return [Number]
+      # @return [Numeric]
       def spread
         ask = top_ask || 0
         bid = top_bid || 0
 
-        return 0 if ask == 0 || bid == 0
+        return 0 if ask.zero? || bid.zero?
 
         ask - bid
       end
 
       # Fetch the total bid amount
       #
-      # @return [Number]
+      # @return [Numeric]
       def bid_amount
         amount = 0
 
@@ -143,7 +150,7 @@ module Bitfinex
 
       # Fetch the total ask amount
       #
-      # @return [Number]
+      # @return [Numeric]
       def ask_amount
         amount = 0
 
@@ -164,8 +171,8 @@ module Bitfinex
       # Generate a checksum of this instance, which can be compared with API
       # checksums for integrity validation
       #
-      # @return [Number]
-      def checksum
+      # @return [Numeric]
+      def checksum # rubocop:disable all
         data = []
 
         (0...25).each do |i|
@@ -191,67 +198,68 @@ module Bitfinex
       # Update the order book with a price level
       #
       # @param entry [Array]
-      def update_with(entry)
+      # @return [nil]
+      def update_with(entry) # rubocop:disable all
         if @raw
-          priceI = entry.size == 4 ? 2 : 1
+          price_i = entry.size == 4 ? 2 : 1
           count = -1
         else
-          priceI = 0
+          price_i = 0
           count = entry.size == 4 ? entry[2] : entry[1]
         end
 
-        price = entry[priceI]
-        oID = entry[0] # only for raw books
+        price = entry[price_i]
+        o_id = entry[0] # only for raw books
         amount = entry.size == 4 ? entry[3] : entry[2]
 
         if entry.size == 4
-          dir = amount < 0 ? 1 : -1
-          side = amount < 0 ? @bids : @asks
+          dir = amount.negative? ? 1 : -1
+          side = amount.negative? ? @bids : @asks
         else
-          dir = amount < 0 ? -1 : 1
-          side = amount < 0 ? @asks : @bids
+          dir = amount.negative? ? -1 : 1
+          side = amount.negative? ? @asks : @bids
         end
 
-        insertIndex = -1
+        insert_i = -1
 
         # apply insert directly if empty
-        if side.empty? && (@raw || count > 0)
+        if side.empty? && (@raw || count.positive?)
           side.push(entry)
           return true
         end
 
         # match by price level, or order ID for raw books
         side.each_with_index do |pl, i|
-          if (!@raw && pl[priceI] == price) || (@raw && pl[0] == oID)
-            if (!@raw && count == 0) || (@raw && price == 0)
+          if (!@raw && pl[price_i] == price) || (@raw && pl[0] == o_id)
+            if (!@raw && count.zero?) || (@raw && price.zero?)
               side.slice!(i, 1)
               return true
-            elsif !@raw || (@raw && price > 0)
+            elsif !@raw || (@raw && price.positive?)
               side.slice!(i, 1)
               break
             end
           end
         end
 
-        return false if (@raw && price == 0) || (!@raw && count == 0)
+        return false if (@raw && price.zero?) || (!@raw && count.zero?)
 
         side.each_with_index do |pl, i|
-          next unless insertIndex == -1 && (
-            (dir == -1 && price < pl[priceI]) || # by price
-            (dir == -1 && price == pl[priceI] && (raw && entry[0] < pl[0])) || # by order ID
-            (dir == 1 && price > pl[priceI]) ||
-            (dir == 1 && price == pl[priceI] && (raw && entry[0] < pl[0]))
+          next unless insert_i == -1 && (
+            (dir == -1 && price < pl[price_i]) || # by price
+            (dir == -1 && price == pl[price_i] && (raw && entry[0] < pl[0])) ||
+            (dir == 1 && price > pl[price_i]) ||
+            (dir == 1 && price == pl[price_i] && (raw && entry[0] < pl[0]))
           )
 
-          insertIndex = i
+          insert_i = i
           break
         end
 
         # add
-        if insertIndex == -1
+        if insert_i == -1
           side.push(entry)
         else
-          side.insert(insertIndex, entry)
+          side.insert(insert_i, entry)
         end
 
         true
@@ -261,11 +269,18 @@ module Bitfinex
       #
       # @param arr [Array]
       # @param raw [Boolean]
-      def self.unserialize(arr, raw = false)
+      # @return [Hash]
+      def self.unserialize(arr, raw = false) # rubocop:disable all
         if arr[0].is_a?(Array)
           entries = arr.map { |e| OrderBook.unserialize(e, raw) }
-          bids = entries.select { |e| (e[:rate] ? -e[:amount] : e[:amount]) > 0 }
-          asks = entries.select { |e| (e[:rate] ? -e[:amount] : e[:amount]) < 0 }
+
+          bids = entries.select do |e|
+            (e[:rate] ? -e[:amount] : e[:amount]).positive?
+          end
+
+          asks = entries.select do |e|
+            (e[:rate] ? -e[:amount] : e[:amount]).negative?
+          end
 
           return {
             bids: bids,
@@ -290,7 +305,7 @@ module Bitfinex
             }
           end
         else
-          if raw
+          if raw # rubocop:disable Style/IfInsideElse
             {
               order_id: arr[0],
               price: arr[1],

@@ -121,7 +121,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#duration_lend-instance_method" title="#duration_lend (instance method)">#<strong>duration_lend</strong>  &#x21d2; Object </a>
+      <a href="#duration_lend-instance_method" title="#duration_lend (instance method)">#<strong>duration_lend</strong>  &#x21d2; Numeric </a>
     
 
     
@@ -138,8 +138,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute duration_lend.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -147,7 +146,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#duration_loan-instance_method" title="#duration_loan (instance method)">#<strong>duration_loan</strong>  &#x21d2; Object </a>
+      <a href="#duration_loan-instance_method" title="#duration_loan (instance method)">#<strong>duration_loan</strong>  &#x21d2; Numeric </a>
     
 
     
@@ -164,8 +163,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute duration_loan.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -173,7 +171,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#symbol-instance_method" title="#symbol (instance method)">#<strong>symbol</strong>  &#x21d2; Object </a>
+      <a href="#symbol-instance_method" title="#symbol (instance method)">#<strong>symbol</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -190,8 +188,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute symbol.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -199,7 +196,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#yield_lend-instance_method" title="#yield_lend (instance method)">#<strong>yield_lend</strong>  &#x21d2; Object </a>
+      <a href="#yield_lend-instance_method" title="#yield_lend (instance method)">#<strong>yield_lend</strong>  &#x21d2; Numeric </a>
     
 
     
@@ -216,8 +213,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute yield_lend.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -225,7 +221,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#yield_loan-instance_method" title="#yield_loan (instance method)">#<strong>yield_loan</strong>  &#x21d2; Object </a>
+      <a href="#yield_loan-instance_method" title="#yield_loan (instance method)">#<strong>yield_loan</strong>  &#x21d2; Numeric </a>
     
 
     
@@ -242,8 +238,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute yield_loan.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -408,7 +403,7 @@
       
         <li>
           <span class="name">:yield_loan</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -417,7 +412,7 @@
       
         <li>
           <span class="name">:yield_lend</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -426,7 +421,7 @@
       
         <li>
           <span class="name">:duration_loan</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -435,7 +430,7 @@
       
         <li>
           <span class="name">:duration_lend</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -452,12 +447,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -477,7 +472,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="duration_lend-instance_method">
   
-    #<strong>duration_lend</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>duration_lend</strong>  &#x21d2; <tt>Numeric</tt> 
   
 
   
@@ -485,13 +480,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute duration_lend.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -499,12 +506,12 @@
       <pre class="lines">
 
 
-10
-11
-12</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_duration_lend'>duration_lend</span>
   <span class='ivar'>@duration_lend</span>
@@ -519,7 +526,7 @@
       <div class="method_details ">
   <h3 class="signature " id="duration_loan-instance_method">
   
-    #<strong>duration_loan</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>duration_loan</strong>  &#x21d2; <tt>Numeric</tt> 
   
 
   
@@ -527,13 +534,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute duration_loan.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -541,12 +560,12 @@
       <pre class="lines">
 
 
-10
-11
-12</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_duration_loan'>duration_loan</span>
   <span class='ivar'>@duration_loan</span>
@@ -561,7 +580,7 @@
       <div class="method_details ">
   <h3 class="signature " id="symbol-instance_method">
   
-    #<strong>symbol</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>symbol</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -569,13 +588,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute symbol.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -583,12 +614,12 @@
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_symbol'>symbol</span>
   <span class='ivar'>@symbol</span>
@@ -603,7 +634,7 @@
       <div class="method_details ">
   <h3 class="signature " id="yield_lend-instance_method">
   
-    #<strong>yield_lend</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>yield_lend</strong>  &#x21d2; <tt>Numeric</tt> 
   
 
   
@@ -611,13 +642,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute yield_lend.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -625,12 +668,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yield_lend'>yield_lend</span>
   <span class='ivar'>@yield_lend</span>
@@ -645,7 +688,7 @@
       <div class="method_details ">
   <h3 class="signature " id="yield_loan-instance_method">
   
-    #<strong>yield_loan</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>yield_loan</strong>  &#x21d2; <tt>Numeric</tt> 
   
 
   
@@ -653,13 +696,25 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute yield_loan.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -667,12 +722,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_yield_loan'>yield_loan</span>
   <span class='ivar'>@yield_loan</span>
@@ -742,21 +797,21 @@
       <pre class="lines">
 
 
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53</pre>
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_arr'>arr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_symbol'>symbol</span> <span class='op'>=</span> <span class='id identifier rubyid_arr'>arr</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
@@ -819,21 +874,21 @@
       <pre class="lines">
 
 
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/models/funding_info.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_serialize'>serialize</span>
   <span class='lbracket'>[</span>
@@ -857,7 +912,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:26 2020 by
+  Generated on Tue Mar 10 16:16:59 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

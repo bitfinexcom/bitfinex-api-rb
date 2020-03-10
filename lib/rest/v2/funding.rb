@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 funding methods
@@ -24,7 +24,7 @@ module Bitfinex
     ###
     # Cancel an active funding offer
     #
-    # @param [Hash, Array, FundingOffer, Number] offer - must contain or be ID
+    # @param [Hash, Array, FundingOffer, Numeric] offer - must contain or be ID
     #
     # @return [Array] Raw notification
     ###
@@ -47,7 +47,7 @@ module Bitfinex
     # Close a funding loan/credit
     #
     # @param funding [Hash, Array, FundingOffer, FundingLoan, FundingCredit,
-    #   Number] must contain or be ID
+    #   Numeric] must contain or be ID
     #
     # @return [Array] Raw notification
     ###
@@ -74,11 +74,11 @@ module Bitfinex
     # Submit a new auto funding request
     #
     # @param [String] currency currency for which to enable auto-renew
-    # @param [Number] amount amount to be auto-renewed (Min 50 USD equivalent)
+    # @param [Numeric] amount amount to be auto-renewed (Min 50 USD equivalent)
     # @param [String] rate percentage rate at which to auto-renew.
     #   (rate = 0 to renew at FRR)
-    # @param [Number] period period in days
-    # @param [Number] status 1 for activate and 0 for deactivate
+    # @param [Numeric] period period in days
+    # @param [Numeric] status 1 for activate and 0 for deactivate
     #
     # @return [Array] Raw notification
     ###

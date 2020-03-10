@@ -1,17 +1,17 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 margin funding methods
   module RESTv1MarginFunding
     # Submit a new offer
     #
-    # @param currency [string] The name of the currency, es: 'USD'
-    # @param amount [decimal] Offer size: how much to lend or borrow
-    # @param rate [decimal] Lend or borrow rate. In percentage per 365 days.
+    # @param currency [String] The name of the currency, es: 'USD'
+    # @param amount [Numeric] Offer size: how much to lend or borrow
+    # @param rate [Numeric] Lend or borrow rate. In percentage per 365 days.
     #                       Set to 0 for FRR, +-delta for FRR+-delta.
-    # @param period [integer] Number of days of the funding contract (in days)
-    # @param direction [string] Either "lend" or "loan"
-    # @param frrdelta [bool] If true, the rate represents +-delta to FRR.
+    # @param period [Numeric] Number of days of the funding contract (in days)
+    # @param direction [String] Either "lend" or "loan"
+    # @param frrdelta [Boolean] If true, the rate represents +-delta to FRR.
     # @return [Hash]
     # @example:
     #   client.new_offer("btc", 10.0, 20, 365, "lend")
@@ -30,7 +30,7 @@ module Bitfinex
 
     # Cancel an offer
     #
-    # @param offer_id [int] The offer ID given by `#new_offer`
+    # @param offer_id [Numeric] The offer ID given by `#new_offer`
     # @return [Hash]
     # @example:
     #   client.cancel_offer(1000)
@@ -43,7 +43,7 @@ module Bitfinex
     # Get the status of an offer. Is it active? Was it cancelled?
     # To what extent has it been executed? etc.
     #
-    # @param offer_id [int] The offer ID give by `#new_offer`
+    # @param offer_id [Numeric] The offer ID give by `#new_offer`
     # @return [Hash]
     # @example:
     #   client.offer_status(1000)
@@ -101,7 +101,7 @@ module Bitfinex
 
     # Allow you to close an unused or used taken fund
     #
-    # @param swap_id [int] The ID given by `#taken_funds` or
+    # @param swap_id [Numeric] The ID given by `#taken_funds` or
     #   `#unused_taken_funds
     # @return [Hash]
     # @example:

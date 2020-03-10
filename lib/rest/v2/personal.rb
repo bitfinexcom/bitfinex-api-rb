@@ -1,10 +1,11 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 personal data methods
   module RESTv2Personal
     # Get account historical daily performance
     #
+    # @return [Hash]
     # @example:
     #   client.performance
     def performance
@@ -14,6 +15,7 @@ module Bitfinex
     # Get the list of alerts
     #
     # @param type [String]
+    # @return [Array]
     # @example:
     #   client.alerts
     def alerts(type = 'price')
@@ -22,9 +24,10 @@ module Bitfinex
 
     # Set a new alert
     #
-    # @param price [Number]
+    # @param price [Numeric]
     # @param symbol [String]
     # @param type [String]
+    # @return [Hash]
     #
     # @example:
     #   client.alert(3000, "tBTCUSD")
@@ -39,8 +42,9 @@ module Bitfinex
 
     # Delete an existing alert
     #
-    # @param price [Number]
+    # @param price [Numeric]
     # @param symbol [String]
+    # @return [Hash]
     #
     # @example:
     #   client.delete_alert(3000, "tBTCUSD")
@@ -50,14 +54,15 @@ module Bitfinex
 
     # Calculate available balance for order/offer
     #
-    # @param rate [int] Rate of the order/offer
-    # @param dir [int] direction of the order/offer
+    # @param rate [Numeric] Rate of the order/offer
+    # @param dir [Numeric] direction of the order/offer
     #         (orders: > 0 buy, < 0 sell | offers:
     #             > 0 sell, < 0 buy)
-    # @param type [string] Type of the order/offer
+    # @param type [String] Type of the order/offer
     #         EXCHANGE or MARGIN
-    # @param symbol [string]
-
+    # @param symbol [String]
+    # @return [Array]
+    #
     # @example:
     #   client.available_balance(800, 1, 'EXCHANGE', 'tBTCUSD')
     def available_balance(rate, dir, type, symbol)

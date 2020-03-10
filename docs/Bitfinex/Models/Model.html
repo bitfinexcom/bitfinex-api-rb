@@ -132,7 +132,7 @@ API model to named keys on a Hash</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#unserialize-class_method" title="unserialize (class method)">.<strong>unserialize</strong>(data, fields, boolFields)  &#x21d2; Hash </a>
+      <a href="#unserialize-class_method" title="unserialize (class method)">.<strong>unserialize</strong>(data, fields, bool_fields)  &#x21d2; Hash </a>
     
 
     
@@ -164,7 +164,7 @@ API model to named keys on a Hash</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#apply-instance_method" title="#apply (instance method)">#<strong>apply</strong>(data)  &#x21d2; Object </a>
+      <a href="#apply-instance_method" title="#apply (instance method)">#<strong>apply</strong>(data)  &#x21d2; nil </a>
     
 
     
@@ -187,7 +187,7 @@ API model to named keys on a Hash</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(data, fields, boolFields)  &#x21d2; Model </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(data, fields, bool_fields)  &#x21d2; Model </a>
     
 
     
@@ -241,7 +241,7 @@ API model to named keys on a Hash</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(data, fields, boolFields)  &#x21d2; <tt><span class='object_link'><a href="" title="Bitfinex::Models::Model (class)">Model</a></span></tt> 
+    #<strong>initialize</strong>(data, fields, bool_fields)  &#x21d2; <tt><span class='object_link'><a href="" title="Bitfinex::Models::Model (class)">Model</a></span></tt> 
   
 
   
@@ -290,7 +290,7 @@ API model to named keys on a Hash</p>
   
     <li>
       
-        <span class='name'>boolFields</span>
+        <span class='name'>bool_fields</span>
       
       
         <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
@@ -327,9 +327,9 @@ as booleans</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/models/model.rb', line 14</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='id identifier rubyid_boolFields'>boolFields</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='id identifier rubyid_bool_fields'>bool_fields</span><span class='rparen'>)</span>
   <span class='ivar'>@fields</span> <span class='op'>=</span> <span class='id identifier rubyid_fields'>fields</span>
-  <span class='ivar'>@boolFields</span> <span class='op'>=</span> <span class='id identifier rubyid_boolFields'>boolFields</span>
+  <span class='ivar'>@bool_fields</span> <span class='op'>=</span> <span class='id identifier rubyid_bool_fields'>bool_fields</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_apply'>apply</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -352,7 +352,7 @@ as booleans</p>
       <div class="method_details first">
   <h3 class="signature first" id="unserialize-class_method">
   
-    .<strong>unserialize</strong>(data, fields, boolFields)  &#x21d2; <tt>Hash</tt> 
+    .<strong>unserialize</strong>(data, fields, bool_fields)  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -398,7 +398,7 @@ Array and a set of field mappings. Should only be used by model classes</p>
   
     <li>
       
-        <span class='name'>boolFields</span>
+        <span class='name'>bool_fields</span>
       
       
         <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
@@ -434,7 +434,6 @@ as booleans</p>
       <pre class="lines">
 
 
-64
 65
 66
 67
@@ -448,18 +447,19 @@ as booleans</p>
 75
 76
 77
-78</pre>
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/model.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/models/model.rb', line 65</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='id identifier rubyid_boolFields'>boolFields</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='id identifier rubyid_bool_fields'>bool_fields</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_obj'>obj</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
   <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-    <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
-    <span class='id identifier rubyid_obj'>obj</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_boolFields'>boolFields</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_obj'>obj</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_bool_fields'>bool_fields</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
                  <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
                <span class='kw'>else</span>
                  <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
@@ -482,7 +482,7 @@ as booleans</p>
       <div class="method_details first">
   <h3 class="signature first" id="apply-instance_method">
   
-    #<strong>apply</strong>(data)  &#x21d2; <tt>Object</tt> 
+    #<strong>apply</strong>(data)  &#x21d2; <tt>nil</tt> 
   
 
   
@@ -512,6 +512,19 @@ as booleans</p>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -519,20 +532,20 @@ as booleans</p>
       <pre class="lines">
 
 
-48
 49
 50
 51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/model.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/models/model.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply'>apply</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='ivar'>@fields</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-    <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
     <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -604,9 +617,9 @@ instance</p>
   <span class='id identifier rubyid_arr'>arr</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
   <span class='ivar'>@fields</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
-    <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
-    <span class='id identifier rubyid_arr'>arr</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ivar'>@boolFields</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_arr'>arr</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ivar'>@bool_fields</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
                    <span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span>
                  <span class='kw'>else</span>
                    <span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -625,7 +638,7 @@ instance</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

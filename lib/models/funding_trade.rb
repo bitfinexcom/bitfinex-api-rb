@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -20,19 +20,39 @@ module Bitfinex
         maker: 7
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :mts_create
+
+      # @return [Numeric]
+      attr_accessor :offer_id
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :rate
+
+      # @return [Numeric]
+      attr_accessor :period
+
+      # @return [Boolean]
+      attr_accessor :maker
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :symbol
-      # @option data [Number] :mts_create
-      # @option data [Number] :offer_id
-      # @option data [Number] :amount
-      # @option data [Number] :rate
-      # @option data [Number] :period
-      # @option data [Number] :maker
+      # @option data [Numeric] :mts_create
+      # @option data [Numeric] :offer_id
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :rate
+      # @option data [Numeric] :period
+      # @option data [Numeric] :maker
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 API wallet methods
@@ -6,8 +6,8 @@ module Bitfinex
     # See your balances.
     #
     # @param params [Hash]
-    # @option params [string] :type "trading", "deposit" or "exchange".
-    # @option params [string] :currency
+    # @option params [String] :type "trading", "deposit" or "exchange".
+    # @option params [String] :currency
     # @option params [decimal] :amount
     # @option params [decimal] :available
     # @return [Array]
@@ -38,10 +38,10 @@ module Bitfinex
 
     # Allow you to move available balances between your wallets.
     #
-    # @param amount [decimal] Amount to transfer
-    # @param currency [string] Currency of funds to transfer
-    # @param wallet_from [string] Wallet to transfer from
-    # @param wallet_to [string] Wallet to transfer to
+    # @param amount [Numeric] Amount to transfer
+    # @param currency [String] Currency of funds to transfer
+    # @param wallet_from [String] Wallet to transfer from
+    # @param wallet_to [String] Wallet to transfer to
     # @return [Array]
     # @example:
     #   client.transfer(10, 'btc', "exchange", "deposit")
@@ -59,7 +59,7 @@ module Bitfinex
     #
     # @param withdraw_type [String]
     # @param walletselected [String] the wallet to withdraw from
-    # @param amount [Number] amount to withdraw
+    # @param amount [Numeric] amount to withdraw
     # @param params [Hash]
     # @option params [String] :address Destination address for withdrawal
     # @option params [String] :account_name account name
@@ -75,7 +75,7 @@ module Bitfinex
     # @option params [String] :intermediary_bank_country
     # @option params [String] :intermediary_bank_account
     # @option params [String] :intermediary_bank_swift
-    # @option params [Number] :expressWire "1" to for express wire withdrawals
+    # @option params [Numeric] :expressWire "1" to for express wire withdrawals
     # @return [Array]
     # @example:
     #   client.withdraw(

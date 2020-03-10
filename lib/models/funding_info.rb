@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -6,15 +6,27 @@ module Bitfinex
   module Models
     # Funding Info model
     class FundingInfo < Model
-      attr_accessor :symbol, :yield_loan, :yield_lend
-      attr_accessor :duration_loan, :duration_lend
+      # @return [Symbol]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :yield_loan
+
+      # @return [Numeric]
+      attr_accessor :yield_lend
+
+      # @return [Numeric]
+      attr_accessor :duration_loan
+
+      # @return [Numeric]
+      attr_accessor :duration_lend
 
       # @param data [Hash]
       # @option data [String] :symbol
-      # @option data [Number] :yield_loan
-      # @option data [Number] :yield_lend
-      # @option data [Number] :duration_loan
-      # @option data [Number] :duration_lend
+      # @option data [Numeric] :yield_loan
+      # @option data [Numeric] :yield_lend
+      # @option data [Numeric] :duration_loan
+      # @option data [Numeric] :duration_lend
       def initialize(data)
         super(data, {}, [])
       end

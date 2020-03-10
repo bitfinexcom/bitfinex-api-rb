@@ -149,6 +149,186 @@
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amount-instance_method" title="#amount (instance method)">#<strong>amount</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#balance-instance_method" title="#balance (instance method)">#<strong>balance</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#currency-instance_method" title="#currency (instance method)">#<strong>currency</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#description-instance_method" title="#description (instance method)">#<strong>description</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id-instance_method" title="#id (instance method)">#<strong>id</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mts-instance_method" title="#mts (instance method)">#<strong>mts</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wallet-instance_method" title="#wallet (instance method)">#<strong>wallet</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+  </ul>
+
 
 
 
@@ -275,7 +455,7 @@
       
         <li>
           <span class="name">:id</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -293,7 +473,7 @@
       
         <li>
           <span class="name">:mts</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -302,7 +482,7 @@
       
         <li>
           <span class="name">:amount</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -311,7 +491,7 @@
       
         <li>
           <span class="name">:balance</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -337,21 +517,27 @@
       <pre class="lines">
 
 
-33
-34
-35
-36
-37
-38</pre>
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#FIELDS-constant" title="Bitfinex::Models::LedgerEntry::FIELDS (constant)">FIELDS</a></span></span><span class='comma'>,</span> <span class='const'>BOOL_FIELDS</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_spl'>spl</span> <span class='op'>=</span> <span class='id identifier rubyid_description'>description</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wallet</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_wallet'>wallet</span> <span class='op'>=</span> <span class='id identifier rubyid_spl'>spl</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_spl'>spl</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='id identifier rubyid_spl'>spl</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_trim'>trim</span> <span class='op'>:</span> <span class='kw'>nil</span>
+
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_spl'>spl</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_wallet'>wallet</span> <span class='op'>=</span> <span class='id identifier rubyid_spl'>spl</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='id identifier rubyid_spl'>spl</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_trim'>trim</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -359,6 +545,389 @@
 </div>
   
 </div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="amount=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="amount-instance_method">
+  
+    #<strong>amount</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_amount'>amount</span>
+  <span class='ivar'>@amount</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="balance=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="balance-instance_method">
+  
+    #<strong>balance</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_balance'>balance</span>
+  <span class='ivar'>@balance</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="currency=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="currency-instance_method">
+  
+    #<strong>currency</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_currency'>currency</span>
+  <span class='ivar'>@currency</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="description=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="description-instance_method">
+  
+    #<strong>description</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span>
+  <span class='ivar'>@description</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="id=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="id-instance_method">
+  
+    #<strong>id</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='ivar'>@id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="mts=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="mts-instance_method">
+  
+    #<strong>mts</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mts'>mts</span>
+  <span class='ivar'>@mts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="wallet=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="wallet-instance_method">
+  
+    #<strong>wallet</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wallet'>wallet</span>
+  <span class='ivar'>@wallet</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="class_method_details" class="method_details_list">
@@ -390,12 +959,12 @@
       <pre class="lines">
 
 
-41
-42
-43</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/models/ledger_entry.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Model.html" title="Bitfinex::Models::Model (class)">Model</a></span></span><span class='period'>.</span><span class='id identifier rubyid_unserialize'><span class='object_link'><a href="Model.html#unserialize-class_method" title="Bitfinex::Models::Model.unserialize (method)">unserialize</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#FIELDS-constant" title="Bitfinex::Models::LedgerEntry::FIELDS (constant)">FIELDS</a></span></span><span class='comma'>,</span> <span class='const'>BOOL_FIELDS</span><span class='rparen'>)</span>
@@ -410,7 +979,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:26 2020 by
+  Generated on Tue Mar 10 16:16:59 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

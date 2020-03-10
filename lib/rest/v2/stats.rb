@@ -1,17 +1,18 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 stats methods
   module RESTv2Stats
     # Various statistics about the requested pair.
     #
-    # @param symbol [string] The symbol you want information about.
-    # @param key [string] Allowed values: "funding.size",
+    # @param symbol [String] The symbol you want information about.
+    # @param key [String] Allowed values: "funding.size",
     #     "credits.size", "credits.size.sym", "pos.size"
-    # @param side [string] Available values: "long", "short"
-    # @param section [string] Available values: "last", "hist"
-    # @param size [string] Available values: '1m'
-    # @param params :sort [int32] if = 1 it sorts results
+    # @param side [String] Available values: "long", "short"
+    # @param section [String] Available values: "last", "hist"
+    # @param size [String] Available values: '1m'
+    # @param params [Hash]
+    # @option params [Numeric] :sort if = 1 it sorts results
     #     returned with old > new
     #
     # @return [Array]

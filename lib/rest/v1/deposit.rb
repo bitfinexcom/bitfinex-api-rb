@@ -1,13 +1,13 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 API deposit methods
   module RESTv1Deposit
     # Return your deposit address to make a new deposit.
     #
-    # @param method [string]
-    # @param wallet_name [string]
-    # @param renew [integer] if 1, will return new deposit address
+    # @param method [String]
+    # @param wallet_name [String]
+    # @param renew [Numeric] if 1, will return new deposit address
     #
     # @return [Hash] confirmation of your deposit
     # @example:

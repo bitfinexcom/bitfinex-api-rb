@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -19,22 +19,42 @@ module Bitfinex
         wallet: nil
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :currency
+
+      # @return [Numeric]
+      attr_accessor :mts
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :balance
+
+      # @return [String]
+      attr_accessor :description
+
+      # @return [String]
+      attr_accessor :wallet
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :currency
-      # @option data [Number] :mts
-      # @option data [Number] :amount
-      # @option data [Number] :balance
+      # @option data [Numeric] :mts
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :balance
       # @option data [String] :description
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
 
         spl = description.split('wallet')
-        self.wallet = spl && spl[1] ? spl[1].trim : nil
+
+        return unless spl
+
+        self.wallet = spl[1] ? spl[1].trim : nil
       end
 
       # Convert an array format ledger entry to a Hash

@@ -15,9 +15,38 @@ require_relative './v2/positions'
 module Bitfinex
   # RESTv2 API Interface
   class RESTv2
-    attr_accessor :api_endpoint, :debug, :debug_connection, :api_version
-    attr_accessor :rest_timeout, :rest_open_timeout, :proxy
-    attr_accessor :api_key, :api_secret, :aff_code
+    # @return [String]
+    attr_accessor :api_endpoint
+
+    # @return [Boolean]
+    attr_accessor :no_close
+
+    # @return [Boolean]
+    attr_accessor :debug
+
+    # @return [Boolean]
+    attr_accessor :debug_connection
+
+    # @return [Numeric]
+    attr_accessor :api_version
+
+    # @return [Numeric]
+    attr_accessor :rest_timeout
+
+    # @return [Numeric]
+    attr_accessor :rest_open_timeout
+
+    # @return [String]
+    attr_accessor :proxy
+
+    # @return [String]
+    attr_accessor :api_key
+
+    # @return [String]
+    attr_accessor :api_secret
+
+    # @return [String]
+    attr_accessor :aff_code
 
     include Bitfinex::RESTClient
     include Bitfinex::RESTv2Margin
@@ -31,6 +60,7 @@ module Bitfinex
     include Bitfinex::RESTv2Funding
     include Bitfinex::RESTv2Positions
 
+    # @param args [Hash]
     def initialize(args = {})
       self.api_endpoint = args[:url] ? "#{args[:url]}/v2/" : 'https://api.bitfinex.com/v2/'
       self.proxy = args[:proxy] || nil
@@ -43,7 +73,8 @@ module Bitfinex
       self.aff_code = args[:aff_code]
     end
 
-    def config
+    # @return [Hash]
+    def config # rubocop:disable Metrics/MethodLength
       {
         api_endpoint: api_endpoint,
         debug_connection: debug_connection,

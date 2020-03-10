@@ -16,15 +16,23 @@ module Bitfinex
         price: 3
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [Numeric]
+      attr_accessor :mts
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :price
 
       # @param data [Hash]
-      # @option data [Number] :id
-      # @option data [Number] :mts
-      # @option data [Number] :amount
-      # @option data [Number] :price
+      # @option data [Numeric] :id
+      # @option data [Numeric] :mts
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :price
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

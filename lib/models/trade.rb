@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -23,21 +23,50 @@ module Bitfinex
         fee_currency: 10
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :mts_create
+
+      # @return [Numeric]
+      attr_accessor :order_id
+
+      # @return [Numeric]
+      attr_accessor :exec_amount
+
+      # @return [Numeric]
+      attr_accessor :exec_price
+
+      # @return [String]
+      attr_accessor :order_type
+
+      # @return [Numeric]
+      attr_accessor :order_price
+
+      # @return [Numeric]
+      attr_accessor :maker
+
+      # @return [Numeric]
+      attr_accessor :fee
+
+      # @return [String]
+      attr_accessor :fee_currency
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :symbol
-      # @option data [Number] :mts_create
-      # @option data [Number] :order_id
-      # @option data [Number] :exec_amount
-      # @option data [Number] :exec_price
+      # @option data [Numeric] :mts_create
+      # @option data [Numeric] :order_id
+      # @option data [Numeric] :exec_amount
+      # @option data [Numeric] :exec_price
       # @option data [String] :order_type
-      # @option data [Number] :order_price
-      # @option data [Number] :maker
-      # @option data [Number] :fee
+      # @option data [Numeric] :order_price
+      # @option data [Numeric] :maker
+      # @option data [Numeric] :fee
       # @option data [String] :fee_currency
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)

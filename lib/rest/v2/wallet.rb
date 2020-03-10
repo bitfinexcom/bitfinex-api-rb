@@ -1,10 +1,11 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 wallet methods
   module RESTv2Wallet
     # Get account wallets
     #
+    # @return [Array]
     # @example:
     #   client.wallets
     def wallets
@@ -14,11 +15,11 @@ module Bitfinex
     ###
     # Transfer between bitfinex wallets
     #
-    # @param from [string] src to transfer funds from (exchange, margin ect...)
-    # @param to [string] dest to transfer funds to (exchange, margin ect...)
-    # @param currency_from [string] original currency of funds
-    # @param currency_to [string] currency to convert funds to
-    # @param amount [number] amount of funds to convert
+    # @param from [String] src to transfer funds from (exchange, margin ect...)
+    # @param to [String] dest to transfer funds to (exchange, margin ect...)
+    # @param currency_from [String] original currency of funds
+    # @param currency_to [String] currency to convert funds to
+    # @param amount [Numeric] amount of funds to convert
     #
     # @return [Array] Raw notification
     ###
@@ -37,8 +38,8 @@ module Bitfinex
     ###
     # Get the deposit address for the given currency
     #
-    # @param wallet [string] dest wallet to transfer funds to
-    # @param method [string] funds transfer protocol
+    # @param wallet [String] dest wallet to transfer funds to
+    # @param method [String] funds transfer protocol
     #
     # @return [Array] Raw notification
     ###
@@ -51,8 +52,8 @@ module Bitfinex
     # Regenerate the deposit address for the given currency. All previous
     # addresses are still active and can receive funds.
     #
-    # @param wallet [string] wallet to transfer funds from
-    # @param method [string] funds transfer protocol
+    # @param wallet [String] wallet to transfer funds from
+    # @param method [String] funds transfer protocol
     #
     # @return [Array] Raw notification
     ###
@@ -65,10 +66,10 @@ module Bitfinex
     # Withdraw from the given bitfinex wallet to the given cryptocurrency
     # address
     #
-    # @param wallet [string] wallet to transfer funds from
-    # @param method [string] funds transfer protocol
-    # @param amount [number] amount of funds to withdraw
-    # @param address [string] public key destination address
+    # @param wallet [String] wallet to transfer funds from
+    # @param method [String] funds transfer protocol
+    # @param amount [Numeric] amount of funds to withdraw
+    # @param address [String] public key destination address
     #
     # @return [Array] Raw notification
     ###

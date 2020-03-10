@@ -1,15 +1,15 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 API order book methods
   module RESTv1OrderBook
     # Get the full order book
     #
-    # @param symbol [string]
+    # @param symbol [String]
     # @param params [Hash]
-    # @option params :limit_bids [int?] :limit_bids default 50
-    # @option params :limit_asks [int?] :limit_asks default 50
-    # @option params :group [number?] if 1 orders are group by price
+    # @option params [Numeric?] :limit_bids default 50
+    # @option params [Numeric?] :limit_asks default 50
+    # @option params [Numeric?] :group if 1 orders are group by price
     # @return [Hash] :bids [Array], :asks [Array]
     # @example:
     #   client.orderbook("btcusd")

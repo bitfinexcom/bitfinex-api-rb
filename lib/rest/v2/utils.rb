@@ -1,14 +1,14 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 utility methods
   module RESTv2Utils
     # Calculate the average execution rate for Trading or Margin funding.
     #
-    # @param symbol [string]
-    # @param amount [string] Positive for buy, negative for sell (ex. "1.123")
-    # @param period [string?] Maximum period for Margin Funding
-    # @param rate_limit [string] Limit rate/price (ex. "1000.5")
+    # @param symbol [String]
+    # @param amount [Numeric] Positive for buy, negative for sell (ex. "1.123")
+    # @param period [Numeric] Maximum period for Margin Funding
+    # @param rate_limit [String] Limit rate/price (ex. "1000.5")
     #
     # @return [Array]
     #

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 ticker methods
@@ -6,7 +6,7 @@ module Bitfinex
     # Gives innermost bid and asks and information on the most recent trade,
     # as well as high, low and volume of the last 24 hours.
     #
-    # @param symbol [string] The name of hthe symbol
+    # @param symbol [String] The name of hthe symbol
     # @return [Hash]
     # @example:
     #   client.ticker

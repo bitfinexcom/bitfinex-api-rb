@@ -116,29 +116,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cancel_multi-instance_method" title="#cancel_multi (instance method)">#<strong>cancel_multi</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>TODO: - requires websocket implementation as well.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#cancel_order-instance_method" title="#cancel_order (instance method)">#<strong>cancel_order</strong>(order)  &#x21d2; Array </a>
     
 
@@ -154,29 +131,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Cancel an order by ID.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#order_multi-instance_method" title="#order_multi (instance method)">#<strong>order_multi</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>TODO: - requires websocket implementation as well.</p>
 </div></span>
   
 </li>
@@ -208,7 +162,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#orders-instance_method" title="#orders (instance method)">#<strong>orders</strong>  &#x21d2; Object </a>
+      <a href="#orders-instance_method" title="#orders (instance method)">#<strong>orders</strong>  &#x21d2; Array </a>
     
 
     
@@ -284,60 +238,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="cancel_multi-instance_method">
-  
-    #<strong>cancel_multi</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>TODO: - requires websocket implementation as well</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Exception</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-85
-86
-87</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 85</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_cancel_multi'>cancel_multi</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>not implemented</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="cancel_order-instance_method">
+  <h3 class="signature first" id="cancel_order-instance_method">
   
     #<strong>cancel_order</strong>(order)  &#x21d2; <tt>Array</tt> 
   
@@ -361,14 +262,12 @@
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>Hash|Array|Order|number</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array</tt>, <tt>Order</tt>, <tt>Numeric</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><ul>
-<li>must contain or be ID</li>
-</ul>
+        <div class='inline'><p>must contain or be ID</p>
 </div>
       
     </li>
@@ -399,7 +298,6 @@
       <pre class="lines">
 
 
-69
 70
 71
 72
@@ -412,10 +310,11 @@
 79
 80
 81
-82</pre>
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cancel_order'>cancel_order</span><span class='lparen'>(</span><span class='id identifier rubyid_order'>order</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Metrics/MethodLength
 </span>  <span class='kw'>if</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Numeric</span><span class='rparen'>)</span>
@@ -430,59 +329,6 @@
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tried to cancel order with invalid ID</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth/w/order/cancel</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="order_multi-instance_method">
-  
-    #<strong>order_multi</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>TODO: - requires websocket implementation as well</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Exception</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-90
-91
-92</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 90</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_order_multi'>order_multi</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exception</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>not implemented</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -517,7 +363,7 @@
         <span class='name'>order_id</span>
       
       
-        <span class='type'>(<tt>int32</tt>)</span>
+        <span class='type'>(<tt>Numeric</tt>)</span>
       
       
       
@@ -532,7 +378,7 @@
         <span class='name'>symbol</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;tBTCUSD&#39;</tt>)</em>
@@ -566,12 +412,12 @@
       <pre class="lines">
 
 
-24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_order_trades'>order_trades</span><span class='lparen'>(</span><span class='id identifier rubyid_order_id'>order_id</span><span class='comma'>,</span> <span class='id identifier rubyid_symbol'>symbol</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tBTCUSD</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>auth/r/order/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_symbol'>symbol</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_order_id'>order_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/trades</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
@@ -584,7 +430,7 @@
       <div class="method_details ">
   <h3 class="signature " id="orders-instance_method">
   
-    #<strong>orders</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>orders</strong>  &#x21d2; <tt>Array</tt> 
   
 
   
@@ -594,14 +440,27 @@
   <div class="discussion">
     <p>Get active orders</p>
 
-<p>example:
-client.orders</p>
+<p>@example:
+  client.orders</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -609,12 +468,12 @@ client.orders</p>
       <pre class="lines">
 
 
-10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_orders'>orders</span>
   <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth/r/orders</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
@@ -681,7 +540,6 @@ client.orders</p>
       <pre class="lines">
 
 
-33
 34
 35
 36
@@ -697,10 +555,11 @@ client.orders</p>
 46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_submit_order'>submit_order</span><span class='lparen'>(</span><span class='id identifier rubyid_order'>order</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Metrics/MethodLength
 </span>  <span class='kw'>if</span> <span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_instance_of?'>instance_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Models.html" title="Bitfinex::Models (module)">Models</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Models/Order.html" title="Bitfinex::Models::Order (class)">Order</a></span></span><span class='rparen'>)</span>
@@ -787,12 +646,12 @@ client.orders</p>
       <pre class="lines">
 
 
-58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/orders.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_order'>update_order</span><span class='lparen'>(</span><span class='id identifier rubyid_changes'>changes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth/w/order/update</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='id identifier rubyid_changes'>changes</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
@@ -807,7 +666,7 @@ client.orders</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

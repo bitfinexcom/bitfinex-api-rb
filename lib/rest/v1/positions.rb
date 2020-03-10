@@ -26,8 +26,8 @@ module Bitfinex
     # pair that you have in your trading wallet is greater or equal to the
     # amount of the position and the margin funding used.
     #
-    # @param position_id [Number] The position ID given by `/positions`
-    # @param amount [Number] The partial amount you wish to claim
+    # @param position_id [Numeric] The position ID given by `/positions`
+    # @param amount [Numeric] The partial amount you wish to claim
     # @return [Hash]
     # @example:
     #    client.claim_position(100,10)
@@ -39,7 +39,8 @@ module Bitfinex
 
     # Closes the specified position with a market order
     #
-    # @param position_id [Number]
+    # @param position_id [Numeric]
+    # @return [Hash]
     def close_position(position_id)
       authenticated_post('position/close', params: {
                            position_id: position_id

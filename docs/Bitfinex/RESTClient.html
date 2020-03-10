@@ -116,7 +116,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#check_params-instance_method" title="#check_params (instance method)">#<strong>check_params</strong>(params, allowed_params)  &#x21d2; Object </a>
+      <a href="#check_params-instance_method" title="#check_params (instance method)">#<strong>check_params</strong>(params, allowed_params)  &#x21d2; nil </a>
     
 
     
@@ -147,7 +147,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="check_params-instance_method">
   
-    #<strong>check_params</strong>(params, allowed_params)  &#x21d2; <tt>Object</tt> 
+    #<strong>check_params</strong>(params, allowed_params)  &#x21d2; <tt>nil</tt> 
   
 
   
@@ -160,7 +160,46 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>allowed_params</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
   
@@ -181,16 +220,16 @@
       <pre class="lines">
 
 
-10
-11
-12
 13
 14
 15
-16</pre>
+16
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/rest_client.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/rest_client.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_params'>check_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='id identifier rubyid_allowed_params'>allowed_params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="ParamsError.html" title="Bitfinex::ParamsError (class)">ParamsError</a></span></span> <span class='kw'>unless</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>-</span> <span class='id identifier rubyid_allowed_params'>allowed_params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='comment'># rubocop:disable Style/GuardClause
@@ -209,7 +248,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

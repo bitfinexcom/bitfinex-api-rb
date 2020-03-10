@@ -14,16 +14,18 @@ module Bitfinex
         amount_net: 1
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :amount_net
 
       # @param data [Hash]
-      # @option data [Number] :amount
-      # @option data [Number] :amount_net
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :amount_net
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
-       end
+      end
 
       # Convert array balance info to a Hash
       #

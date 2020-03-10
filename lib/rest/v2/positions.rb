@@ -6,7 +6,7 @@ module Bitfinex
     ###
     # Claim an active position
     #
-    # @param [Hash|Array|Position|number] position - must contain or be ID
+    # @param position [Hash, Array, Position, Numeric] must contain or be ID
     #
     # @return [Array] Raw notification
     ###

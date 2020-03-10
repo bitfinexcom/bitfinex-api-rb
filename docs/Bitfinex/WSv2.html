@@ -126,9 +126,9 @@ notifications are received</p>
   <span class='symbol'>:api_key</span> <span class='op'>=&gt;</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>API_KEY</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
   <span class='symbol'>:api_secret</span> <span class='op'>=&gt;</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>API_SECRET</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
   <span class='symbol'>:transform</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='comment'># provide models as event data instead of arrays
-</span>  <span class='symbol'>:seq_audit</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='comment'># enable and audit sequence numbers
+</span>  <span class='symbol'>:seq_audit</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='comment'># enable and audit sequence Numerics
 </span>  <span class='symbol'>:manage_order_books</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='comment'># allows for OB checksum verification
-</span>  <span class='symbol'>:checksum_audit</span> <span class='op'>=&gt;</span> <span class='kw'>true</span> <span class='comment'># enables OB checksum verification (needs manage_order_books)
+</span>  <span class='symbol'>:checksum_audit</span> <span class='op'>=&gt;</span> <span class='kw'>true</span> <span class='comment'># OB cs verification (needs manage_order_books)
 </span><span class='rbrace'>}</span><span class='rparen'>)</span>
 
 <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:open</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -188,7 +188,7 @@ notifications are received</p>
         <dt id="FLAG_DEC_S-constant" class="">FLAG_DEC_S =
           <div class="docstring">
   <div class="discussion">
-    <p>enables all decimals as strings</p>
+    <p>enables all decimals as Strings</p>
 
 
   </div>
@@ -203,7 +203,7 @@ notifications are received</p>
         <dt id="FLAG_TIME_S-constant" class="">FLAG_TIME_S =
           <div class="docstring">
   <div class="discussion">
-    <p>enables all timestamps as strings</p>
+    <p>enables all timestamps as Strings</p>
 
 
   </div>
@@ -431,7 +431,7 @@ notifications are received</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Sets the flag to activate sequence numbers on incoming packets.</p>
+    <span class="summary_desc"><div class='inline'><p>Sets the flag to activate sequence Numerics on incoming packets.</p>
 </div></span>
   
 </li>
@@ -465,7 +465,7 @@ notifications are received</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#is_flag_enabled-instance_method" title="#is_flag_enabled (instance method)">#<strong>is_flag_enabled</strong>(flag)  &#x21d2; boolean </a>
+      <a href="#is_flag_enabled-instance_method" title="#is_flag_enabled (instance method)">#<strong>is_flag_enabled</strong>(flag)  &#x21d2; Boolean </a>
     
 
     
@@ -840,7 +840,7 @@ place of array data</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>enables auto seq number verification</p>
+            &mdash; <div class='inline'><p>enables auto seq Numeric verification</p>
 </div>
           
         </li>
@@ -1021,7 +1021,7 @@ verification (requires manage_order_books)</p>
         <span class='name'>calc</span>
       
       
-        <span class='type'>(<tt>number</tt>)</span>
+        <span class='type'>(<tt>Numeric</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>0</tt>)</em>
@@ -1034,7 +1034,7 @@ verification (requires manage_order_books)</p>
         <span class='name'>dms</span>
       
       
-        <span class='type'>(<tt>number</tt>)</span>
+        <span class='type'>(<tt>Numeric</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>0</tt>)</em>
@@ -1149,7 +1149,7 @@ verification (requires manage_order_books)</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>Hash|Array|Order|number</tt>)</span>
+        <span class='type'>(<tt>Hash|Array|Order|Numeric</tt>)</span>
       
       
       
@@ -1321,7 +1321,7 @@ verification (requires manage_order_books)</p>
         <span class='name'>flag</span>
       
       
-        <span class='type'>(<tt>number</tt>)</span>
+        <span class='type'>(<tt>Numeric</tt>)</span>
       
       
       
@@ -1400,17 +1400,15 @@ required for automatic checksum audits.</p>
         <span class='name'>audit</span>
       
       
-        <span class='type'>(<tt>boolean</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><ul>
-<li>if true (default), incoming checksums will be
-compared to local checksums</li>
-</ul>
+        <div class='inline'><p>if true incoming checksums will be compared to
+local checksums</p>
 </div>
       
     </li>
@@ -1465,7 +1463,7 @@ compared to local checksums</li>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Sets the flag to activate sequence numbers on incoming packets</p>
+    <p>Sets the flag to activate sequence Numerics on incoming packets</p>
 
 
   </div>
@@ -1479,7 +1477,7 @@ compared to local checksums</li>
         <span class='name'>audit</span>
       
       
-        <span class='type'>(<tt>boolean</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
@@ -1487,7 +1485,7 @@ compared to local checksums</li>
       
         &mdash;
         <div class='inline'><ul>
-<li>if true (default), incoming seq numbers will be
+<li>if true (default), incoming seq Numerics will be
 checked for consistency</li>
 </ul>
 </div>
@@ -1536,7 +1534,7 @@ checked for consistency</li>
       <div class="method_details ">
   <h3 class="signature " id="is_flag_enabled-instance_method">
   
-    #<strong>is_flag_enabled</strong>(flag)  &#x21d2; <tt>boolean</tt> 
+    #<strong>is_flag_enabled</strong>(flag)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1558,7 +1556,7 @@ checked for consistency</li>
         <span class='name'>flag</span>
       
       
-        <span class='type'>(<tt>number</tt>)</span>
+        <span class='type'>(<tt>Numeric</tt>)</span>
       
       
       
@@ -1572,7 +1570,7 @@ checked for consistency</li>
     <li>
       
       
-        <span class='type'>(<tt>boolean</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -1922,7 +1920,7 @@ checked for consistency</li>
         <span class='name'>channel</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1957,7 +1955,7 @@ checked for consistency</li>
       
         <li>
           <span class="name">:symbol</span>
-          <span class="type">(<tt>string?</tt>)</span>
+          <span class="type">(<tt>String?</tt>)</span>
           <span class="default">
             
           </span>
@@ -1966,7 +1964,7 @@ checked for consistency</li>
       
         <li>
           <span class="name">:prec</span>
-          <span class="type">(<tt>string?</tt>)</span>
+          <span class="type">(<tt>String?</tt>)</span>
           <span class="default">
             
           </span>
@@ -1978,7 +1976,7 @@ checked for consistency</li>
       
         <li>
           <span class="name">:len</span>
-          <span class="type">(<tt>string?</tt>)</span>
+          <span class="type">(<tt>String?</tt>)</span>
           <span class="default">
             
           </span>
@@ -1990,7 +1988,7 @@ checked for consistency</li>
       
         <li>
           <span class="name">:key</span>
-          <span class="type">(<tt>string?</tt>)</span>
+          <span class="type">(<tt>String?</tt>)</span>
           <span class="default">
             
           </span>
@@ -2075,7 +2073,7 @@ checked for consistency</li>
         <span class='name'>key</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2147,7 +2145,7 @@ checked for consistency</li>
         <span class='name'>sym</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2162,7 +2160,7 @@ checked for consistency</li>
         <span class='name'>prec</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2177,7 +2175,7 @@ checked for consistency</li>
         <span class='name'>len</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2257,7 +2255,7 @@ checked for consistency</li>
         <span class='name'>sym</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2329,7 +2327,7 @@ checked for consistency</li>
         <span class='name'>sym</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -2553,7 +2551,7 @@ checked for consistency</li>
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

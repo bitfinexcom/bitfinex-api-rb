@@ -18,17 +18,31 @@ module Bitfinex
         volume: 5
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :mts
+
+      # @return [Numeric]
+      attr_accessor :open
+
+      # @return [Numeric]
+      attr_accessor :close
+
+      # @return [Numeric]
+      attr_accessor :high
+
+      # @return [Numeric]
+      attr_accessor :low
+
+      # @return [Numeric]
+      attr_accessor :volume
 
       # @param data [Hash]
-      # @option data [Number] :mts
-      # @option data [Number] :open
-      # @option data [Number] :close
-      # @option data [Number] :high
-      # @option data [Number] :low
-      # @option data [Number] :volume
+      # @option data [Numeric] :mts
+      # @option data [Numeric] :open
+      # @option data [Numeric] :close
+      # @option data [Numeric] :high
+      # @option data [Numeric] :low
+      # @option data [Numeric] :volume
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

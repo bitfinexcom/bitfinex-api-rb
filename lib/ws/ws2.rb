@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require 'faye/websocket'
 require 'eventmachine'
@@ -41,9 +41,9 @@ module Bitfinex
   #     :api_key => ENV['API_KEY'],
   #     :api_secret => ENV['API_SECRET'],
   #     :transform => true, # provide models as event data instead of arrays
-  #     :seq_audit => true, # enable and audit sequence numbers
+  #     :seq_audit => true, # enable and audit sequence Numerics
   #     :manage_order_books => true, # allows for OB checksum verification
-  #     :checksum_audit => true # enables OB checksum verification (needs manage_order_books)
+  #     :checksum_audit => true # OB cs verification (needs manage_order_books)
   #   })
   #
   #   client.on(:open) do
@@ -79,10 +79,10 @@ module Bitfinex
     INFO_MAINTENANCE_START = 20_060
     INFO_MAINTENANCE_END = 20_061
 
-    # enables all decimals as strings
+    # enables all decimals as Strings
     FLAG_DEC_S = 8
 
-    # enables all timestamps as strings
+    # enables all timestamps as Strings
     FLAG_TIME_S = 32
 
     # timestamps in milliseconds
@@ -109,7 +109,7 @@ module Bitfinex
     # @option params [Boolean] :transform if true, full models are returned in
     #   place of array data
     #
-    # @option params [Boolean] :seq_audit enables auto seq number verification
+    # @option params [Boolean] :seq_audit enables auto seq Numeric verification
     # @option params [Boolean] :checksum_audit enables automatic OB checksum
     #   verification (requires manage_order_books)
     def initialize(params = {})
@@ -398,8 +398,8 @@ module Bitfinex
       end
     end
 
-    # @param local_cs [Number]
-    # @param remote_cs [Number]
+    # @param local_cs [Numeric]
+    # @param remote_cs [Numeric]
     # @param chan [Hash]
     # @return [nil]
     # @private
@@ -619,12 +619,12 @@ module Bitfinex
     ###
     # Subscribes to the specified channel; params dictate the channel filter
     #
-    # @param channel [string] i.e. 'trades', 'candles', etc
+    # @param channel [String] i.e. 'trades', 'candles', etc
     # @param params [Hash]
-    # @option params [string?] :symbol
-    # @option params [string?] :prec for order book channels
-    # @option params [string?] :len for order book channels
-    # @option params [string?] :key for candle channels
+    # @option params [String?] :symbol
+    # @option params [String?] :prec for order book channels
+    # @option params [String?] :len for order book channels
+    # @option params [String?] :key for candle channels
     # @return [nil]
     ###
     def subscribe(channel, params = {})
@@ -640,7 +640,7 @@ module Bitfinex
     ###
     # Subscribes to a ticker channel by symbol
     #
-    # @param sym [string] i.e tBTCUSD
+    # @param sym [String] i.e tBTCUSD
     # @return [nil]
     ###
     def subscribe_ticker(sym)
@@ -650,7 +650,7 @@ module Bitfinex
     ###
     # Subscribes to a trades channel by symbol
     #
-    # @param sym [string] i.e tBTCUSD
+    # @param sym [String] i.e tBTCUSD
     # @return [nil]
     ###
     def subscribe_trades(sym)
@@ -660,7 +660,7 @@ module Bitfinex
     ###
     # Subscribes to a candle channel by key
     #
-    # @param key [string] i.e. trade:1m:tBTCUSD
+    # @param key [String] i.e. trade:1m:tBTCUSD
     # @return [nil]
     ###
     def subscribe_candles(key)
@@ -670,9 +670,9 @@ module Bitfinex
     ###
     # Subscribes to an order book channel
     #
-    # @param sym [string] i.e. tBTCUSD
-    # @param prec [string] i.e. R0, P0, etc
-    # @param len [string] i.e. 25, 100, etc
+    # @param sym [String] i.e. tBTCUSD
+    # @param prec [String] i.e. R0, P0, etc
+    # @param len [String] i.e. 25, 100, etc
     # @return [nil]
     ###
     def subscribe_order_book(sym, prec, len)
@@ -754,7 +754,7 @@ module Bitfinex
       raise Exception, "server not running API v2: #{msg['version']}"
     end
 
-    # @param code [number]
+    # @param code [Numeric]
     # @return [nil]
     # @private
     def handle_info_code_event(code)
@@ -810,7 +810,7 @@ module Bitfinex
 
     # Enable an individual flag (see FLAG_* constants)
     #
-    # @param flag [number]
+    # @param flag [Numeric]
     # @return [nil]
     def enable_flag(flag)
       return unless @is_open
@@ -823,15 +823,15 @@ module Bitfinex
 
     # Checks if an individual flag is enabled (see FLAG_* constants)
     #
-    # @param [number] flag
-    # @return [boolean] enabled
+    # @param [Numeric] flag
+    # @return [Boolean] enabled
     def is_flag_enabled(flag) # rubocop:disable Naming/PredicateName
       (@enabled_flags & flag) == flag
     end
 
-    # Sets the flag to activate sequence numbers on incoming packets
+    # Sets the flag to activate sequence Numerics on incoming packets
     #
-    # @param [boolean] audit - if true (default), incoming seq numbers will be
+    # @param [Boolean] audit - if true (default), incoming seq Numerics will be
     #   checked for consistency
     # @return [nil]
     def enable_sequencing(audit = true)
@@ -842,8 +842,8 @@ module Bitfinex
     # Sets the flag to activate order book checksums. Managed order books are
     # required for automatic checksum audits.
     #
-    # @param [boolean] audit - if true (default), incoming checksums will be
-    #   compared to local checksums
+    # @param audit [Boolean] if true incoming checksums will be compared to
+    #   local checksums
     # @return [nil]
     def enable_ob_checksums(audit = true)
       @checksum_audit = audit
@@ -852,8 +852,8 @@ module Bitfinex
 
     # Authenticates the socket connection
     #
-    # @param calc [number]
-    # @param dms [number] dead man switch, active 4
+    # @param calc [Numeric]
+    # @param dms [Numeric] dead man switch, active 4
     # @return [nil]
     def auth!(calc = 0, dms = 0) # rubocop:disable all
       raise Exception, 'already authenticated' if @is_authenticated
@@ -873,7 +873,7 @@ module Bitfinex
                              }))
     end
 
-    # @return [Number]
+    # @return [Numeric]
     # @private
     def new_nonce
       (Time.now.to_f * 1000).floor.to_s
@@ -909,7 +909,7 @@ module Bitfinex
 
     # Cancel an order by ID
     #
-    # @param order [Hash|Array|Order|number] must contain or be ID
+    # @param order [Hash|Array|Order|Numeric] must contain or be ID
     # @param callback [Block] triggered on receipt of confirmation notification
     # @return [nil]
     def cancel_order(order, &callback) # rubocop:disable all

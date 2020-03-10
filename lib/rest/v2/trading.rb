@@ -1,19 +1,19 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 API trading methods
   module RESTv2Trading
     # Provides a way to access charting candle info
     #
-    # @param symbol [string] The symbol you want information about.
-    # @param timeframe [string] Available values: '1m', '5m', '15m',
+    # @param symbol [String] The symbol you want information about.
+    # @param timeframe [String] Available values: '1m', '5m', '15m',
     #        '30m', '1h', '3h', '6h', '12h', '1D', '7D', '14D', '1M'
-    # @param section [string] Available values: "last", "hist"
+    # @param section [String] Available values: "last", "hist"
     # @param params [Hash]
-    # @option params [Number] :limit Number of candles requested
-    # @option params [Number] :start Filter start (ms)
-    # @option params [Number] :end Filter end (ms)
-    # @option params [Number] :sort if = 1 it sorts with old > new
+    # @option params [Numeric] :limit Numeric of candles requested
+    # @option params [Numeric] :start Filter start (ms)
+    # @option params [Numeric] :end Filter end (ms)
+    # @option params [Numeric] :sort if = 1 it sorts with old > new
     #
     # @return [Array]
     #
@@ -32,13 +32,14 @@ module Bitfinex
     # with customizable precision.
     #
     #
-    # @param symbol [string] The symbol you want
+    # @param symbol [String] The symbol you want
     #     information about. You can find the list of
     #     valid symbols by calling the /symbols
     #     endpoint.
-    # @param precision [string] Level of price
+    # @param precision [String] Level of price
     #     aggregation (P0, P1, P2, P3, R0)
-    # @param params :len [int32] Number of price
+    # @param params [Hash]
+    # @option params [Numeric] :len Numeric of price
     #     points ("25", "100")
     #
     # @return [Hash] :bids [Array], :asks [Array]
@@ -53,12 +54,12 @@ module Bitfinex
     # Trades endpoint includes all the pertinent details
     # of the trade, such as price, size and time.
     #
-    # @param symbol [string] the name of the symbol
+    # @param symbol [String] the name of the symbol
     # @param params [Hash]
-    # @option params [Number] :limit Number of records
-    # @option params [Number] :start Millisecond start time
-    # @option params [Number] :end Millisecond end time
-    # @option params [Number] :sort if = 1 it sorts with old > new
+    # @option params [Numeric] :limit Numeric of records
+    # @option params [Numeric] :start Millisecond start time
+    # @option params [Numeric] :end Millisecond end time
+    # @option params [Numeric] :sort if = 1 it sorts with old > new
     #
     # @return [Array]
     #

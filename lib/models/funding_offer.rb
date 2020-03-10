@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -27,26 +27,67 @@ module Bitfinex
         rate_real: 20
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :mts_create
+
+      # @return [Numeric]
+      attr_accessor :mts_update
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :amount_orig
+
+      # @return [String]
+      attr_accessor :type
+
+      # @return [Numeric]
+      attr_accessor :flags
+
+      # @return [String]
+      attr_accessor :status
+
+      # @return [Numeric]
+      attr_accessor :rate
+
+      # @return [Numeric]
+      attr_accessor :period
+
+      # @return [Boolean]
+      attr_accessor :notify
+
+      # @return [Boolean]
+      attr_accessor :hidden
+
+      # @return [Boolean]
+      attr_accessor :renew
+
+      # @return [Numeric]
+      attr_accessor :rate_real
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :symbol
-      # @option data [Number] :mts_create
-      # @option data [Number] :mts_update
-      # @option data [Number] :amount
-      # @option data [Number] :amount_orig
+      # @option data [Numeric] :mts_create
+      # @option data [Numeric] :mts_update
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :amount_orig
       # @option data [String] :type
-      # @option data [Number] :flags
+      # @option data [Numeric] :flags
       # @option data [String] :status
-      # @option data [Number] :rate
-      # @option data [Number] :period
+      # @option data [Numeric] :rate
+      # @option data [Numeric] :period
       # @option data [Boolean] :notify
       # @option data [Boolean] :hidden
       # @option data [Boolean] :renew
-      # @option data [Number] :rate_real
+      # @option data [Numeric] :rate_real
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

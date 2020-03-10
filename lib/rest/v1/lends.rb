@@ -6,7 +6,7 @@ module Bitfinex
     # Get a list of the most recent funding data for the given currency: total
     # amount provided and Flash Return Rate (in % by 365 days) over time.
     #
-    # @param currency [string?] Specify the currency, default "USD"
+    # @param currency [String] Specify the currency, default "USD"
     # @param params [Hash]
     # @option params [Date?] :timestamp start time of data to return
     # @option params [Number?] :limit_lends > 1, default 50

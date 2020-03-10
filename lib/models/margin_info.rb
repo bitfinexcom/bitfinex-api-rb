@@ -6,8 +6,35 @@ module Bitfinex
   module Models
     # Margin Info model
     class MarginInfo < Model
-      attr_accessor :user_pl, :user_swaps, :margin_balance, :margin_net, :type
-      attr_accessor :symbol, :tradable_balance, :gross_balance, :buy, :sell
+      # @return [Numeric]
+      attr_accessor :user_pl
+
+      # @return [Numeric]
+      attr_accessor :user_swaps
+
+      # @return [Numeric]
+      attr_accessor :margin_balance
+
+      # @return [Numeric]
+      attr_accessor :margin_net
+
+      # @return [String]
+      attr_accessor :type
+
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :tradable_balance
+
+      # @return [Numeric]
+      attr_accessor :gross_balance
+
+      # @return [Numeric]
+      attr_accessor :buy
+
+      # @return [Numeric]
+      attr_accessor :sell
 
       # Use unserialize and serialize methods to manipulate margin infos
       #
@@ -19,7 +46,7 @@ module Bitfinex
       # Convert this instance to an array format model
       #
       # @return [Array]
-      def serialize
+      def serialize # rubocop:disable Metrics/MethodLength
         if type == 'base'
           [
             type,
@@ -48,7 +75,7 @@ module Bitfinex
       #
       # @param arr [Array]
       # @return [Hash]
-      def self.unserialize(arr)
+      def self.unserialize(arr) # rubocop:disable Metrics/MethodLength
         type = arr[0]
 
         if type == 'base'

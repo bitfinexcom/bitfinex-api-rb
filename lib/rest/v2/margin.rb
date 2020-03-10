@@ -1,10 +1,11 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv2 margin methods
   module RESTv2Margin
     # Get active offers
     #
+    # @return [Array]
     # @example:
     #    client.offers
     def offers
@@ -14,8 +15,8 @@ module Bitfinex
     # Get account margin info
     # - if symbol is not specified return everything
     #
-    # @param symbol [string] optional
-    #
+    # @param symbol [String] optional
+    # @return [Array]
     # @example:
     #   client.margin_info("tBTCUSD")
     def margin_info(symbol = 'base')
@@ -24,8 +25,8 @@ module Bitfinex
 
     # Get account funding info
     #
-    # @param symbol [string] optional
-    #
+    # @param symbol [String] optional
+    # @return [Array]
     # @example:
     #   client.funding_info
     def funding_info(symbol = 'fUSD')

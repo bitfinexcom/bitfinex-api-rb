@@ -9,11 +9,11 @@ module Bitfinex
       #
       # @param data [Hash, Array] can also be an array
       # @param fields [Hash] mapping of keys (field names) to array indexes
-      # @param boolFields [Array<Symbol>] array of field names to be treated
+      # @param bool_fields [Array<Symbol>] array of field names to be treated
       #   as booleans
-      def initialize(data, fields, boolFields)
+      def initialize(data, fields, bool_fields)
         @fields = fields
-        @boolFields = boolFields
+        @bool_fields = bool_fields
 
         if data.is_a?(Array)
           apply(self.class.unserialize(data))
@@ -30,9 +30,9 @@ module Bitfinex
         arr = []
 
         @fields.each do |key, index|
-          return if index.nil?
+          break if index.nil?
 
-          arr[index] = if @boolFields.include?(key)
+          arr[index] = if @bool_fields.include?(key)
                          instance_variable_get("@#{key}") ? 1 : 0
                        else
                          instance_variable_get("@#{key}")
@@ -45,9 +45,10 @@ module Bitfinex
       # Sets field values from a Hash
       #
       # @param data [Hash]
+      # @return [nil]
       def apply(data)
         @fields.each do |key, index|
-          return if index.nil?
+          break if index.nil?
 
           instance_variable_set("@#{key}", data[key])
         end
@@ -58,16 +59,16 @@ module Bitfinex
       #
       # @param data [Array]
       # @param fields [Hash] mapping of keys (field names) to array indexes
-      # @param boolFields [Array<Symbol>] array of field names to be treated
+      # @param bool_fields [Array<Symbol>] array of field names to be treated
       #   as booleans
       # @return [Hash]
-      def self.unserialize(data, fields, boolFields)
+      def self.unserialize(data, fields, bool_fields)
         obj = {}
 
         fields.each do |key, index|
-          return if index.nil?
+          break if index.nil?
 
-          obj[key] = if boolFields.include?(key)
+          obj[key] = if bool_fields.include?(key)
                        data[index] == 1
                      else
                        data[index]

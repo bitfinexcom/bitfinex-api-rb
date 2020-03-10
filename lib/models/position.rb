@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -32,27 +32,74 @@ module Bitfinex
         meta: 19
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [String]
+      attr_accessor :status
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :base_price
+
+      # @return [Numeric]
+      attr_accessor :margin_funding
+
+      # @return [String]
+      attr_accessor :margin_funding_type
+
+      # @return [Numeric]
+      attr_accessor :pl
+
+      # @return [Numeric]
+      attr_accessor :pl_perc
+
+      # @return [Numeric]
+      attr_accessor :liquidation_price
+
+      # @return [Numeric]
+      attr_accessor :leverage
+
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [Numeric]
+      attr_accessor :mts_create
+
+      # @return [Numeric]
+      attr_accessor :mts_update
+
+      # @return [String]
+      attr_accessor :type
+
+      # @return [Numeric]
+      attr_accessor :collateral
+
+      # @return [Numeric]
+      attr_accessor :collateral_min
+
+      # @return [Hash, nil]
+      attr_accessor :meta
 
       # @param data [Hash]
       # @option data [String] :symbol
       # @option data [String] :status
-      # @option data [Number] :amount
-      # @option data [Number] :base_price
-      # @option data [Number] :margin_funding
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :base_price
+      # @option data [Numeric] :margin_funding
       # @option data [String] :margin_funding_type
-      # @option data [Number] :pl
-      # @option data [Number] :pl_perc
-      # @option data [Number] :liquidation_price
-      # @option data [Number] :leverage
-      # @option data [Number] :id
-      # @option data [Number] :mts_create
-      # @option data [Number] :mts_update
+      # @option data [Numeric] :pl
+      # @option data [Numeric] :pl_perc
+      # @option data [Numeric] :liquidation_price
+      # @option data [Numeric] :leverage
+      # @option data [Numeric] :id
+      # @option data [Numeric] :mts_create
+      # @option data [Numeric] :mts_update
       # @option data [String] :type
-      # @option data [Number] :collateral
-      # @option data [Number] :collateral_min
+      # @option data [Numeric] :collateral
+      # @option data [Numeric] :collateral_min
       # @option data [Hash, nil] :meta
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)

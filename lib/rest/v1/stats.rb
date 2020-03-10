@@ -1,11 +1,11 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 stats methods
   module RESTv1Stats
     # Various statistics about the requested pair.
     #
-    # @param symbol [string]
+    # @param symbol [String]
     # @return [Array]
     # @example:
     #   client.stats('btcusd')

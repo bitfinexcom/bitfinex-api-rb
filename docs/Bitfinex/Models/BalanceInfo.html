@@ -144,6 +144,61 @@
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amount-instance_method" title="#amount (instance method)">#<strong>amount</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amount_net-instance_method" title="#amount_net (instance method)">#<strong>amount_net</strong>  &#x21d2; Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+  </ul>
+
 
 
 
@@ -270,7 +325,7 @@
       
         <li>
           <span class="name">:amount</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -279,7 +334,7 @@
       
         <li>
           <span class="name">:amount_net</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -296,15 +351,15 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
- <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#FIELDS-constant" title="Bitfinex::Models::BalanceInfo::FIELDS (constant)">FIELDS</a></span></span><span class='comma'>,</span> <span class='const'>BOOL_FIELDS</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#FIELDS-constant" title="Bitfinex::Models::BalanceInfo::FIELDS (constant)">FIELDS</a></span></span><span class='comma'>,</span> <span class='const'>BOOL_FIELDS</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -312,6 +367,119 @@
 </div>
   
 </div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="amount=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="amount-instance_method">
+  
+    #<strong>amount</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_amount'>amount</span>
+  <span class='ivar'>@amount</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="amount_net=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="amount_net-instance_method">
+  
+    #<strong>amount_net</strong>  &#x21d2; <tt>Numeric</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numeric</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_amount_net'>amount_net</span>
+  <span class='ivar'>@amount_net</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="class_method_details" class="method_details_list">
@@ -371,12 +539,12 @@
       <pre class="lines">
 
 
-32
-33
-34</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/models/balance_info.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unserialize'>unserialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Model.html" title="Bitfinex::Models::Model (class)">Model</a></span></span><span class='period'>.</span><span class='id identifier rubyid_unserialize'><span class='object_link'><a href="Model.html#unserialize-class_method" title="Bitfinex::Models::Model.unserialize (method)">unserialize</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#FIELDS-constant" title="Bitfinex::Models::BalanceInfo::FIELDS (constant)">FIELDS</a></span></span><span class='comma'>,</span> <span class='const'>BOOL_FIELDS</span><span class='rparen'>)</span>
@@ -391,7 +559,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:26 2020 by
+  Generated on Tue Mar 10 16:16:59 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

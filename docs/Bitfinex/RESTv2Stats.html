@@ -173,7 +173,7 @@
         <span class='name'>symbol</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;fUSD&#39;</tt>)</em>
@@ -190,7 +190,7 @@
         <span class='name'>key</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;funding.size&#39;</tt>)</em>
@@ -208,7 +208,7 @@
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;long&#39;</tt>)</em>
@@ -225,7 +225,7 @@
         <span class='name'>section</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;last&#39;</tt>)</em>
@@ -242,7 +242,7 @@
         <span class='name'>size</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;1m&#39;</tt>)</em>
@@ -259,20 +259,47 @@
         <span class='name'>params</span>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>Hash</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
-        &mdash;
-        <div class='inline'><p>:sort [int32] if = 1 it sorts results
-returned with old &gt; new</p>
-</div>
-      
     </li>
   
 </ul>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:sort</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>if = 1 it sorts results
+returned with old &gt; new</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -294,13 +321,13 @@ returned with old &gt; new</p>
       <pre class="lines">
 
 
-21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/stats.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/stats.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stats'>stats</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fUSD</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>funding.size</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_side'>side</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>long</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_section'>section</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>last</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1m</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='comment'>#rubocop:disable all
 </span>  <span class='id identifier rubyid_check_params'>check_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>sort</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -316,7 +343,7 @@ returned with old &gt; new</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:57 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -19,16 +19,33 @@ module Bitfinex
         text: 7
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :mts
+
+      # @return [String]
+      attr_accessor :type
+
+      # @return [Numeric]
+      attr_accessor :message_id
+
+      # @return [Hash, nil]
+      attr_accessor :notify_info
+
+      # @return [Numeric]
+      attr_accessor :code
+
+      # @return [String]
+      attr_accessor :status
+
+      # @return [String]
+      attr_accessor :text
 
       # @param data [Hash]
-      # @option data [Number] :mts
+      # @option data [Numeric] :mts
       # @option data [String] :type
-      # @option data [Number] :message_id
+      # @option data [Numeric] :message_id
       # @option data [Hash, nil] :notify_info
-      # @option data [Number] :code
+      # @option data [Numeric] :code
       # @option data [String] :status
       # @option data [String] :text
       def initialize(data)

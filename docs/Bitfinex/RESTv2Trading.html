@@ -255,12 +255,12 @@
       <pre class="lines">
 
 
-78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_active_positions'>active_positions</span>
   <span class='id identifier rubyid_authenticated_post'>authenticated_post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>auth/r/positions</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
@@ -301,7 +301,7 @@ with customizable precision.</p>
         <span class='name'>symbol</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;btcusd&#39;</tt>)</em>
@@ -321,7 +321,7 @@ endpoint.</p>
         <span class='name'>precision</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;P0&#39;</tt>)</em>
@@ -339,20 +339,41 @@ aggregation (P0, P1, P2, P3, R0)</p>
         <span class='name'>params</span>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>Hash</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
-        &mdash;
-        <div class='inline'><p>:len [int32] Number of price
-points (&quot;25&quot;, &quot;100&quot;)</p>
-</div>
-      
     </li>
   
 </ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:len</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Numeric of price
+points (&quot;25&quot;, &quot;100&quot;)</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -378,13 +399,13 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
       <pre class="lines">
 
 
-48
 49
 50
-51</pre>
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_books'>books</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>btcusd</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>P0</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_params'>check_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>len</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -423,7 +444,7 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
         <span class='name'>symbol</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;tBTCUSD&#39;</tt>)</em>
@@ -440,7 +461,7 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
         <span class='name'>timeframe</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;1m&#39;</tt>)</em>
@@ -458,7 +479,7 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
         <span class='name'>section</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;hist&#39;</tt>)</em>
@@ -499,19 +520,19 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
       
         <li>
           <span class="name">:limit</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'><p>Number of candles requested</p>
+            &mdash; <div class='inline'><p>Numeric of candles requested</p>
 </div>
           
         </li>
       
         <li>
           <span class="name">:start</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -523,7 +544,7 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
       
         <li>
           <span class="name">:end</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -535,7 +556,7 @@ points (&quot;25&quot;, &quot;100&quot;)</p>
       
         <li>
           <span class="name">:sort</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -618,7 +639,7 @@ of the trade, such as price, size and time.</p>
         <span class='name'>symbol</span>
       
       
-        <span class='type'>(<tt>string</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;tBTCUSD&#39;</tt>)</em>
@@ -655,19 +676,19 @@ of the trade, such as price, size and time.</p>
       
         <li>
           <span class="name">:limit</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'><p>Number of records</p>
+            &mdash; <div class='inline'><p>Numeric of records</p>
 </div>
           
         </li>
       
         <li>
           <span class="name">:start</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -679,7 +700,7 @@ of the trade, such as price, size and time.</p>
       
         <li>
           <span class="name">:end</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -691,7 +712,7 @@ of the trade, such as price, size and time.</p>
       
         <li>
           <span class="name">:sort</span>
-          <span class="type">(<tt>Number</tt>)</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
             
           </span>
@@ -724,13 +745,13 @@ of the trade, such as price, size and time.</p>
       <pre class="lines">
 
 
-67
 68
 69
-70</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/rest/v2/trading.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trades'>trades</span><span class='lparen'>(</span><span class='id identifier rubyid_symbol'>symbol</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tBTCUSD</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_params'>check_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>limit</span><span class='words_sep'> </span><span class='tstring_content'>start</span><span class='words_sep'> </span><span class='tstring_content'>end</span><span class='words_sep'> </span><span class='tstring_content'>sort</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -746,7 +767,7 @@ of the trade, such as price, size and time.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 10 14:41:25 2020 by
+  Generated on Tue Mar 10 16:16:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.7.0).
 </div>

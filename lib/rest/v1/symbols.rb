@@ -6,7 +6,7 @@ module Bitfinex
     # Get a list of valid symbol IDs.
     #
     # @return [Array]
-    # @example:
+    # @example
     # client.symbols
     def symbols
       get('symbols').body

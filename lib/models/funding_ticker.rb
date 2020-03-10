@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -26,25 +26,63 @@ module Bitfinex
         low: 13
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :frr
+
+      # @return [Numeric]
+      attr_accessor :bid
+
+      # @return [Numeric]
+      attr_accessor :bid_size
+
+      # @return [Numeric]
+      attr_accessor :bid_period
+
+      # @return [Numeric]
+      attr_accessor :ask
+
+      # @return [Numeric]
+      attr_accessor :ask_size
+
+      # @return [Numeric]
+      attr_accessor :ask_period
+
+      # @return [Numeric]
+      attr_accessor :daily_change
+
+      # @return [Numeric]
+      attr_accessor :daily_change_perc
+
+      # @return [Numeric]
+      attr_accessor :last_price
+
+      # @return [Numeric]
+      attr_accessor :volume
+
+      # @return [Numeric]
+      attr_accessor :high
+
+      # @return [Numeric]
+      attr_accessor :low
 
       # @param data [Hash]
       # @option data [String] :symbol
-      # @option data [Number] :frr
-      # @option data [Number] :bid
-      # @option data [Number] :bid_size
-      # @option data [Number] :bid_period
-      # @option data [Number] :ask
-      # @option data [Number] :ask_size
-      # @option data [Number] :ask_period
-      # @option data [Number] :daily_change
-      # @option data [Number] :daily_change_perc
-      # @option data [Number] :last_price
-      # @option data [Number] :volume
-      # @option data [Number] :high
-      # @option data [Number] :low
+      # @option data [Numeric] :frr
+      # @option data [Numeric] :bid
+      # @option data [Numeric] :bid_size
+      # @option data [Numeric] :bid_period
+      # @option data [Numeric] :ask
+      # @option data [Numeric] :ask_size
+      # @option data [Numeric] :ask_period
+      # @option data [Numeric] :daily_change
+      # @option data [Numeric] :daily_change_perc
+      # @option data [Numeric] :last_price
+      # @option data [Numeric] :volume
+      # @option data [Numeric] :high
+      # @option data [Numeric] :low
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -17,16 +17,27 @@ module Bitfinex
         balance_available: 4
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [String]
+      attr_accessor :type
+
+      # @return [String]
+      attr_accessor :currency
+
+      # @return [Numeric]
+      attr_accessor :balance
+
+      # @return [Numeric]
+      attr_accessor :unsettled_interest
+
+      # @return [Numeric]
+      attr_accessor :balance_available
 
       # @param data [Hash]
       # @option data [String] :type
       # @option data [String] :currency
-      # @option data [Number] :balance
-      # @option data [Number] :unsettled_interest
-      # @option data [Number] :balance_available
+      # @option data [Numeric] :balance
+      # @option data [Numeric] :unsettled_interest
+      # @option data [Numeric] :balance_available
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

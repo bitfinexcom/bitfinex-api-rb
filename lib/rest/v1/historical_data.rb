@@ -1,16 +1,16 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 module Bitfinex
   # RESTv1 API historical data methods
   module RESTv1HistoricalData
     # View all of your balance ledger entries.
     #
-    # @param currency [string] (optional) Specify the currency, default "USD"
+    # @param currency [String] (optional) Specify the currency, default "USD"
     # @param params [Hash]
-    # @option params [time?] :since
-    # @option params [time?] :until
-    # @option params [int?] :limit
-    # @option params [string] :wallet
+    # @option params [Time?] :since
+    # @option params [Time?] :until
+    # @option params [Numeric?] :limit
+    # @option params [String] :wallet
     # @return [Array]
     # @example:
     #   client.history
@@ -22,7 +22,7 @@ module Bitfinex
 
     # View your past deposits/withdrawals.
     #
-    # @param currency [string] (optional) Specify the currency, default "USD"
+    # @param currency [String] (optional) Specify the currency, default "USD"
     # @param params [Hash]
     # @option params [String] :method
     # @option params [time?] :since
@@ -42,13 +42,13 @@ module Bitfinex
 
     # View your past trades.
     #
-    # @param symbol The pair traded (BTCUSD, LTCUSD, LTCBTC)
+    # @param symbol [String] The pair traded (BTCUSD, LTCUSD, LTCBTC)
     # @param params [Hash]
-    # @option params [time?] :until
-    # @option params [time?] :timestamp
-    # @option params [time?] :until
-    # @option params [int?] :limit_trades default 50
-    # @option params [int?] :reverse return trades in reverse order
+    # @option params [Time?] :until
+    # @option params [Time?] :timestamp
+    # @option params [Time?] :until
+    # @option params [Numeric?] :limit_trades default 50
+    # @option params [Numeric?] :reverse return trades in reverse order
     # @return [Array]
     # @example:
     #   client.mytrades

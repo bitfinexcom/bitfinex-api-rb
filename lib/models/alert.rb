@@ -1,14 +1,15 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
 module Bitfinex
   module Models
     # Price Alert model
+    #
+    # @attr [String] key
     class Alert < Model
       BOOL_FIELDS = [].freeze # @private
 
-      # Hash<->Array field index mapping
       FIELDS = {
         key: 0,
         type: 1,
@@ -16,15 +17,23 @@ module Bitfinex
         price: 3
       }.freeze
 
-      FIELDS.each do |key|
-        attr_accessor key
-      end
+      # @return [String]
+      attr_accessor :key
+
+      # @return [String]
+      attr_accessor :type
+      #
+      # @return [String]
+      attr_accessor :symbol
+
+      # @return [Numeric]
+      attr_accessor :price
 
       # @param data [Hash] - can also be an array
       # @option data [String] :key
       # @option data [String] :type
       # @option data [String] :symbol
-      # @option data [Number] :price
+      # @option data [Numeric] :price
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -22,21 +22,47 @@ module Bitfinex
         transaction_id: 20
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :currency
+
+      # @return [String]
+      attr_accessor :currency_name
+
+      # @return [Numeric]
+      attr_accessor :mts_started
+
+      # @return [Numeric]
+      attr_accessor :mts_updated
+
+      # @return [String]
+      attr_accessor :status
+
+      # @return [Numeric]
+      attr_accessor :amount
+
+      # @return [Numeric]
+      attr_accessor :fees
+
+      # @return [String]
+      attr_accessor :destination_address
+
+      # @return [String]
+      attr_accessor :transaction_id
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :currency
       # @option data [String] :currency_name
-      # @option data [Number] :mts_started
-      # @option data [Number] :mts_updated
+      # @option data [Numeric] :mts_started
+      # @option data [Numeric] :mts_updated
       # @option data [String] :status
-      # @option data [Number] :amount
-      # @option data [Number] :fees
+      # @option data [Numeric] :amount
+      # @option data [Numeric] :fees
       # @option data [String] :destination_address
-      # @option data [Number] :transaction_id
+      # @option data [Numeric] :transaction_id
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

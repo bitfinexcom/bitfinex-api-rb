@@ -19,9 +19,32 @@ require_relative './v1/wallet'
 module Bitfinex
   # RESTv1 API Interface
   class RESTv1
-    attr_accessor :api_endpoint, :debug, :debug_connection, :api_version
-    attr_accessor :rest_timeout, :rest_open_timeout, :proxy
-    attr_accessor :api_key, :api_secret
+    # @return [String]
+    attr_accessor :api_endpoint
+
+    # @return [Boolean]
+    attr_accessor :debug
+
+    # @return [Boolean]
+    attr_accessor :debug_connection
+
+    # @return [Numeric]
+    attr_accessor :api_version
+
+    # @return [Numeric]
+    attr_accessor :rest_timeout
+
+    # @return [Numeric]
+    attr_accessor :rest_open_timeout
+
+    # @return [String]
+    attr_accessor :proxy
+
+    # @return [String]
+    attr_accessor :api_key
+
+    # @return [String]
+    attr_accessor :api_secret
 
     include Bitfinex::RESTClient
     include Bitfinex::RESTv1AccountInfo
@@ -39,6 +62,7 @@ module Bitfinex
     include Bitfinex::RESTv1Trades
     include Bitfinex::RESTv1Wallet
 
+    # @param args [Hash]
     def initialize(args = {})
       self.api_endpoint = args[:url] ? "#{args[:url]}/v1/" : 'https://api.bitfinex.com/v1/'
       self.proxy = args[:proxy] || nil
@@ -50,6 +74,7 @@ module Bitfinex
       self.api_secret = args[:api_secret]
     end
 
+    # @return [Hash]
     def config
       {
         api_endpoint: api_endpoint,

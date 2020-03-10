@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -16,12 +16,20 @@ module Bitfinex
         explorer: 3
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :name
+
+      # @return [String]
+      attr_accessor :pool
+
+      # @return [String]
+      attr_accessor :explorer
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :name
       # @option data [String] :pool
       # @option data [String] :explorer

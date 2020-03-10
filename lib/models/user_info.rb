@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_String_literal: true
 
 require_relative './model'
 
@@ -16,15 +16,23 @@ module Bitfinex
         timezone: 7
       }.freeze
 
-      FIELDS.each do |key, _index|
-        attr_accessor key
-      end
+      # @return [Numeric]
+      attr_accessor :id
+
+      # @return [String]
+      attr_accessor :email
+
+      # @return [String]
+      attr_accessor :username
+
+      # @return [Numeric]
+      attr_accessor :timezone
 
       # @param data [Hash]
-      # @option data [Number] :id
+      # @option data [Numeric] :id
       # @option data [String] :email
       # @option data [String] :username
-      # @option data [Number] :timezone
+      # @option data [Numeric] :timezone
       def initialize(data)
         super(data, FIELDS, BOOL_FIELDS)
       end

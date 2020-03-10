@@ -1,20 +1,19 @@
-1.0.9
+# 1.0.10
+- fix: RESTv2 withdraw method params passing
 
+# 1.0.9
 - Fixes bug with API v2 transfer
 
-1.0.8
-
+# 1.0.8
 - Fixes warning about BigDecimal.new deprecation
 
-1.0.7
-
+# 1.0.7
 - Fixes issue with RESTv2 client initialization.
 
-1.0.6
+# 1.0.6
 - Adds order affiliate code support to rest & ws v2 transports
 
-1.0.5
-
+# 1.0.5
 - Adds function rest/v2 submit_order
 - Adds function rest/v2 update_order
 - Adds function rest/v2 cancel_order
@@ -30,8 +29,7 @@
 - Updates order model to allow lev field
 - Updates position model to accept more data fields
 
-1.0.4
-
+# 1.0.4
 - Adds PR/Issue templates
 - Adds travis linting
 - bump json dep 2.1.0 -> 2.2.0

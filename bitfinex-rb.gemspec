@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'bitfinex-rb'
-  spec.version       = '1.0.9'
+  spec.version       = '1.0.10'
   spec.authors       = ['Bitfinex']
   spec.email         = ['developers@bitfinex.com']
   spec.summary       = 'Bitfinex API Wrapper'

@@ -1,3 +1,7 @@
+1.0.10
+
+- Fixes an issue with STDOUT logging for ws2
+
 1.0.9
 
 - Fixes bug with API v2 transfer

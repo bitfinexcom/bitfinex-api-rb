@@ -61,8 +61,12 @@ module Bitfinex
     # @param [boolean] params.checksum_audit - enables automatic OB checksum verification (requires manage_order_books)
     ###
     def initialize (params = {})
-      @l = Logger.new(STDOUT)
-      @l.progname = 'ws2'
+      if params[:logger]
+        @l = params[:logger]
+      else
+        @l = Logger.new(STDOUT)
+        @l.progname = 'ws2'
+      end
 
       @url = params[:url] || 'wss://api.bitfinex.com/ws/2'
       @aff_code = params[:aff_code]

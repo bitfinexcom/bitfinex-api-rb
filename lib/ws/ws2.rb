@@ -196,9 +196,9 @@ module Bitfinex
       EM.run do
         @ws = Faye::WebSocket::Client.new(@url)
 
-        @ws.on(:open) { |e| on_open(e) }
+        @ws.on(:open) { on_open }
         @ws.on(:message) { |e| on_message(e) }
-        @ws.on(:close) { |e| on_close(e) }
+        @ws.on(:close) { on_close }
       end
     end
 
@@ -629,7 +629,7 @@ module Bitfinex
     ###
     def subscribe(channel, params = {})
       @l.info format(
-        'subscribing to channel %<c>s [%<p>h]', c: channel, p: params
+        'subscribing to channel %<c>s [%<p>s]', c: channel, p: params
       )
 
       @ws.send(
@@ -740,14 +740,15 @@ module Bitfinex
       @l.info format(
         'server running API v2 (platform: %<str>s (%<status>d))', {
           str: status.zero? ? 'under maintenance' : 'operating normally',
-          v: status
+          status: status
         }
       )
     end
 
+    # @param msg [Hash]
     # @return [nil]
     # @private
-    def handle_potential_version_mismatch
+    def handle_potential_version_mismatch(msg)
       return unless msg['version'] != 2
 
       close!

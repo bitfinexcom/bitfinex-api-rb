@@ -58,7 +58,8 @@ module Bitfinex
     end
 
     ###
-    # Submit Pulse message comment
+    # Submit Pulse message comment, requires :parent (pulse id) to
+    # be present in request payload
     #
     # @param [Hash] pulse
     #

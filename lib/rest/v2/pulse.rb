@@ -68,6 +68,9 @@ module Bitfinex
     # @see https://docs.bitfinex.com/reference#rest-auth-pulse-add
     ###
     def submit_pulse_comment(pulse)
+      if pulse[:parent].to_s.strip.empty?
+        raise ":parent (pulse id value) is required for comments"
+      end
       resp = authenticated_post("auth/w/pulse/add", params: pulse).body
       Bitfinex::Models::Pulse.unserialize(resp)
     end

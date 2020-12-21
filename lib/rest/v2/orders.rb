@@ -17,9 +17,9 @@ module Bitfinex
     #   client.orders_history('tBTCUSD')
     def orders_history(symbol = nil)
       if symbol
-        path = "v2/auth/r/orders/#{symbol}/hist"
+        path = "auth/r/orders/#{symbol}/hist"
       else
-        path = "v2/auth/r/orders/#{symbol}/hist"
+        path = "auth/r/orders/hist"
       end
 
       authenticated_post(path).body

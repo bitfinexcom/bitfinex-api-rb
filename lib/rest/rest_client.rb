@@ -61,11 +61,6 @@ module Bitfinex
       end
 
       response = rest_connection.post do |req|
-        puts "-----------"
-        puts "url: #{url}"
-        puts "body: #{body}"
-        puts "-----------"
-
         req.url complete_url
         req.body = body.to_json
         req.options.timeout = config[:rest_timeout]

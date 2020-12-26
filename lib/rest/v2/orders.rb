@@ -11,15 +11,19 @@ module Bitfinex
     # Returns historic closed or cancelled orders
     #
     # @param symbol [string] symbol used for the order
-    # @param params [Hash] can contains id with array of order identifiers, start, end, limit
-    # 
-    # More at: https://docs.bitfinex.com/reference#rest-auth-orders-history
+    # @param params :start [int32] Millisecond start time
+    # @param params :end   [int32] Millisecond end time
+    # @param params :limit [int32] Number of records
+    # @param params :id    [Array<int32>] Allows you to retrieve specific orders by order ID (id: [ID1, ID2, ID3])
+    #
+    # @return [Array]
     #
     # @example:
     #   client.orders_history
     #   client.orders_history(symbol: 'tBTCUSD')
     #   client.orders_history(symbol: 'tBTCUSD', params: { id: [123, 234] })
     def orders_history(symbol: nil, params: {})
+      check_params(params, %i{start end limit id})
       if symbol
         path = "auth/r/orders/#{symbol}/hist"
       else

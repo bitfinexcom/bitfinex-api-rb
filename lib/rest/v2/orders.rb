@@ -15,7 +15,7 @@ module Bitfinex
     # @example:
     #   client.orders_history
     #   client.orders_history('tBTCUSD')
-    def orders_history(symbol=nil, params={})
+    def orders_history(symbol: nil, params: {})
       if symbol
         path = "auth/r/orders/#{symbol}/hist"
       else

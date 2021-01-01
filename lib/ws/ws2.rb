@@ -645,7 +645,7 @@ module Bitfinex
     end
 
     def new_nonce # :nodoc:
-      (Time.now.to_f * 1000).floor.to_s
+      (Time.now.to_f * 1000000).floor.to_s
     end
 
     def sign (payload) # :nodoc:

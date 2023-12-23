@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'faraday_adapter_socks'
 gem 'dotenv'
 gem 'emittr'
 gem 'zlib'

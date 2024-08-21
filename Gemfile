@@ -10,6 +10,6 @@ gem 'zlib'
 group :test do
   gem 'rspec'
   gem 'simplecov'
-  gem 'webmock', '~> 1.22.6'
+  gem 'webmock', '~> 3.14.0'
 end
 

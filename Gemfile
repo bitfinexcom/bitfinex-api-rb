@@ -6,9 +6,8 @@ gem 'dotenv'
 gem 'emittr'
 gem 'zlib'
 
-group :test do
+group :development, :test do
   gem 'rspec'
-  gem 'simplecov'
+  gem 'simplecov', require: false
   gem 'webmock', '~> 3.14.0'
 end
-

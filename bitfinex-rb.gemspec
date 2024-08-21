@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'bitfinex-rb'
-  spec.version       = '1.0.11'
+  spec.version       = '1.1.0'  # Update to a new version
   spec.authors       = ['Bitfinex']
   spec.email         = ['developers@bitfinex.com']
   spec.summary       = %q{Bitfinex API Wrapper}
@@ -12,17 +12,19 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://www.bitfinex.com/'
   spec.license       = 'MIT'
 
-  spec.files         = Dir['lib/**/*']
+  spec.files         = Dir['lib/**/*'] 
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
-  spec.add_runtime_dependency 'faraday', '~> 1'
-  spec.add_runtime_dependency 'socksify', "~> 1.7"
-  spec.add_runtime_dependency 'eventmachine', '~> 1.2.7', '>= 1.2.7'
-  spec.add_runtime_dependency 'faraday-detailed_logger', '~> 2.5'
-  spec.add_runtime_dependency 'faye-websocket', '~> 0.11'
-  spec.add_runtime_dependency 'json', '~> 2.2','>= 2.2'
-  spec.add_runtime_dependency 'faraday_middleware', '~> 1'
-  spec.add_runtime_dependency 'emittr', '~> 0.1.0', '>= 0.1.0'
-  spec.add_runtime_dependency 'dotenv', '~> 2.5', '>= 2.5'
-  spec.add_runtime_dependency 'zlib', '~> 1.0.0', '>= 1.0.0'
+  spec.required_ruby_version = '>= 3.0.6'
+
+  spec.add_runtime_dependency 'faraday', '~> 1.10.3'
+  spec.add_runtime_dependency 'eventmachine', '~> 1.2.7'
+  spec.add_runtime_dependency 'faraday-detailed_logger', '~> 2.5.0'
+  spec.add_runtime_dependency 'faye-websocket', '~> 0.11.3'
+  spec.add_runtime_dependency 'json', '~> 2.5.1'
+  spec.add_runtime_dependency 'faraday_middleware', '~> 1.2.0'
+  spec.add_runtime_dependency 'emittr', '~> 0.1.0'
+  spec.add_runtime_dependency 'dotenv', '~> 2.7.6'
+  spec.add_runtime_dependency 'socksify', '~> 1.7.1'
+  spec.add_runtime_dependency 'zlib', '~> 1.0.0'
 end

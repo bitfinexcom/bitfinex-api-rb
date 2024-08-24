@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'eventmachine', '~> 1.2.7'
   spec.add_runtime_dependency 'faraday-detailed_logger', '~> 2.5.0'
   spec.add_runtime_dependency 'faye-websocket', '~> 0.11.3'
-  spec.add_runtime_dependency 'json', '~> 2.6.1'
+  spec.add_runtime_dependency 'json', '~> 2.5.1'
   spec.add_runtime_dependency 'faraday_middleware', '~> 1.2.0'
   spec.add_runtime_dependency 'emittr', '~> 0.1.0'
   spec.add_runtime_dependency 'dotenv', '~> 2.7.6'

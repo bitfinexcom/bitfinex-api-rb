@@ -1,5 +1,3 @@
-require 'faraday_adapter_socks'
-
 module Bitfinex
   module RESTClient
     def check_params(params, allowed_params)

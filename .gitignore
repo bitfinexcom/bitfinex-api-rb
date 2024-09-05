@@ -22,3 +22,5 @@ tmp
 mkmf.log
 .env
 todo
+*.sw?
+.ruby-version

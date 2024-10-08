@@ -43,7 +43,7 @@ module Bitfinex
     #   client.orderbook("btcusd")
     def books(symbol="btcusd", precision="P0", params = {})
       check_params(params, %i{len})
-      get("book/#{symbol}/#{precision}", params: params).body
+      get("book/#{symbol}/#{precision}", params).body
     end
 
     # Trades endpoint includes all the pertinent details

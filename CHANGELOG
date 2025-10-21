@@ -1,3 +1,8 @@
+2.0.0
+- Removes rest/v2 pulse functions
+- Fixes rest/v2 margin & funding info functions
+- Fixes rest/v2 offers function
+
 1.1.0
 - Bump dependencies for ruby 3.x
 - Replace faraday_adapter_socks with custom class

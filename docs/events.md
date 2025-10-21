@@ -46,7 +46,7 @@
 * `:wallet_snapshot`
 * `:wallet_update`
 * `:balance_update`
-* `:marign_info_update`
+* `:margin_info_update`
 * `:funding_info_update`
 * `:funding_trade_entry`
 * `:funding_trade_update`
